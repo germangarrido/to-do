@@ -1,35 +1,191 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+}
+body {
+    background: #ffffff;
+    font-size: 16px;
+    font-family: 'Oswald', sans-serif;
+}
+
+a {
+    text-decoration: none;
+  }
+
+ul {
+    list-style: none;
+}
 .container{
-    display: flex;
+    width: 90%;
+    margin: auto;
+    /*display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    text-align: center;
+   text-align: center;
+    padding: 10px;*/
+}
+.nav-main {
+    font-size: 17px;
+    display: flex;
+    justify-content: space-between;
+    background: #f1c232;
+    border-radius: 5px;
+    align-items: center ;
+    height: 60px;
+    padding: 20px;
+    margin-bottom: 5px; 
+}
+
+.nav-brand {
+    width: 50px;
+}
+
+.nav-main ul {
+    display: flex;
+}
+
+.nav-main ul li {
     padding: 10px;
 }
-.header{background: lightblue;}
-.articulo{background:lightseagreen}
-.izquierda{background:lightsalmon}
-.derecha{background:lightslategray}
-.footer {background:lightgrey}
 
-.header, .articulo, .izquierda, .derecha, .footer {
-    flex-grow: 1; /*Le asignamos un 1 para que abarque el 100%*/
-    flex-basis: 100%; /*Tamaño inicial que va a tener nuestro contenedor hijo, le damos el 100% para que en celular abarque el 100% */
+.nav-main ul li a {
+    padding: 2px;
+}
+
+.nav-main ul li a:hover {
+    border-bottom: 2px solid #ffffff;
+}
+.nav-main ul.nav-menu {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.menu-btn {
+    position: absolute;
+    cursor: pointer;
+    top: 15px;
+    right: 50px;
+    z-index: 2;
+    display: none;
+
+}
+
+.nuevatarea-form {
+    width: 100%;
+    font-size: 17px;
+    display: flex;
+    justify-content: space-evenly;
+    background: #ff77aa;
+    border-radius: 5px;
+    align-items: center ;
+    height: 30px;
+    padding: 10px 0;
+    margin-bottom: 5px;
+}
+
+/* Parte principal de la web */
+
+.showcase {
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 5px;
+    margin: 10px 0;
+    
+}
+
+.showcase h3 {
+    font-size: 20px;
+    margin: 10px;
+    text-align: center;
+}
+
+.izquierda,.center,.derecha{ 
+    background:#77aaff;
+    border-radius: 10px;
+}
+.social {
+    margin: auto;
+    background:lightgrey;
+    border-radius: 5px;
+}
+.links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.links a {
+    margin: 10px 10px;
+}
+
+.links a i {
+    font-size: 1rem;
+}
+
+
+@media (max-width: 600px){
+
+    .nuevatarea-form .nuevatarea-titulo {
+        display: none;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .nav-main ul.nav-menu {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: #f1c232;
+        height: 100%;
+        padding: 30px;
+        opacity: .9;
+        transform: translateX(-400px);
+        transition: transform .5s ease-in-out;
+
+    }
+    .nav-main ul.nav-menu.show {
+        transform: translateX(-20px);
+    }
+
+    .nav-main ul.nav-menu-right {
+        margin-right: 40px;
+    } 
+
+    .showcase{
+    grid-template-columns: repeat(1,1fr);
+    }
+}
+
+
+/*
+.nav-main, .izquierda, .center,.derecha, .footer {
+    flex-grow: 1; /*Le asignamos un 1 para que abarque el 100%
+    flex-basis: 100%; /*Tamaño inicial que va a tener nuestro contenedor hijo, le damos el 100% para que en celular abarque el 100% 
     padding: 10px;
 }
    
-/*Cuando tenga 600 px o más...*/
+/*Cuando tenga 600 px o más...
 @media all and (min-width: 600px){
     .aside{
-        flex: 1 1 auto; /*los elementos izquierda y derecha se posicionan uno al lado del otro ocupando un ancho automático*/
+        flex: 1 1 auto; /*los elementos izquierda y derecha se posicionan uno al lado del otro ocupando un ancho automático
     }
 }
-/*Cuando tenga 800 px o más...*/
+/*Cuando tenga 800 px o más...
 @media all and (min-width: 800px){
-    .articulo{
-        flex: 2 0; /*articulo es 2 veces cada cuadrado izquierda o derecha*/
+    .center{
+        flex: 2 0; /*articulo es 2 veces cada cuadrado izquierda o derecha
     }
     .izquierda{order:1;}
-    .articulo{order:2;}
+    .center{order:2;}
     .derecha{order:3;}
     .footer{order:4;}
 }
+
+*/

@@ -5,31 +5,82 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
-    <title>Articulador de Tareas</title>
+    <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">    
+    <link rel="stylesheet" href="CSS/styles.css">
+    <title>TO DO</title>
 </head>
 
 <body>
+    <div class="menu-btn">
+        <i class="fas fa-bars fa-2x"></i>
+      </div>
     <div class="container">
-        <header class="header">
-            <button type="button" class="btn btn-warning">NUEVA TAREA</button>
-            <button type="button" class="btn btn-warning">usuario</button>
-            <button type="button" class="btn btn-warning">calendario</button>
-            <button type="button" class="btn btn-warning">configuracion</button>
-            </header>
-
-<div class="aside izquierda">QUE HACER</div>
-<div class="articulo" >HACIENDO</div>
-<div class="aside derecha">HECHO</div>
-
-        <footer class="footer">
-            <div class="row">
-            <div class="col">Próximos Eventos</div>
-            <div class="col">Volver al inicio</div>
+        <nav class="nav-main">
+            <img src="IMG/img-todo.png" alt="todo" class="nav-brand">
+            <ul class="nav-menu">
+                <li>
+                    <a href="#">USUARIO</a>
+                </li>
+                <li>
+                    <a href="#">CALENDARIO</a>
+                </li>
+                <li>
+                    <a href="#">CONFIGURACION</a>
+                </li>
+                <li>
+                    <a href="#">AYUDA</a>
+                 </li>                
+            </ul>
+            <ul class="nav-menu-right">
+                <li>
+                  <a href="#">
+                    <i class="fas fa-search"></i>
+                  </a>
+                </li>
+              </ul>
+        </nav>
+        <div class="nuevatarea-form">
+            <p class="nuevatarea-titulo"> AGREGAR TAREA</p>
+            <select name="USUARIO" id="">
+                <option value="usuario 1">usuario 1</option>
+                <option value="usuario 2">usuario 2</option>
+                <option value="usuario 3">usuario 3</option>
+            </select>
             
+            <input type="date">
+            <input type="text" placeholder="escribe la tarea">
+            <button type="button" class="" onclick="">AGREGAR</button>
+        </div>
+        <div class="showcase">
+            <div class="aside izquierda">
+                <h3>QUE HACER</h3>
             </div>
-        </footer>
+            <div class=" aside center" >
+                <h3>HACIENDO</h3>
+            </div>
+            <div class="aside derecha">
+                <h3>HECHO</h3>
+            </div>
+        </div>
+        <section class="social">
+            <div class="links">
+                <a href="#">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+        </section> 
+
     </div>
+    <script src="JS/app.js"></script>
 </body>
 
 </html>
