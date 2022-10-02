@@ -16,23 +16,15 @@
 <body>
     <div class="menu-btn">
         <i class="fas fa-bars fa-2x"></i>
-      </div>
+    </div>
     <div class="container">
         <nav class="nav-main">
             <img src="IMG/img-todo.png" alt="todo" class="nav-brand">
             <ul class="nav-menu">
-                <li>
-                    <a href="#">USUARIO</a>
-                </li>
-                <li>
-                    <a href="#">CALENDARIO</a>
-                </li>
-                <li>
-                    <a href="#">CONFIGURACION</a>
-                </li>
-                <li>
-                    <a href="#">AYUDA</a>
-                 </li>                
+                <li id="btn-abrir-modal-usuarios">USUARIOS</li>
+                <li id="btn-abrir-modal-calendario">CALENDARIO</li>
+                <li id="btn-abrir-modal-configuracion">CONFIGURACION</li>
+                <li id="btn-abrir-modal-ayuda">AYUDA</li>                
             </ul>
             <ul class="nav-menu-right">
                 <li>
@@ -44,41 +36,84 @@
         </nav>
         <div class="nuevatarea-form">
             <p class="nuevatarea-titulo"> AGREGAR TAREA</p>
-            <select name="USUARIO" id="">
+            <select name="" id="formUsuario">
                 <option value="usuario 1">usuario 1</option>
                 <option value="usuario 2">usuario 2</option>
                 <option value="usuario 3">usuario 3</option>
             </select>
-            
-            <input type="date">
-            <input type="text" placeholder="escribe la tarea">
-            <button type="button" class="" onclick="">AGREGAR</button>
+            <input type="date" id="formVencimiento">
+            <input type="text" placeholder="escribe la tarea" id="formDescripcion">
+            <button type="button" class="" onclick="agregarRegistrocV()">AGREGAR</button>
         </div>
+        <dialog class="modal info" id="modal-configuracion">
+           <h2>CONFIGURACION</h2>
+           <div>
+           <p>acá va las opciones que los usuarios puede configurar. todavia no se cuales puede ser. </p>
+            </div>
+            <button id="btn-cerrar-modal-config">Cerrar</button>
+        </dialog>
+        <dialog class="modal ayuda" id="modal-ayuda">
+            <h2>AYUDA</h2>
+            <div>
+            acá va texto de como usar las herramientas de la web. como agregar una tarea como mover como entrar los enlaces, etc
+             </div>
+             <button id="btn-cerrar-modal-ayuda">Cerrar</button>
+        </dialog>
+        <dialog class="modal calendario" id="modal-calendario">
+            <h2>CALENDARIO</h2>
+            <div>
+            acá va una vista de calendario con formato de mes. en futuro se puede pensar en un calendario de fechas configuradas por el usuario
+             </div>
+             <button id="btn-cerrar-modal-calendario">Cerrar</button>
+        </dialog>
+        <dialog class="modal usuarios" id="modal-usuarios">
+            <h2>USUARIOS</h2>
+            <div>
+            acá va una lista tabla de los usuarios que estan trabajando con el sistema. se podsria mostrar nro de usuario, nombre de usuario, mail. grupo de trabajo al que pertenece, etc.
+             </div>
+             <button id="btn-cerrar-modal-usuarios">Cerrar</button>
+        </dialog>
         <div class="showcase">
-            <div class="aside izquierda">
+            <div class="aside izquierda" id="tareasIzq">
                 <h3>QUE HACER</h3>
+                <div class="nuevatarea-form"> Acá se describe la tarea</div>
+                <div class="nuevatarea-form"> Otra tarea</div>
             </div>
             <div class=" aside center" >
                 <h3>HACIENDO</h3>
+                <div class="nuevatarea-form"> Otra tarea</div>
+                <div class="nuevatarea-form"> Otra tarea</div>
+                <div class="nuevatarea-form"> Otra tarea</div>
             </div>
             <div class="aside derecha">
                 <h3>HECHO</h3>
+                <div class="nuevatarea-form"> Otra tarea</div>
+                <div class="nuevatarea-form"> Otra tarea</div>
+                <div class="nuevatarea-form"> Otra tarea</div>
             </div>
+            <template id="tareaNueva">
+                <tr class="nuevatarea-form">
+                    <td class="descripcion"></td>
+                    <td class="usuario"></td>
+                    <td class="vencimiento"></td>
+                    <td class="delete"><button type="button" class="eliminarRow" >Eliminar</button></td>
+                </tr>
+            </template>
         </div>
         <section class="social">
-            <div class="links">
-                <a href="#">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="#">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="#">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-            </div>
-        </section> 
-
+        <div class="links">
+            <a href="https://www.facebook.com">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://twitter.com">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://www.linkedin.com">
+                <i class="fab fa-linkedin"></i>
+            </a>
+        </div>
+        </section>
+        
     </div>
     <script src="JS/app.js"></script>
 </body>

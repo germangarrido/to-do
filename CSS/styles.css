@@ -50,11 +50,7 @@ ul {
     padding: 10px;
 }
 
-.nav-main ul li a {
-    padding: 2px;
-}
-
-.nav-main ul li a:hover {
+.nav-main ul li:hover {
     border-bottom: 2px solid #ffffff;
 }
 .nav-main ul.nav-menu {
@@ -83,6 +79,22 @@ ul {
     height: 30px;
     padding: 10px 0;
     margin-bottom: 5px;
+}
+
+.modal {
+    border: none;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    background:#77aaff;
+    border-radius: 5px;
+    max-width: 50ch;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal::backdrop {
+background-color: rgba(0, 0, 0, .55);
 }
 
 /* Parte principal de la web */
