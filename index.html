@@ -10,6 +10,8 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">    
     <link rel="stylesheet" href="CSS/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
     <title>TO DO</title>
 </head>
 
@@ -34,17 +36,22 @@
                 </li>
               </ul>
         </nav>
-        <div class="nuevatarea-form">
-            <p class="nuevatarea-titulo"> AGREGAR TAREA</p>
-            <select name="" id="formUsuario">
+        <form action=""  class="nuevatarea-form" id="frmUsers">
+            <label class="label">AGREGAR TAREA</label>
+            <select name="formUsuario" autocomplete="off">
                 <option value="usuario 1">usuario 1</option>
                 <option value="usuario 2">usuario 2</option>
                 <option value="usuario 3">usuario 3</option>
-            </select>
-            <input type="date" id="formVencimiento">
-            <input type="text" placeholder="escribe la tarea" id="formDescripcion">
-            <button type="button" class="" onclick="agregarRegistrocV()">AGREGAR</button>
-        </div>
+            </select> 
+            <input type="date" name="formVencimiento" autocomplete="off">
+            <input type="text" placeholder="escribe la tarea" name="formDescripcion">
+            <button id="btnAdd" type="button" class="button is-danger">
+                        <span class="icon">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                      </button>
+            <button id="btnSave" type="button" class="button is-info">Save</button>
+        </form>
         <dialog class="modal info" id="modal-configuracion">
            <h2>CONFIGURACION</h2>
            <div>
@@ -76,8 +83,8 @@
         <div class="showcase">
             <div class="aside izquierda" id="tareasIzq">
                 <h3>QUE HACER</h3>
-                <div class="nuevatarea-form"> Acá se describe la tarea</div>
-                <div class="nuevatarea-form"> Otra tarea</div>
+                <div id="divElements">
+                </div>
             </div>
             <div class=" aside center" >
                 <h3>HACIENDO</h3>

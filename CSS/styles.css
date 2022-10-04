@@ -81,6 +81,11 @@ ul {
     margin-bottom: 5px;
 }
 
+alert{
+    background: #ff77aa;
+}
+
+
 .modal {
     border: none;
     position: fixed;

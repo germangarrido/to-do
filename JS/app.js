@@ -3,37 +3,59 @@ document.querySelector('.menu-btn').addEventListener('click',() =>{
 })
 
 
-const tablaTitulos = document.getElementById("tareasIzq")
-tablaTitulos.addEventListener("click", verificarClick)
 
-function verificarClick(e){
-    if(e.target.matches(".eliminarRow")){
-        const tIndex = e.target.rowIndex
-        tablaTitulos.deleteRow(tIndex) 
+let parameters = []
+function removeElement(event, position) {
+    event.target.parentElement.remove()
+    delete parameters[position]
+}
+
+const addJsonElement = json => {
+    parameters.push(json)
+    return parameters.length - 1
+}
+
+(function load(){
+    const $form = document.getElementById("frmUsers")
+    const $divElements = document.getElementById("divElements")
+    const $btnSave = document.getElementById("btnSave")
+    const $btnAdd = document.getElementById("btnAdd")
+
+    const templateElement = (data, position) => {
+        return (`
+            <strong>Tarea</strong> ${data}
+            <button class="delete" onclick="removeElement(event, ${position})">X</button>
+        `)
     }
+    $btnAdd.addEventListener("click", (event) => {
+        if($form.formUsuario.value != "" && $form.formVencimiento.value != "" && $form.formDescripcion.value != ""){
+            let index = addJsonElement({
+                formUsuario: $form.formUsuario.value,
+                formVencimiento: $form.formVencimiento.value,
+                formDescripcion: $form.formDescripcion.value
+            })
+            const $div = document.createElement("div")
+            $div.classList.add("notification","nuevatarea-form" ,"is-link", "is-light", "py-2", "my-1")
+            $div.innerHTML = templateElement(`${$form.formUsuario.value} ${$form.formVencimiento.value}, ${$form.formDescripcion.value}`, index)
 
-}
+            $divElements.insertBefore($div, $divElements.firstChild)
 
-function agregarRegistrocV(){
-    const tableBody = document.getElementById("tareasIzq")
-    const template = document.getElementById("tareaNueva")
-    const templateRow = template.content
+            $form.reset()
+        }else{
+            alert("Complete los campos")
+        }
+    })
 
-    const respuestaFormUsuario = document.getElementById('formUsuario').value
-    const respuestaFormVencimiento = document.getElementById("formVencimiento").value
-    const respuestaFormDescripcion = document.getElementById("formDescripcion").value
+    $btnSave.addEventListener("click", (event) =>{
+        parameters = parameters.filter(el => el != null)
+        const $jsonDiv = document.getElementById("jsonDiv")
+        $jsonDiv.innerHTML = `JSON: ${JSON.stringify(parameters)}`
+        $divElements.innerHTML = ""
+        parameters = []
+    })
+})()
 
-    let tr = templateRow.cloneNode(true)
-    console.log(respuestaFormUsuario)
-    let colUsuario = tr.querySelector(".usuario") // class en el template
-    let colvencimiento = tr.querySelector(".vencimiento") // class en el template
-    let colDescripcion = tr.querySelector(".descripcion") // class en el template
 
-    colUsuario.textContent = respuestaFormUsuario
-    colvencimiento.textContent = respuestaFormVencimiento
-    colDescripcion.textContent = respuestaFormDescripcion
-    tableBody.appendChild(tr)
-}
 const btnAbrirModalConfig = document.querySelector("#btn-abrir-modal-configuracion")
 const btnAbrirModalAyuda = document.querySelector("#btn-abrir-modal-ayuda")
 const btnAbrirModalCalendario = document.querySelector("#btn-abrir-modal-calendario")
