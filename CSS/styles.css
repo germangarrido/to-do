@@ -2,14 +2,17 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-
 }
+
 body {
+    width: 90%;
+    margin: auto;
     background: #ffffff;
-    font-size: 16px;
+    font-size: 17px;
     font-family: 'Oswald', sans-serif;
-}
+    }
 
+    /*navegacion */
 a {
     text-decoration: none;
   }
@@ -17,15 +20,7 @@ a {
 ul {
     list-style: none;
 }
-.container{
-    width: 90%;
-    margin: auto;
-    /*display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-   text-align: center;
-    padding: 10px;*/
-}
+
 .nav-main {
     font-size: 17px;
     display: flex;
@@ -68,22 +63,20 @@ ul {
 
 }
 
-.nuevatarea-form {
+/* formulario de agregar tarea */
+
+.agregarTarea-form {
     width: 100%;
     font-size: 17px;
     display: flex;
     justify-content: space-evenly;
     background: #ff77aa;
-    border-radius: 5px;
+    border-radius: 3px;
     align-items: center ;
     height: 30px;
     padding: 10px 0;
     margin-bottom: 5px;
-}
-
-alert{
-    background: #ff77aa;
-}
+    }
 
 
 .modal {
@@ -102,28 +95,65 @@ alert{
 background-color: rgba(0, 0, 0, .55);
 }
 
-/* Parte principal de la web */
+/* Parte del tablero de las tres columnas*/
 
 .showcase {
     width: 100%;
-    height: auto;
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
+    height: 100%;
+    font-size: 15px;
+    /*grid-template-columns: repeat(3,1fr);*/
+    grid-gap: 10px;
+    padding: 10px;
     gap: 5px;
-    margin: 10px 0;
-    
+    margin: 10px 0; 
 }
 
-.showcase h3 {
+.board-text {
+    font-weight: bold;
+    font-size: 28px;
+    padding: 5px;
+  }
+
+
+.list-title {
     font-size: 20px;
     margin: 10px;
-    text-align: center;
+    font-weight: bold;
 }
 
-.izquierda,.center,.derecha{ 
-    background:#77aaff;
-    border-radius: 10px;
-}
+.board-lists {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-gap: 10px;
+    height: 100%;
+ 
+  }
+
+.board-list {
+    background-color: #77aaff;
+    border-radius: 3px;
+    
+
+  /* Chrome use a fixed height */
+    width: auto;
+    height: max-content;
+    padding: 10px;
+  }
+
+.card {
+    background-color: #ff77aa;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(9,30,66,.25);
+    padding: 10px;
+    margin: 5px;
+    cursor:pointer;
+    width:auto ;
+    height: max-content;
+    }
+
+    
+
+  /* parte de la web que está debajo del tablero de trabajo */
 .social {
     margin: auto;
     background:lightgrey;
@@ -146,7 +176,11 @@ background-color: rgba(0, 0, 0, .55);
 
 @media (max-width: 600px){
 
-    .nuevatarea-form .nuevatarea-titulo {
+    .board-lists {
+       grid-template-columns: repeat(1,1fr);
+    }
+
+    .nuevatarea-titulo { /* desaparece AGREGAR TAREA del form agregar tarea */
         display: none;
     }
 
@@ -173,11 +207,7 @@ background-color: rgba(0, 0, 0, .55);
 
     .nav-main ul.nav-menu-right {
         margin-right: 40px;
-    } 
-
-    .showcase{
-    grid-template-columns: repeat(1,1fr);
-    }
+    }   
 }
 
 

@@ -3,7 +3,6 @@ document.querySelector('.menu-btn').addEventListener('click',() =>{
 })
 
 
-
 let parameters = []
 function removeElement(event, position) {
     event.target.parentElement.remove()
@@ -17,13 +16,13 @@ const addJsonElement = json => {
 
 (function load(){
     const $form = document.getElementById("frmUsers")
-    const $divElements = document.getElementById("divElements")
+    const $divElements = document.getElementById("list1")
     const $btnSave = document.getElementById("btnSave")
     const $btnAdd = document.getElementById("btnAdd")
 
     const templateElement = (data, position) => {
         return (`
-            <strong>Tarea</strong> ${data}
+            ${data}
             <button class="delete" onclick="removeElement(event, ${position})">X</button>
         `)
     }
@@ -35,10 +34,11 @@ const addJsonElement = json => {
                 formDescripcion: $form.formDescripcion.value
             })
             const $div = document.createElement("div")
-            $div.classList.add("notification","nuevatarea-form" ,"is-link", "is-light", "py-2", "my-1")
-            $div.innerHTML = templateElement(`${$form.formUsuario.value} ${$form.formVencimiento.value}, ${$form.formDescripcion.value}`, index)
-
-            $divElements.insertBefore($div, $divElements.firstChild)
+            $div.classList.add("card")
+            $div.innerHTML = templateElement(` <strong>${$form.formUsuario.value}</strong>, ${$form.formVencimiento.value}, ${$form.formDescripcion.value}`, index)
+            $div.id = 'card'
+            $div.draggable = true
+            $divElements.appendChild($div, $divElements.firstChild)
 
             $form.reset()
         }else{
@@ -54,6 +54,33 @@ const addJsonElement = json => {
         parameters = []
     })
 })()
+
+
+/* Events fired on the drag target */
+document.ondragstart = function(event) {
+    event.dataTransfer.setData("Text", event.target.id);
+   
+  };
+  
+  document.ondragend = function(event) {
+
+  };
+  
+  /* Events fired on the drop target */
+  document.ondragover = function(event) {
+    event.preventDefault();
+  };
+  
+  document.ondrop = function(event) {
+    event.preventDefault();
+    if ( event.target.className == "board-list" ) {
+      var data = event.dataTransfer.getData("Text");
+      event.target.appendChild(document.getElementById(data));
+    }
+  };
+
+
+
 
 
 const btnAbrirModalConfig = document.querySelector("#btn-abrir-modal-configuracion")
@@ -99,6 +126,30 @@ btnCerrarModalUsuarios.addEventListener("click",()=>{
 })
 
          
-         
-        
+// este codigo esta bueno pero no me funcióno.         
+// const newLocal = 'tareaNueva';
+// // drag and drop tareas entre columnas
+
+// const tarea = document.getElementById(newLocal);
+
+// const columnaHaciendo = document.getElementById('haciendoColumna');
+
+// columnaHaciendo.addEventListener('drageneter', e => {
+//     console.log('drga enter');
+// });
+// columnaHaciendo.addEventListener('dragleave', e => {
+//     console.log('drag leave');
+// });
+
+// columnaHaciendo.addEventListener('dragover', e => {
+//     e.preventDefault();
+//     console.log('drag over');
+// });
+
+// columnaHaciendo.addEventListener('drop', e => {
+    
+//     columnaHaciendo.parentNode.appendChild(tarea);
+//     console.log('drop');
+// });
+ 
 
