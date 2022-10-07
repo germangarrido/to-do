@@ -15,7 +15,7 @@ const addJsonElement = json => {
 }
 
 (function load(){
-    const $form = document.getElementById("frmUsers")
+    const $form = document.getElementById("frmTarea")
     const $divElements = document.getElementById("list1")
     const $btnSave = document.getElementById("btnSave")
     const $btnAdd = document.getElementById("btnAdd")
@@ -27,15 +27,15 @@ const addJsonElement = json => {
         `)
     }
     $btnAdd.addEventListener("click", (event) => {
-        if($form.formUsuario.value != "" && $form.formVencimiento.value != "" && $form.formDescripcion.value != ""){
+        if($form.formUsuario.value != "" && $form.formDescripcion.value != ""){ //$form.formVencimiento.value != "" && 
             let index = addJsonElement({
                 formUsuario: $form.formUsuario.value,
-                formVencimiento: $form.formVencimiento.value,
+                // formVencimiento: $form.formVencimiento.value,
                 formDescripcion: $form.formDescripcion.value
             })
             const $div = document.createElement("div")
             $div.classList.add("card")
-            $div.innerHTML = templateElement(` <strong>${$form.formUsuario.value}</strong>, ${$form.formVencimiento.value}, ${$form.formDescripcion.value}`, index)
+            $div.innerHTML = templateElement(` <strong>${$form.formUsuario.value}</strong>, ${$form.formDescripcion.value}`, index) //${$form.formVencimiento.value}, 
             $div.id = 'card'
             $div.draggable = true
             $divElements.appendChild($div, $divElements.firstChild)
@@ -55,29 +55,102 @@ const addJsonElement = json => {
     })
 })()
 
+//Para trabajar con el localstorage. esto deberia cargar lo que se guardó en el localStorage. no funciona hay que seguir intentando.
+// const sesion =  document.getElementById('boardlists').innerHTML = JSON.parse(localStorage.getItem("list2"))
+ 
 
+// esto me sirve para mover las tarjetas entre las columnas
 /* Events fired on the drag target */
 document.ondragstart = function(event) {
     event.dataTransfer.setData("Text", event.target.id);
-   
-  };
+};
   
-  document.ondragend = function(event) {
-
-  };
+document.ondragend = function(event) {
+};
   
-  /* Events fired on the drop target */
-  document.ondragover = function(event) {
+/* Events fired on the drop target */
+document.ondragover = function(event) {
     event.preventDefault();
-  };
+};
   
-  document.ondrop = function(event) {
+document.ondrop = function(event) {
+
+//para trabajar con el localstorage
+// const list2 = document.getElementsByClassName('board-list')
+// const list2 = document.querySelector('.card')
+
     event.preventDefault();
     if ( event.target.className == "board-list" ) {
       var data = event.dataTransfer.getData("Text");
       event.target.appendChild(document.getElementById(data));
+      console.log(list2)
+      localStorage.setItem("lista2", JSON.stringify(list2) ) // para guardar en el localstorage lo que el usuario está trabajando.
     }
-  };
+}
+
+
+
+let parametersUser = []
+function removeUser(event, position) {
+    event.target.parentElement.remove()
+    delete parametersUser[position]
+}
+
+const addJsonUser = json => {
+    parametersUser.push(json)
+    return parametersUser.length - 1
+}
+
+(function loadUser(){
+    const $form = document.getElementById("frmUsers")
+    const $divElements = document.getElementById("listaUser")
+    const $btnSave = document.getElementById("btnSave")
+    const $btnAdd = document.getElementById("btnAddUser")
+
+    const templateUser = (data, position) => {
+        return (`
+            ${data}
+            <button class="delete" onclick="removeUser(event, ${position})">X</button>
+        `)
+    }
+    $btnAdd.addEventListener("click", (event) => {
+        if($form.formUserNew.value != "" && $form.formEmail.value != ""){  
+            let index = addJsonUser({
+                formUserNew: $form.formUserNew.value,
+                formEmail: $form.formEmail.value
+            })
+            const $div = document.createElement("div")
+            $div.classList.add("card")
+            $div.innerHTML = templateUser(`<strong>${$form.formUserNew.value}</strong>, ${$form.formEmail.value}`, index)  
+            $div.id = 'user'
+            $div.draggable = true
+            $divElements.appendChild($div, $divElements.firstChild)
+
+            var option = document.createElement("option")
+            option.value = $form.formUserNew.value
+            option.innerHTML = `${$form.formUserNew.value}` 
+            console.log(option)
+
+            document.getElementById("formUsuario").appendChild(option)
+            $form.reset()
+
+        }else{
+            alert("Complete los campos")
+        }
+    })
+
+    $btnSave.addEventListener("click", (event) =>{
+        parameters = parameters.filter(el => el != null)
+        const $jsonDiv = document.getElementById("jsonDiv")
+        $jsonDiv.innerHTML = `JSON: ${JSON.stringify(parameters)}`
+        $divElements.innerHTML = ""
+        parameters = []
+    })
+})()
+
+
+
+
 
 
 

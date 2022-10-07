@@ -36,18 +36,17 @@
                 </li>
               </ul>
         </nav>
-        <form action=""  class="agregarTarea-form" id="frmUsers">
+        <form action=""  class="agregarTarea-form" id="frmTarea">
             <label class="label" class ="nuevatarea-titulo" >AGREGAR TAREA</label>
-            <select name="formUsuario" autocomplete="off">
-                <option value="usuario 1">Usuario 1</option>
+            <select id = "formUsuario" name="formUsuario" autocomplete="off">
                 <option value="usuario 2">Usuario 2</option>
                 <option value="usuario 3">Usuario 3</option>
             </select> 
-            <input type="date" name="formVencimiento" autocomplete="off">
-            <input type="text" placeholder="escribe la tarea" name="formDescripcion">
+            <!-- <input type="date" name="formVencimiento" autocomplete="off"> -->
+            <input type="text" placeholder="Escribe la tarea" name="formDescripcion">
             <button id="btnAdd" type="button" class="button is-danger">
                         <span class="icon">
-                            <i class="fas fa-plus"></i>
+                           AGREGAR <i class="fas fa-plus"></i>
                         </span>
                       </button>
             <button id="btnSave" type="button" class="button is-info">Save</button>
@@ -61,9 +60,17 @@
         </dialog>
         <dialog class="modal ayuda" id="modal-ayuda">
             <h2>AYUDA</h2>
-            <div>
-            acá va texto de como usar las herramientas de la web. como agregar una tarea como mover como entrar los enlaces, etc
+            <div class="board-text">   
+            Mira el video para saber como se agrega tareas y se muebe dentro del tablero
              </div>
+           
+             <video width="700" height="500" controls>
+                <source src="IMG/como-agregar-mover-tareas.mov">
+            
+              </video>
+
+
+
              <button id="btn-cerrar-modal-ayuda">Cerrar</button>
         </dialog>
         <dialog class="modal calendario" id="modal-calendario">
@@ -74,10 +81,28 @@
              <button id="btn-cerrar-modal-calendario">Cerrar</button>
         </dialog>
         <dialog class="modal usuarios" id="modal-usuarios">
-            <h2>USUARIOS</h2>
+            <h2>PANEL DE USUARIOS</h2>
             <div>
-            acá va una lista tabla de los usuarios que estan trabajando con el sistema. se podsria mostrar nro de usuario, nombre de usuario, mail. grupo de trabajo al que pertenece, etc.
+            Lista de los usuarios que participan en este grupo.
              </div>
+             <form action=""  class="agregarTarea-form" id="frmUsers">
+                <label class="label" class ="nuevatarea-titulo" >AGREGAR USUARIO</label>
+                <input type="text" placeholder="Nombre del Usuario" name="formUserNew" autocomplete="off">
+                <input type="email" placeholder="Email del Usuario" name="formEmail" autocomplete="off">
+                
+                <button id="btnAddUser" type="button" class="button is-danger">
+                            <span class="icon">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                          </button>
+            </form>
+            
+            <div class="board-text">
+                lista de los usuarios del grupo.
+                 </div>
+                 <div id="listaUser">
+                    <!-- acá va la lista de usuarios-->
+                     </div>
              <button id="btn-cerrar-modal-usuarios">Cerrar</button>
         </dialog>
         <div class="showcase">
@@ -92,7 +117,7 @@
                         QUE HACER
                     </div>
                     <div  id='card1' class="card" draggable="true"> <!-- class="nuevatarea-form" -->
-                        Otra tarea Otra tarea
+                        tarea 1
                     </div>
                      <!-- antes tenía un div con el id "queHacerColumna". acá se tienen que agregar las tareas -->
                 </div>
@@ -101,10 +126,10 @@
                         HACIENDO
                     </div>
                     <div  id='card2' class="card" draggable="true"> <!-- class="nuevatarea-form" -->
-                        Otra tarea
+                        tarea 2
                     </div>
                     <div  id='card3' class="card" draggable="true"> <!-- class="nuevatarea-form" -->
-                        Otra tarea
+                        tarea 3
                     </div>
                 </div>
                 <div id='list3' class="board-list"> <!-- class="aside derecha"  id="hechoColumna" -->
@@ -113,7 +138,7 @@
                     </div>
 
                     <div  id='card4' class="card" draggable="true" > <!-- class="nuevatarea-form" -->
-                        Otra tarea
+                        tarea 4
                     </div>
         
                 </div>
