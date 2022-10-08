@@ -12,6 +12,45 @@ body {
     font-family: 'Oswald', sans-serif;
     }
 
+    /*html de bienvenida */
+
+.bienvenida {
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #77aaff;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(9,30,66,.25);
+    padding: 10px;
+    margin: 5px;
+    cursor:pointer;
+
+}
+.bienvenida-titulo {
+    /* background-color: #f1c232; */
+    border-radius: 3px;
+    margin: 20px;
+} 
+
+.bienvenida p {
+    border-radius: 3px;
+    margin: 20px;
+} 
+
+.entrar button{
+    font-size: 17px;
+    margin: 20px;
+    background-color:  #ff77aa;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(9,30,66,.25);
+    padding: 10px;
+    margin: 5px;
+    cursor:pointer;
+}
+
     /*navegacion */
 a {
     text-decoration: none;
@@ -34,7 +73,7 @@ ul {
 }
 
 .nav-brand {
-    width: 50px;
+    width: 80px;
 }
 
 .nav-main ul {

@@ -1,0 +1,49 @@
+*{
+    font-family: Verdana;
+    margin: 0px;
+    padding: 0px;
+}
+nav{
+    margin: 20px;
+}
+#idheader a{
+    text-decoration: none;
+    color: blue;
+    margin: 20px;
+    border-bottom: 1px solid blue;
+    border-right: 1px solid blue;
+    padding: 10px;
+}
+#idheader{
+    background-color: lightblue;
+    color: blue;
+    text-align: center;
+    height: 100px;
+}
+#idfooter{
+    background-color: lightblue;
+    color: blue;
+    text-align: center;
+    font-size: 16px;
+    padding: 15px;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 75px;
+    margin-top: 0;
+}
+
+#idfooter a{
+    text-decoration: none;
+    padding: 10px;
+}
+h1{
+    text-align: center;
+}
+h2{
+    padding: 20px 0px;
+    border-bottom: 1px solid blue;
+    border-top: 1px solid blue;
+    background-color: lightgrey;
+}

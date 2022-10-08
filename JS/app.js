@@ -27,15 +27,15 @@ const addJsonElement = json => {
         `)
     }
     $btnAdd.addEventListener("click", (event) => {
-        if($form.formUsuario.value != "" && $form.formDescripcion.value != ""){ //$form.formVencimiento.value != "" && 
+        if($form.formUsuario.value.trim() != "" && $form.formDescripcion.value.trim() != ""){ //$form.formVencimiento.value != "" && 
             let index = addJsonElement({
-                formUsuario: $form.formUsuario.value,
+                formUsuario: $form.formUsuario.value.trim(),
                 // formVencimiento: $form.formVencimiento.value,
-                formDescripcion: $form.formDescripcion.value
+                formDescripcion: $form.formDescripcion.value.trim()
             })
             const $div = document.createElement("div")
             $div.classList.add("card")
-            $div.innerHTML = templateElement(` <strong>${$form.formUsuario.value}</strong>, ${$form.formDescripcion.value}`, index) //${$form.formVencimiento.value}, 
+            $div.innerHTML = templateElement(` <strong>${$form.formUsuario.value.trim()}</strong>, ${$form.formDescripcion.value.trim()}`, index) //${$form.formVencimiento.value}, 
             $div.id = 'card'
             $div.draggable = true
             $divElements.appendChild($div, $divElements.firstChild)
@@ -90,6 +90,8 @@ document.ondrop = function(event) {
 
 
 
+// Agregar quitar modificar usuarios.
+
 let parametersUser = []
 function removeUser(event, position) {
     event.target.parentElement.remove()
@@ -116,19 +118,19 @@ const addJsonUser = json => {
     $btnAdd.addEventListener("click", (event) => {
         if($form.formUserNew.value != "" && $form.formEmail.value != ""){  
             let index = addJsonUser({
-                formUserNew: $form.formUserNew.value,
-                formEmail: $form.formEmail.value
+                formUserNew: $form.formUserNew.value.trim(),
+                formEmail: $form.formEmail.value.trim()
             })
             const $div = document.createElement("div")
             $div.classList.add("card")
-            $div.innerHTML = templateUser(`<strong>${$form.formUserNew.value}</strong>, ${$form.formEmail.value}`, index)  
+            $div.innerHTML = templateUser(`<strong>${$form.formUserNew.value.trim()}</strong>, ${$form.formEmail.value.trim()}`, index)  
             $div.id = 'user'
             $div.draggable = true
             $divElements.appendChild($div, $divElements.firstChild)
 
             var option = document.createElement("option")
-            option.value = $form.formUserNew.value
-            option.innerHTML = `${$form.formUserNew.value}` 
+            option.value = $form.formUserNew.value.trim()
+            option.innerHTML = `${$form.formUserNew.value.trim()}` 
             console.log(option)
 
             document.getElementById("formUsuario").appendChild(option)
@@ -148,7 +150,9 @@ const addJsonUser = json => {
     })
 })()
 
-
+function entrar(){
+    var enter = window.location = "index.html";
+}
 
 
 
