@@ -14,7 +14,7 @@ body {
 
     /*html de bienvenida */
 
-.bienvenida {
+.container {
     
     display: flex;
     flex-direction: column;
@@ -29,13 +29,13 @@ body {
     cursor:pointer;
 
 }
-.bienvenida-titulo {
+.container-titulo {
     /* background-color: #f1c232; */
     border-radius: 3px;
     margin: 20px;
 } 
 
-.bienvenida p {
+.container p {
     border-radius: 3px;
     margin: 20px;
 } 

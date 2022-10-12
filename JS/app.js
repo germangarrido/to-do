@@ -1,7 +1,11 @@
+
+try{
 document.querySelector('.menu-btn').addEventListener('click',() =>{
     document.querySelector('.nav-menu').classList.toggle('show');
 })
-
+}catch (error){
+    console.log('no se cargó el menu de navegacion')
+}
 
 let parameters = []
 function removeElement(event, position) {
@@ -14,7 +18,8 @@ const addJsonElement = json => {
     return parameters.length - 1
 }
 
-(function load(){
+try{
+(function load(){ // es para cargar tareas nuevas 
     const $form = document.getElementById("frmTarea")
     const $divElements = document.getElementById("list1")
     const $btnSave = document.getElementById("btnSave")
@@ -54,6 +59,9 @@ const addJsonElement = json => {
         parameters = []
     })
 })()
+}catch (error){
+   console.log('no se cargaron eventos del formulario de tareas nuevas')
+}
 
 //Para trabajar con el localstorage. esto deberia cargar lo que se guardó en el localStorage. no funciona hay que seguir intentando.
 // const sesion =  document.getElementById('boardlists').innerHTML = JSON.parse(localStorage.getItem("list2"))
@@ -103,7 +111,8 @@ const addJsonUser = json => {
     return parametersUser.length - 1
 }
 
-(function loadUser(){
+try{
+(function loadUser(){ // es para cargar usuarios nuevos
     const $form = document.getElementById("frmUsers")
     const $divElements = document.getElementById("listaUser")
     const $btnSave = document.getElementById("btnSave")
@@ -149,58 +158,110 @@ const addJsonUser = json => {
         parameters = []
     })
 })()
+}catch (error){
+    console.log('no se cargaron eventos del formularios de usuario')
+}
 
-function entrar(){
-    var enter = window.location = "index.html";
+try{
+const username = document.getElementById('username')
+const password = document.getElementById('password')
+const button = document.getElementById('button')
+
+button.addEventListener('click', (e) => {
+    e.preventDefault()
+    const data = {
+        username: username.value,
+        password: password.value
+    }
+    window.location = "index.html";
+
+    console.log(data)
+})
+}catch (error){
+    console.log ("este evento es de la pagina de bienvenida")
 }
 
 
 
+// function entrar(e){
+//     e.preventDefault()
+//     var enter = 
+// }
 
 
+// el modal
+const modalGenerico = document.querySelector("#modal-generico")
+const modalGenericoContenido = document.querySelector("#modal-generico-contenido")
 
+const ventanaConfiguracion = `
+
+`
+
+const ventanaUsuarios = ` `
+
+const ventanaCalendario = ` <h2>CALENDARIO</h2>
+<div>
+acá va una vista de calendario con formato de mes. en futuro se puede pensar en un calendario de fechas configuradas por el usuario
+ </div>
+ `
+
+const ventanaAyuda = ` `
+
+  try{
+const btnAbrirModalUsuarios = document.querySelector("#btn-abrir-modal-usuarios")
+btnAbrirModalUsuarios.addEventListener("click",()=>{
+    modalGenericoContenido.innerHTML = ventanaUsuarios
+    modalGenerico.showModal()
+})
+
+const btnAbrirModalCalendario = document.querySelector("#btn-abrir-modal-calendario")
+btnAbrirModalCalendario.addEventListener("click",()=>{
+    modalGenericoContenido.innerHTML = ventanaCalendario
+    modalGenerico.showModal()
+})
 
 const btnAbrirModalConfig = document.querySelector("#btn-abrir-modal-configuracion")
-const btnAbrirModalAyuda = document.querySelector("#btn-abrir-modal-ayuda")
-const btnAbrirModalCalendario = document.querySelector("#btn-abrir-modal-calendario")
-const btnAbrirModalUsuarios = document.querySelector("#btn-abrir-modal-usuarios")
-
-const btnCerrarModalConfig = document.querySelector("#btn-cerrar-modal-config")
-const btnCerrarModalAyuda = document.querySelector("#btn-cerrar-modal-ayuda")
-const btnCerrarModalCalendario = document.querySelector("#btn-cerrar-modal-calendario")
-const btnCerrarModalUsuarios = document.querySelector("#btn-cerrar-modal-usuarios")
-
-const modalConfig = document.querySelector("#modal-configuracion")
-const modalAyuda = document.querySelector("#modal-ayuda")
-const modalCalendario = document.querySelector("#modal-calendario")
-const modalUsuarios = document.querySelector("#modal-usuarios")
-
-
 btnAbrirModalConfig.addEventListener("click",()=>{
-    modalConfig.showModal()
-})
-btnAbrirModalAyuda.addEventListener("click",()=>{
-    modalAyuda.showModal()
-})
-btnAbrirModalCalendario.addEventListener("click",()=>{
-    modalCalendario.showModal()
-})
-btnAbrirModalUsuarios.addEventListener("click",()=>{
-    modalUsuarios.showModal()
+    modalGenericoContenido.innerHTML = ventanaConfiguracion
+    modalGenerico.showModal()
 })
 
-btnCerrarModalConfig.addEventListener("click",()=>{
-    modalConfig.close()
+const btnAbrirModalAyuda = document.querySelector("#btn-abrir-modal-ayuda")
+btnAbrirModalAyuda.addEventListener("click",()=>{
+    modalGenericoContenido.innerHTML = ventanaAyuda
+    modalGenerico.showModal()
 })
-btnCerrarModalAyuda.addEventListener("click",()=>{
-    modalAyuda.close()
+
+  } catch (error){
+    console.log("esto le pertenese a la pagina de tablero")
+  }
+
+
+
+try{
+//boton para llamar al modal
+const btnAbrirModalGenerico = document.querySelector("#abrir-modal-generico")
+btnAbrirModalGenerico.addEventListener("click",()=>{
+  
+    modalGenerico.showModal()
 })
-btnCerrarModalCalendario.addEventListener("click",()=>{
-    modalCalendario.close()
+} catch (error){
+    console.log("este modal es de la pagina de bienvenida")
+}
+
+
+try{
+//boton para cerrar el modal
+const btnCerrarModalGenerico = document.querySelector(".cerrar-modal-generico")
+btnCerrarModalGenerico.addEventListener("click",()=>{
+    modalGenerico.close()
 })
-btnCerrarModalUsuarios.addEventListener("click",()=>{
-    modalUsuarios.close()
-})
+} catch (error){
+    console.log(error)
+}
+
+
+
 
          
 // este codigo esta bueno pero no me funcióno.         

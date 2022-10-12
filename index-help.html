@@ -31,10 +31,10 @@
                 <li>
                     <a href="index-config.html">CONFIGURACION</a>
                 </li> <!-- id="btn-abrir-modal-configuracion" -->
+                <li>AYUDA
+                </li>
                 <li>
-                    <a href="index-help.html">AYUDA</a>
-                </li> <!-- id="btn-abrir-modal-ayuda" -->
-                <li>TABLEROS
+                    <a href="index.html">TABLEROS</a>
                 </li> 
                 <li id="btn-abrir-modal-gracias" >AGRADECIMIENTOS
                 </li>               
@@ -53,65 +53,21 @@
             </div>
             <button class="cerrar-modal-generico">Cerrar</button>
          </dialog>
-
-
-       
              
         <div class="showcase">
             <div class="left">
-                <div class="board-text">Tablero</div>
+                <div class="board-text">AYUDA</div>
             </div>
-
-            <form action=""  class="agregarTarea-form" id="frmTarea">
-                <label class="label" class ="nuevatarea-titulo" >AGREGAR TAREA</label>
-                <select id = "formUsuario" name="formUsuario" autocomplete="off">
-                    <option value="usuario 2">Usuario 2</option>
-                    <option value="usuario 3">Usuario 3</option>
-                </select> 
-                <!-- <input type="date" name="formVencimiento" autocomplete="off"> -->
-                <input type="text" placeholder="Escribe la tarea" name="formDescripcion">
-                <button id="btnAdd" type="button" class="button is-danger">
-                            <span class="icon">
-                               AGREGAR <i class="fas fa-plus"></i>
-                            </span>
-                          </button>
-                <button id="btnSave" type="button" class="button is-info">Save</button>
-            </form>
             
-            <div id='boardlists' class="board-lists">
-                
-                <div div id='list1' class="board-list" >  <!-- class="aside izquierda" -->
-                    <div class="list-title">
-                        QUE HACER
-                    </div>
-                    <div  id='card1' class="card" draggable="true"> <!-- class="nuevatarea-form" -->
-                        tarea 1
-                    </div>
-                     <!-- antes tenía un div con el id "queHacerColumna". acá se tienen que agregar las tareas -->
-                </div>
-                <div id='list2' class="board-list">  <!-- class="aside center" id="haciendoColumna" -->
-                    <div class="list-title">
-                        HACIENDO
-                    </div>
-                    <div  id='card2' class="card" draggable="true"> <!-- class="nuevatarea-form" -->
-                        tarea 2
-                    </div>
-                    <div  id='card3' class="card" draggable="true"> <!-- class="nuevatarea-form" -->
-                        tarea 3
-                    </div>
-                </div>
-                <div id='list3' class="board-list"> <!-- class="aside derecha"  id="hechoColumna" -->
-                    <div class="list-title">
-                        HECHO
-                    </div>
+            <h2>AYUDA</h2>
+<div class="board-text">   
+Mira el video para saber como se agrega tareas y se muebe dentro del tablero
+ </div>
 
-                    <div  id='card4' class="card" draggable="true" > <!-- class="nuevatarea-form" -->
-                        tarea 4
-                    </div>
-        
-                </div>
+ <video width="700" height="500" controls>
+    <source src="IMG/como-agregar-mover-tareas.mov">
 
-            </div>
+  </video>
 
         </div>
         <section class="social">
