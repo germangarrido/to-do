@@ -57,24 +57,30 @@
                 <div class="board-text">PANEL DE USUARIOS</div>
             </div>
             
-            <h2>PANEL DE USUARIOS</h2>
+           
 <div>
-Lista de los usuarios que participan en este grupo.
+Lista de los usuarios que agregaste.
  </div>
+ <button  type="button" class="button is-danger">aca va un boton que llama al formulario de registro</button>
  <form action=""  class="agregarTarea-form" id="frmUsers">
     <label class="label" class ="nuevatarea-titulo" >AGREGAR USUARIO</label>
     <input type="text" placeholder="Nombre del Usuario" name="formUserNew" autocomplete="off">
     <input type="email" placeholder="Email del Usuario" name="formEmail" autocomplete="off">
+    <select id = "formTipoUsuario" name="formTipoUsuario" autocomplete="off">
+        <option value="usuario 2">ADMINISTRADOR</option>
+        <option value="usuario 3">MIEMBRO</option>
+    </select> 
     
-    <button id="btnAddUser" type="button" class="button is-danger">
+    <button id="btnAddUser" type="button" class="button is-danger" onclick="loadUser()">
                 <span class="icon">
                     <i class="fas fa-plus"></i>
                 </span>
               </button>
+              <button id="btnSave" type="button" class="button is-info">Save</button>   
 </form>
 
 <div class="board-text">
-    lista de los usuarios del grupo.
+    lista.
      </div>
      <div id="listaUser">
         <!-- acá va la lista de usuarios-->

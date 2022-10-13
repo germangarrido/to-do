@@ -25,7 +25,7 @@
             <img src="IMG/img-presto-logo-nav.PNG" alt="todo" class="nav-brand">
             <ul class="nav-menu">
                 <li>
-                    <a href="index-users.html">USUARIOS</a> 
+                    <a href="index-users.html"  id="menuUsers">USUARIOS</a> 
                 </li>  <!-- id="btn-abrir-modal-usuarios" -->
                 <li id="btn-abrir-modal-calendario">CALENDARIO</li>
                 <li>
@@ -70,13 +70,18 @@
 
             <form action=""  class="agregarTarea-form" id="frmTarea">
                 <label class="label" class ="nuevatarea-titulo" >AGREGAR TAREA</label>
+                <select id = "formTipoPrioridad" name="formTipoPrioridad" autocomplete="off">
+                    <option value="ALTA">ALTA</option>
+                    <option value="MEDIA">MEDIA</option>
+                    <option value="BAJA">BAJA</option>
+                </select> 
                 <select id = "formUsuario" name="formUsuario" autocomplete="off">
                     <option value="usuario 2">Usuario 2</option>
                     <option value="usuario 3">Usuario 3</option>
                 </select> 
                 <!-- <input type="date" name="formVencimiento" autocomplete="off"> -->
                 <input type="text" placeholder="Escribe la tarea" name="formDescripcion">
-                <button id="btnAdd" type="button" class="button is-danger">
+                <button id="btnAdd" type="button" class="button is-danger" onclick="load()">
                             <span class="icon">
                                AGREGAR <i class="fas fa-plus"></i>
                             </span>
@@ -102,19 +107,11 @@
                     <div  id='card2' class="card" draggable="true"> <!-- class="nuevatarea-form" -->
                         tarea 2
                     </div>
-                    <div  id='card3' class="card" draggable="true"> <!-- class="nuevatarea-form" -->
-                        tarea 3
-                    </div>
                 </div>
                 <div id='list3' class="board-list"> <!-- class="aside derecha"  id="hechoColumna" -->
                     <div class="list-title">
                         HECHO
                     </div>
-
-                    <div  id='card4' class="card" draggable="true" > <!-- class="nuevatarea-form" -->
-                        tarea 4
-                    </div>
-        
                 </div>
 
             </div>

@@ -41,7 +41,7 @@ try{
     //crear usuario 
 
         var formCrearUser = document.getElementsByName("formCrearUser")[0]
-        const Users = JSON.parse(localStorage.getItem("users"))
+        const users = JSON.parse(localStorage.getItem("users"))
 try{
     const buttonCrearUser = document.getElementById("crear")
     
@@ -71,14 +71,14 @@ try{
             password: formCrearUser.userClave.value
         }
 
-        Users.push(dataUserNuevo)
+        users.push(dataUserNuevo)
     
-        localStorage.setItem("users", JSON.stringify(Users))
+        localStorage.setItem("users", JSON.stringify(users))
     
             alert("Los datos fueron guardados")
 
             formCrearUser.reset()
-        console.log(Users)
+        console.log(users)
         }
     })
     }catch (error){
@@ -87,7 +87,7 @@ try{
 
 
 
-
+//guarda las tareas y los tableros que se estuvieron creando moviendo y eliminando
 var tableroStorage = localStorage.getItem('tableros')
 
 try{
@@ -118,7 +118,7 @@ const addJsonElement = json => {
 }
 
 try{
-(function load(){ // es para cargar tareas nuevas 
+function load(){ // es para cargar tareas nuevas 
     const $form = document.getElementById("frmTarea")
     const $divElements = document.getElementById("list1")
     const $btnSave = document.getElementById("btnSave")
@@ -134,19 +134,23 @@ try{
         if($form.formUsuario.value.trim() != "" && $form.formDescripcion.value.trim() != ""){ //$form.formVencimiento.value != "" && 
             let index = addJsonElement({
                 formUsuario: $form.formUsuario.value.trim(),
-                // formVencimiento: $form.formVencimiento.value,
+                formPrioridad: $form.formTipoPrioridad.value.trim(),
                 formDescripcion: $form.formDescripcion.value.trim()
             })
             const $div = document.createElement("div")
             $div.classList.add("card")
-            $div.innerHTML = templateElement(` <strong>${$form.formUsuario.value.trim()}</strong>, ${$form.formDescripcion.value.trim()}`, index) //${$form.formVencimiento.value}, 
-            $div.id = 'card'
+            $div.innerHTML = templateElement(
+                `<strong>${$form.formTipoPrioridad.value.trim()}</strong>, 
+                ${$form.formUsuario.value.trim()}, 
+                ${$form.formDescripcion.value.trim()}`, 
+                index)
+            $div.id = "c"+Date.now()
             $div.draggable = true
             $divElements.appendChild($div, $divElements.firstChild)
 
             $form.reset()
 
-            const tableros = document.getElementById("boardlists").innerHTML
+            var tableros = document.getElementById("boardlists").innerHTML
             localStorage.setItem('tableros', tableros)
             console.log(tableros)
 
@@ -162,7 +166,7 @@ try{
         $divElements.innerHTML = ""
         parameters = []
     })
-})()
+}
 }catch (error){
    console.log('no se cargaron eventos del formulario de tareas nuevas')
 }
@@ -187,16 +191,14 @@ document.ondragover = function(event) {
   
 document.ondrop = function(event) {
 
-//para trabajar con el localstorage
-// const list2 = document.getElementsByClassName('board-list')
-// const list2 = document.querySelector('.card')
-
     event.preventDefault();
     if ( event.target.className == "board-list" ) {
       var data = event.dataTransfer.getData("Text");
       event.target.appendChild(document.getElementById(data));
-      console.log(list2)
-      localStorage.setItem("lista2", JSON.stringify(list2) ) // para guardar en el localstorage lo que el usuario está trabajando.
+      var tableros = document.getElementById("boardlists").innerHTML
+            localStorage.setItem('tableros', tableros)
+            console.log(tableros)
+       // para guardar en el localstorage lo que el usuario está trabajando.
     }
 }
 
@@ -215,12 +217,46 @@ const addJsonUser = json => {
     return parametersUser.length - 1
 }
 
-try{
-(function loadUser(){ // es para cargar usuarios nuevos
+
     const $form = document.getElementById("frmUsers")
     const $divElements = document.getElementById("listaUser")
     const $btnSave = document.getElementById("btnSave")
     const $btnAdd = document.getElementById("btnAddUser")
+
+    const $users = document.getElementById('menuUsers')
+
+
+    const usuariosGuardados = JSON.parse(localStorage.getItem('users'))
+    try{
+    for (let userOpcion of usuariosGuardados){
+        var option = document.createElement("option")
+        option.value = userOpcion.username
+        option.innerHTML = `${userOpcion.username}` 
+        console.log(option)
+        document.getElementById("formUsuario").appendChild(option)
+        }
+    } catch(error){
+        console.log('en html usuarios no se carga')
+    }
+    try{
+    for (let usuarioGuardado of usuariosGuardados){
+        // console.log(usuarioGuardado)
+        const $divUser = document.createElement("div")
+        $divUser.classList.add("card")
+        $divUser.innerHTML = 
+        `${usuarioGuardado.apellido}-${usuarioGuardado.nombre}-
+        ${usuarioGuardado.mail}-${usuarioGuardado.telefono}-
+        ${usuarioGuardado.username}`
+        $divElements.appendChild($divUser,$divElements.firstChild)
+    }
+} catch (error){
+    console.log('en html tablero no se carga')
+}
+    
+
+
+try{
+function loadUser(){ // es para cargar usuarios nuevos
 
     const templateUser = (data, position) => {
         return (`
@@ -237,16 +273,10 @@ try{
             const $div = document.createElement("div")
             $div.classList.add("card")
             $div.innerHTML = templateUser(`<strong>${$form.formUserNew.value.trim()}</strong>, ${$form.formEmail.value.trim()}`, index)  
-            $div.id = 'user'
+            $div.id = 'user'+Date.now()
             $div.draggable = true
             $divElements.appendChild($div, $divElements.firstChild)
 
-            var option = document.createElement("option")
-            option.value = $form.formUserNew.value.trim()
-            option.innerHTML = `${$form.formUserNew.value.trim()}` 
-            console.log(option)
-
-            document.getElementById("formUsuario").appendChild(option)
             $form.reset()
 
         }else{
@@ -261,7 +291,7 @@ try{
         $divElements.innerHTML = ""
         parameters = []
     })
-})()
+}
 }catch (error){
     console.log('no se cargaron eventos del formularios de usuario')
 }
