@@ -1,20 +1,23 @@
+/* todas las paginas */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+
 body {
-    width: 90%;
+    width: 100%;
     margin: auto;
     background: #ffffff;
     font-size: 17px;
     font-family: 'Oswald', sans-serif;
     }
 
+
     /*html de bienvenida */
 
-.container {
+.container-bienvenida {
     
     display: flex;
     flex-direction: column;
@@ -29,28 +32,44 @@ body {
     cursor:pointer;
 
 }
-.container-titulo {
-    /* background-color: #f1c232; */
-    border-radius: 3px;
-    margin: 20px;
+
+.container-bienvenida p {
+    font-size: 15px;
+    text-align: center;
 } 
 
-.container p {
-    border-radius: 3px;
+.login {
     margin: 20px;
-} 
+    width: 320px;
+    height: 420px;
+    align-items: center;
+}
 
-.entrar button{
+.login .entrar{
+    text-align: center;
+    
+}
+.login .entrar .button{
     font-size: 17px;
     margin: 20px;
     background-color:  #ff77aa;
     border-radius: 3px;
     box-shadow: 0 1px 0 rgba(9,30,66,.25);
     padding: 10px;
-    margin: 5px;
+    margin: 20px;
     cursor:pointer;
 }
 
+ .login-footer{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.login-footer a{
+    color:  #f1c232;
+}
+
+/*html de index tablero */
     /*navegacion */
 a {
     text-decoration: none;

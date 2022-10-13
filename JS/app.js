@@ -1,3 +1,102 @@
+//login
+    const formLogin = document.getElementById("login")
+    const username = document.getElementById("username")
+    const password = document.getElementById("password")
+    const button = document.getElementById("entrar")
+
+try{
+
+    const datossesion = JSON.parse(localStorage.getItem('login'))
+    
+    username.value = datossesion.username
+    password.value = datossesion.password
+
+
+}catch (error){
+        console.log ("no se cargó el usuario y el password")
+}
+try{ 
+    button.addEventListener('click', (e) => {
+        e.preventDefault()
+        const datalogin = {
+            username: username.value,
+            password: password.value
+        }
+    
+        localStorage.setItem("login", JSON.stringify(datalogin))
+    
+        if(datalogin.username == "germna" & datalogin.password == "4321"){
+            window.location = "index.html";
+        } else {
+            alert("Los datos sin incorrectos")
+    
+            formLogin.reset()
+        }
+    
+        console.log(datalogin)
+    })
+}catch (error){
+        console.log ("no se cargó el Logín")
+}
+    //crear usuario 
+
+        var formCrearUser = document.getElementsByName("formCrearUser")[0]
+        const Users = JSON.parse(localStorage.getItem("users"))
+try{
+    const buttonCrearUser = document.getElementById("crear")
+    
+    buttonCrearUser.addEventListener('click', (e) => {
+
+        if(formCrearUser.userApellido.value == 0 ){
+            alert("El campo Apellido es obligatorio")
+        }else if (formCrearUser.userNombre.value == 0){
+            alert("El campo Nombre es obligatorio")
+        }else if (formCrearUser.userEmail.value == 0){
+            alert("El campo Email es obligatorio")
+        }else if (formCrearUser.userTelefono.value == 0){
+            alert("El campo Teléfono es obligatorio")
+        }else if(formCrearUser.userClave.value == 0){
+            alert("El campo Clave es obligatorio")
+        }else if (formCrearUser.userClave.value != formCrearUser.userRClave.value ){
+            alert("las claves deben coincidir")
+        }else{
+
+        e.preventDefault()
+        const dataUserNuevo = {
+            apellido: formCrearUser.userApellido.value,
+            nombre: formCrearUser.userNombre.value,
+            mail: formCrearUser.userEmail.value,
+            telefono: formCrearUser.userTelefono.value,
+            username: formCrearUser.userEmail.value,
+            password: formCrearUser.userClave.value
+        }
+
+        Users.push(dataUserNuevo)
+    
+        localStorage.setItem("users", JSON.stringify(Users))
+    
+            alert("Los datos fueron guardados")
+
+            formCrearUser.reset()
+        console.log(Users)
+        }
+    })
+    }catch (error){
+        console.log ("este evento es de la pagina de bienvenida")
+}
+
+
+
+
+var tableroStorage = localStorage.getItem('tableros')
+
+try{
+
+    document.getElementById("boardlists").innerHTML = tableroStorage
+
+}catch(error){
+    console.log('no se cargó el tablero')
+}
 
 try{
 document.querySelector('.menu-btn').addEventListener('click',() =>{
@@ -46,6 +145,11 @@ try{
             $divElements.appendChild($div, $divElements.firstChild)
 
             $form.reset()
+
+            const tableros = document.getElementById("boardlists").innerHTML
+            localStorage.setItem('tableros', tableros)
+            console.log(tableros)
+
         }else{
             alert("Complete los campos")
         }
@@ -162,24 +266,7 @@ try{
     console.log('no se cargaron eventos del formularios de usuario')
 }
 
-try{
-const username = document.getElementById('username')
-const password = document.getElementById('password')
-const button = document.getElementById('button')
 
-button.addEventListener('click', (e) => {
-    e.preventDefault()
-    const data = {
-        username: username.value,
-        password: password.value
-    }
-    window.location = "index.html";
-
-    console.log(data)
-})
-}catch (error){
-    console.log ("este evento es de la pagina de bienvenida")
-}
 
 
 
@@ -208,11 +295,11 @@ acá va una vista de calendario con formato de mes. en futuro se puede pensar en
 const ventanaAyuda = ` `
 
   try{
-const btnAbrirModalUsuarios = document.querySelector("#btn-abrir-modal-usuarios")
-btnAbrirModalUsuarios.addEventListener("click",()=>{
-    modalGenericoContenido.innerHTML = ventanaUsuarios
-    modalGenerico.showModal()
-})
+// const btnAbrirModalUsuarios = document.querySelector("#btn-abrir-modal-usuarios")
+// btnAbrirModalUsuarios.addEventListener("click",()=>{
+//     modalGenericoContenido.innerHTML = ventanaUsuarios
+//     modalGenerico.showModal()
+// })
 
 const btnAbrirModalCalendario = document.querySelector("#btn-abrir-modal-calendario")
 btnAbrirModalCalendario.addEventListener("click",()=>{
@@ -220,34 +307,34 @@ btnAbrirModalCalendario.addEventListener("click",()=>{
     modalGenerico.showModal()
 })
 
-const btnAbrirModalConfig = document.querySelector("#btn-abrir-modal-configuracion")
-btnAbrirModalConfig.addEventListener("click",()=>{
-    modalGenericoContenido.innerHTML = ventanaConfiguracion
-    modalGenerico.showModal()
-})
+// const btnAbrirModalConfig = document.querySelector("#btn-abrir-modal-configuracion")
+// btnAbrirModalConfig.addEventListener("click",()=>{
+//     modalGenericoContenido.innerHTML = ventanaConfiguracion
+//     modalGenerico.showModal()
+// })
 
-const btnAbrirModalAyuda = document.querySelector("#btn-abrir-modal-ayuda")
-btnAbrirModalAyuda.addEventListener("click",()=>{
-    modalGenericoContenido.innerHTML = ventanaAyuda
-    modalGenerico.showModal()
-})
+// const btnAbrirModalAyuda = document.querySelector("#btn-abrir-modal-ayuda")
+// btnAbrirModalAyuda.addEventListener("click",()=>{
+//     modalGenericoContenido.innerHTML = ventanaAyuda
+//     modalGenerico.showModal()
+// })
 
   } catch (error){
-    console.log("esto le pertenese a la pagina de tablero")
+    console.log("esto se deberia cargr en html tablero / usuarios / configuracion / ayuda")
   }
 
 
 
-try{
-//boton para llamar al modal
-const btnAbrirModalGenerico = document.querySelector("#abrir-modal-generico")
-btnAbrirModalGenerico.addEventListener("click",()=>{
+// try{
+// //boton para llamar al modal
+// const btnAbrirModalGenerico = document.querySelector("#abrir-modal-generico")
+// btnAbrirModalGenerico.addEventListener("click",()=>{
   
-    modalGenerico.showModal()
-})
-} catch (error){
-    console.log("este modal es de la pagina de bienvenida")
-}
+//     modalGenerico.showModal()
+// })
+// } catch (error){
+//     console.log("este modal es de la pagina de bienvenida")
+// }
 
 
 try{

@@ -12,37 +12,35 @@
     <link rel="shortcut icon" href="IMG/img-presto-logo-nav-trans.ico" type="image/x-icon"/>
 </head>
 <body>
-    <div class="container" >
-    <header >
-        <div class="container-titulo">
+    <div class="container-bienvenida" >
+    <header class="container-bienvenida-titulo" >
             <img src="IMG/img-presto-logo-nav-trans.PNG" alt="todo" width="500px">
-        </div>
         <p>"La app que te ayuda a organizar las tareas con tu equipo"</p>
     </header>
-    <div id="login">
-        <h3>
-           PARA ENTRAR: ELEGIR O CREAR USUARIO
-        </h3>
-        <form action="" class="login">
-            <h3 class="text-center">Inicio de sesión</h3>
+    <div  class="login">
+        <form action="" name="login" id ="login" >
+            <h5 class="text-center">Inicia sesión</h5>
             <div class="form-group">
-                <label for="Nombre">Nombre</label>
-                <input type="text" class="form-control" name="Nombre" id="username" placeholder="Escribe tu nombre">
+                <label for="username">Email</label>
+                <input type="email" class="form-control" name="username" id="username" placeholder="Escribe tu email de usuario">
             </div>
             <div class="form-group">
-                <label for="Pass">Clave</label>
-                <input type="password" class="form-control" name="Pass" id="password" placeholder="Escribe tu Clave">
+                <label for="password">Clave</label>
+                <input type="password" class="form-control" name="password" id="password" placeholder="Escribe tu clave">
             </div>
-            <p class="text-center">
-                <div class="entrar">
-                    <button class = "button" id= "button" >Entrar</button>
-                </div>
-            </p>
-        </form>
-        <div>
-        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo">Registrarse</a>
-        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo">Olvidaste tu Clave?</a>
+        
+        <div class="entrar">
+            <button type="button" class = "button" id= "entrar" >Entrar</button>
         </div>
+    </form>
+        <div class="login-footer">
+            <div>
+        <a href="#"  data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo">Registrarse</a>
+    </div>
+    <div>
+        <a href="#"  data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo">Olvidaste tu Clave?</a>
+    </div>    
+    </div>
     </div>
 
 </div>
@@ -55,37 +53,38 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form name = "formCrearUser" id="crearUser">
                 <div class="mb-3">
-                    <label for="user-Apellido" class="col-form-label">Apellido:</label>
-                    <input type="text" class="form-control" placeholder="Escribe tu Apellido" id="user-Apellido">
+                    <label for="userApellido" class="col-form-label">Apellido:</label>
+                    <input type="text"  class="form-control"  name="userApellido" placeholder="Escribe tu Apellido" id="user-Apellido">
                 </div>
                 <div class="mb-3">
-                    <label for="user-Nombre" class="col-form-label">Nombres:</label>
-                    <input type="text" class="form-control" placeholder="Escribe tu/s Nombres" id="user-Nombre">
+                    <label for="userNombre" class="col-form-label">Nombres:</label>
+                    <input type="text" class="form-control"  name="userNombre" placeholder="Escribe tu/s Nombres" id="user-Nombre">
                 </div>
                 <div class="mb-3">
-                    <label for="user-Email" class="col-form-label">E-mail:</label>
-                    <input type="email" class="form-control" placeholder="Escribe tu E-mail" id="user-Email">
+                    <label for="userEmail" class="col-form-label">E-mail:</label>
+                    <input type="email" class="form-control" name="userEmail" placeholder="Escribe tu E-mail" id="user-Email">
                 </div>
                 <div class="mb-3">
-                    <label for="user-Telefono" class="col-form-label">Telefono:</label>
-                    <input type="text" max="10" min="10" class="form-control" placeholder="Escribe tu telefono" id="user-Telefono">
+                    <label for="userTelefono" class="col-form-label">Telefono:</label>
+                    <input type="text" max="10" min="10" class="form-control"  name="userTelefono" placeholder="Escribe tu telefono" id="user-Telefono">
                 </div>
                 <div class="mb-3">
-                    <label for="user-Clave" class="col-form-label">Clave:</label>
-                    <input type="password" class="form-control" placeholder="Escribe tu clave" id="user-Clave">
+                    <label for="userClave" class="col-form-label">Clave:</label>
+                    <input type="password" class="form-control" name="userClave" placeholder="Escribe tu clave" id="user-Clave">
                 </div>
                 <div class="mb-3">
-                    <label for="user-RClave" class="col-form-label">Repetir Clave:</label>
-                    <input type="password" class="form-control" placeholder="Escribe tu clave" id="user-RClave">
+                    <label for="userRClave" class="col-form-label">Repetir Clave:</label>
+                    <input type="password" class="form-control"  name="userRClave" placeholder="Escribe tu clave" id="user-RClave">
                 </div>
-                </form>
+               
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Crear Usuario</button>
+                <button type="button"  id = "crear" class="btn btn-primary">Crear Usuario</button>
             </div>
+        </form>
             </div>
         </div>
     </div> 
@@ -93,14 +92,10 @@
     <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title fs-5" id="exampleModalLabel">Escribe el E-mail con el que te registraste</h3>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
             <div class="modal-body">
                 <form>
                 <div class="mb-3">
-                    <label for="user-Email" class="col-form-label">E-mail:</label>
+                    <label for="user-Email" class="col-form-label">Escribe el email con el que te registraste:</label>
                     <input type="email" class="form-control" placeholder="Escribe tu E-mail" id="user-Email">
                 </div>
                 </form>
