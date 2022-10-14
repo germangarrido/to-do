@@ -17,10 +17,8 @@
 </head>
 
 <body>
-    <div class="menu-btn">
-        <i class="fas fa-bars fa-2x"></i>
-    </div>
-    <div class="container">
+    
+    <div class="container-config">
         <nav class="nav-main">
             <img src="IMG/img-presto-logo-nav.PNG" alt="todo" class="nav-brand">
             <ul class="nav-menu">
@@ -44,29 +42,85 @@
                     <i class="fas fa-search"></i>
                   </a>
                 </li>
-              </ul>
+            </ul>
+            <div class="menu-btn"> <!-- icono para el menu 3 lineas -->
+                <i class="fas fa-bars fa-2x"></i>
+            </div>
         </nav>
-
         <dialog class="modal info" id="modal-generico">
             <div id="modal-generico-contenido">    
             </div>
             <button class="cerrar-modal-generico">Cerrar</button>
          </dialog>
-
-
-        
-             
-        <div class="showcase">
+     
+        <div class="showcase-config">
             <div class="left">
-                <div class="board-text">Panel de Configuración</div>
+                <H2 class="board-text">PANEL DE CONFIGURACIÓN</H2>
             </div>
             
             <div>
-                <h2>CONFIGURACION</h2>
                 <div>
-                <p>acá va las opciones que los usuarios puede configurar. todavia no se cuales puede ser. </p>
-                 </div>
-                 </div>
+                    <p>Acá va las opciones que los usuarios puede configurar. todavia no se cuales puede ser. </p>
+                </div>
+            </div>
+
+            <div>
+                <div>
+                <p>Podés ordenar las tareas por:</p>
+                </div>
+                <div>
+                <select name="ordenTareas" id="ordenTareas">
+                    <option value="PRIORIDAD">PRIORIDAD</option>
+                    <OPtion value="MIEMBROS">MIEMBROS</OPtion>
+                    <OPtion value="OTRAS">OTRAS</OPtion>
+                </select>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <div>
+                    <p>Podés Elegir un grupo de colores para tus tableros y tus tareas:</p>
+                </div>
+                <div>
+                    <div>
+                    <img src="IMG/theme-ey.png" alt="ey">
+                    </div>
+                    <div>
+                    <img src="IMG/theme-fire.png" alt="ey">
+                    </div>
+                    <div>
+                    <img src="IMG/theme-indianflag.png" alt="ey">
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <div>
+                    <p>Acá va otra opcion que el usuario podria configurar</p>
+                </div>
+                <div>
+                    <select name="ordenTareas" id="ordenTareas">
+                        <option value="op1">Op1</option>
+                        <OPtion value="op2">Op2</OPtion>
+                        <OPtion value="op3">Op3</OPtion>
+                    </select>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <div>
+                <p>Acá va otra opcion que el usuario podria configurar</p>
+                </div>
+                <div>
+                <select name="ordenTareas" id="ordenTareas">
+                    <option value="op1">Op1</option>
+                    <OPtion value="op2">Op2</OPtion>
+                    <OPtion value="op3">Op3</OPtion>
+                </select>
+                </div>
+            </div>
+            <hr>
+        </div>
 
         </div>
         <section class="social">

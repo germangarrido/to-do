@@ -231,6 +231,9 @@ background-color: rgba(0, 0, 0, .55);
     font-size: 1rem;
 }
 
+.showcase-config {
+    background-color: #77aaff;
+}
 
 @media (max-width: 600px){
 
@@ -294,3 +297,7 @@ background-color: rgba(0, 0, 0, .55);
 }
 
 */
+
+
+
+

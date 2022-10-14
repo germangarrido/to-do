@@ -1,0 +1,91 @@
+
+
+body {
+    margin: 0; 
+    padding: 0; 
+    background-color: #fff; 
+    font-size: 14px; 
+    font-family: 'Montserrat', sans-serif; 
+    background:  #ff77aa no-repeat center; 
+    background-size: cover;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+* { 
+    margin: 0; 
+    padding: 0;
+}
+
+.wrapper { 
+    display: flex; 
+    padding-top: 50px;
+    justify-content: center; 
+}
+
+.collapsible { 
+    max-width: 450px; 
+    overflow: hidden;
+    font-weight: 500; 
+}
+
+.collapsible input {
+    display: none;
+}
+
+.collapsible label { 
+    position: relative; 
+    font-weight: 600;
+    background: #fff; 
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .1), 0 4px 11px 0 rgba(0, 0, 0, .08);
+    color: #1c1c6b; 
+    display: block;
+    margin-bottom: 10px; 
+    cursor: pointer; 
+    padding: 15px 0; 
+    border-radius: 4px; 
+} 
+
+.collapsible label:after {
+    content: ""; 
+    position: absolute; 
+    right: 15px; 
+    top: 20px;
+    width: 18px; 
+    height: 18px; 
+    background:  #77aaff no-repeat 0 0; 
+    transition: all 0.3s ease;
+}
+
+.collapsible input:checked + label:after {
+    transform: rotate (90deg); 
+}
+    
+
+.collapsible-text {
+    max-height: 1px; 
+    overflow: hidden; 
+    border-radius: 4px;
+    line-height: 1.4;
+}
+
+.collapsible .collapsible-text { 
+    max-height: 300px; 
+    padding-bottom: 25px; 
+    background: #fff;
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .1), O 4px 11px 0 rgba(0, 0, 0, .08);
+}
+
+.collapsible-text h2 {
+        margin-bottom: 10px; 
+        padding: 15px 15px 0; 
+        color: #1c1c6b; 
+} 
+.collapsible-text p { 
+    padding-left: 15px;
+    padding-right: 15px; 
+}
+        
+
+
+
