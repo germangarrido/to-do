@@ -7,15 +7,13 @@
 try{
 
     const datossesion = JSON.parse(localStorage.getItem('login'))
-    
     username.value = datossesion.username
     password.value = datossesion.password
-
-
 }catch (error){
         console.log ("no se cargó el usuario y el password")
 }
-try{ 
+
+try{ //para cargar los datos del usuario guardado en el locastorage
     button.addEventListener('click', (e) => {
         e.preventDefault()
         const datalogin = {
@@ -26,19 +24,19 @@ try{
         localStorage.setItem("login", JSON.stringify(datalogin))
     
         if(datalogin.username == "germna" & datalogin.password == "4321"){
-            window.location = "index.html";
+            window.location = "index-tableros.html";
         } else {
             alert("Los datos sin incorrectos")
     
             formLogin.reset()
         }
     
-        console.log(datalogin)
+        // console.log(datalogin)
     })
 }catch (error){
         console.log ("no se cargó el Logín")
 }
-    //crear usuario 
+//crear usuario 
 
         var formCrearUser = document.getElementsByName("formCrearUser")[0]
         const users = JSON.parse(localStorage.getItem("users"))
@@ -91,9 +89,11 @@ try{
 var tableroStorage = localStorage.getItem('tableros')
 
 try{
-
+    if(tableroStorage == null){
+        console.log("no hay tablero todavia")
+    }else{
     document.getElementById("boardlists").innerHTML = tableroStorage
-
+    }
 }catch(error){
     console.log('no se cargó el tablero')
 }
@@ -117,8 +117,37 @@ const addJsonElement = json => {
     return parameters.length - 1
 }
 
+try {
+ function editarTarea(event){
+    // const editarTarea = document.querySelector('#editarTarea').addEventListener("click", (event) =>{
+        console.log(event.target.parentElement.querySelector("#priodidad").textContent)
+        const datoPrioridad = event.target.parentElement.querySelector("#priodidad").textContent
+        const datoUsuario = event.target.parentElement.querySelector("#user").textContent
+        const datoTarea = event.target.parentElement.querySelector("#tarea").textContent
+        
+        const datosTarea = event.target.parentElement.querySelectorAll("div")
+        document.getElementById("formEditarTipoPrioridad").value = datoPrioridad
+        document.getElementById("formEditarUsuario").value = datoUsuario
+        document.getElementById("descripcionEditar").value = datoTarea
+
+        // const divEditar = document.createElement("div")
+        // divEditar.innerHTML = `${event.target.parentElement.innerHTML}`
+        // document.querySelector("#modal-formEditarTarea").appendChild(divEditar)
+        document.querySelector("#modal-formEditarTarea").showModal()
+ }
+}catch(error){
+console.log('no se escucha editar tarea')
+}
+    // const btnCerrarModalGenerico = document.querySelector(".cerrar-modal-generico")
+    // btnCerrarModalGenerico.addEventListener("click",()=>{
+    //     modalGenerico.close()
+    // })
+    // console.log(event)
+// }
+
+
+// es para cargar tareas nuevas 
 try{
-function load(){ // es para cargar tareas nuevas 
     const $form = document.getElementById("frmTarea")
     const $divElements = document.getElementById("list1")
     const $btnSave = document.getElementById("btnSave")
@@ -127,10 +156,11 @@ function load(){ // es para cargar tareas nuevas
     const templateElement = (data, position) => {
         return (`
             ${data}
+            <button type="button" class="delete" onclick= "editarTarea(event)">Editar</button>
             <button class="delete" onclick="removeElement(event, ${position})">X</button>
         `)
-    }
-    $btnAdd.addEventListener("click", (event) => {
+        }
+        $btnAdd.addEventListener("click", (event) => {
         if($form.formUsuario.value.trim() != "" && $form.formDescripcion.value.trim() != ""){ //$form.formVencimiento.value != "" && 
             let index = addJsonElement({
                 formUsuario: $form.formUsuario.value.trim(),
@@ -140,9 +170,9 @@ function load(){ // es para cargar tareas nuevas
             const $div = document.createElement("div")
             $div.classList.add("card")
             $div.innerHTML = templateElement(
-                `<strong>${$form.formTipoPrioridad.value.trim()}</strong>, 
-                ${$form.formUsuario.value.trim()}, 
-                ${$form.formDescripcion.value.trim()}`, 
+                `<div id= "priodidad"> <strong>${$form.formTipoPrioridad.value.trim()}</strong></div> 
+                <div id= "user">${$form.formUsuario.value.trim()}</div><div id="tarea">
+                ${$form.formDescripcion.value.trim()}</div>`, 
                 index)
             $div.id = "c"+Date.now()
             $div.draggable = true
@@ -152,12 +182,12 @@ function load(){ // es para cargar tareas nuevas
 
             var tableros = document.getElementById("boardlists").innerHTML
             localStorage.setItem('tableros', tableros)
-            console.log(tableros)
+            // console.log(tableros)
 
         }else{
             alert("Complete los campos")
         }
-    })
+})
 
     $btnSave.addEventListener("click", (event) =>{
         parameters = parameters.filter(el => el != null)
@@ -166,7 +196,7 @@ function load(){ // es para cargar tareas nuevas
         $divElements.innerHTML = ""
         parameters = []
     })
-}
+
 }catch (error){
    console.log('no se cargaron eventos del formulario de tareas nuevas')
 }
@@ -197,7 +227,7 @@ document.ondrop = function(event) {
       event.target.appendChild(document.getElementById(data));
       var tableros = document.getElementById("boardlists").innerHTML
             localStorage.setItem('tableros', tableros)
-            console.log(tableros)
+            // console.log(tableros)
        // para guardar en el localstorage lo que el usuario está trabajando.
     }
 }
@@ -232,7 +262,7 @@ const addJsonUser = json => {
         var option = document.createElement("option")
         option.value = userOpcion.username
         option.innerHTML = `${userOpcion.username}` 
-        console.log(option)
+        // console.log(option)
         document.getElementById("formUsuario").appendChild(option)
         }
     } catch(error){
@@ -256,7 +286,7 @@ const addJsonUser = json => {
 
 
 try{
-function loadUser(){ // es para cargar usuarios nuevos
+// es para cargar usuarios nuevos
 
     const templateUser = (data, position) => {
         return (`
@@ -291,7 +321,6 @@ function loadUser(){ // es para cargar usuarios nuevos
         $divElements.innerHTML = ""
         parameters = []
     })
-}
 }catch (error){
     console.log('no se cargaron eventos del formularios de usuario')
 }
@@ -306,15 +335,14 @@ function loadUser(){ // es para cargar usuarios nuevos
 // }
 
 
+
 // el modal
 const modalGenerico = document.querySelector("#modal-generico")
 const modalGenericoContenido = document.querySelector("#modal-generico-contenido")
 
-const ventanaConfiguracion = `
+// const ventanaConfiguracion = ``
 
-`
-
-const ventanaUsuarios = ` `
+// const ventanaUsuarios = ` `
 
 const ventanaCalendario = ` <h2>CALENDARIO</h2>
 <div>
