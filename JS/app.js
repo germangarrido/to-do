@@ -1,34 +1,54 @@
+// funcion para actualizar la web tomando datos de localstorage
+function actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage){
+    localStorage.setItem(nombreVarLocalStorage, obtParaLocalStorage)
+}
+
+
 //login
     const formLogin = document.getElementById("login")
     const username = document.getElementById("username")
     const password = document.getElementById("password")
     const button = document.getElementById("entrar")
 
-try{
-
-    const datossesion = JSON.parse(localStorage.getItem('login'))
+try{ 
+    //obtengo datos de LocalStorage para el login 
+    var datossesion = JSON.parse(localStorage.getItem('login'))
     username.value = datossesion.username
     password.value = datossesion.password
 }catch (error){
-        console.log ("no se cargó el usuario y el password")
+        console.log ("no se Obtubieron datos de usuario del localStorage")
 }
 
-try{ //para cargar los datos del usuario guardado en el locastorage
+try{
+    //boton para cerrar el modal
+    const btnCerrarModalGenerico = document.querySelector(".cerrar-modal-generico")
+    btnCerrarModalGenerico.addEventListener("click",()=>{
+        modalGenerico.close()
+    })
+    } catch (error){
+        console.log(error)
+    }
+    
+    
+
+try{ 
+    //Para guardar los datos del usuario en el locastorage
     button.addEventListener('click', (e) => {
         e.preventDefault()
         const datalogin = {
             username: username.value,
             password: password.value
         }
-    
-        localStorage.setItem("login", JSON.stringify(datalogin))
-    
-        if(datalogin.username == "germna" & datalogin.password == "4321"){
+        // esto es una comparación entre lo guardado y el formulario.
+        if(username.value == datossesion.username & password.value == datossesion.password){
+            var obtParaLocalStorage = JSON.stringify(datalogin)
+            var nombreVarLocalStorage = "login" 
+            actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
             window.location = "index-tableros.html";
         } else {
             alert("Los datos sin incorrectos")
     
-            formLogin.reset()
+            formLogin.reset() //limpia el form login
         }
     
         // console.log(datalogin)
@@ -36,15 +56,23 @@ try{ //para cargar los datos del usuario guardado en el locastorage
 }catch (error){
         console.log ("no se cargó el Logín")
 }
-//crear usuario 
 
-        var formCrearUser = document.getElementsByName("formCrearUser")[0]
-        const users = JSON.parse(localStorage.getItem("users"))
-try{
-    const buttonCrearUser = document.getElementById("crear")
+//chequea si hay usuarios Registrados guardados en el localstorage 
+var users = JSON.parse(localStorage.getItem("users"))
+if(users == null){
+    users = []
+    console.log("NO hay Usuarios Registrados guardados en el LocalStorage")
+}else{
+    console.log("HAY Usuarios Registrados guardados en el LocalStorage")
+}
+
+var formCrearUser = document.getElementsByName("formCrearUser")[0]
+var buttonCrearUser = document.getElementById("crear")
     
+try{
+    //formulario para que el usuario ingrese datos y generar un Usuario Registrado
     buttonCrearUser.addEventListener('click', (e) => {
-
+        //validaciones de campos.
         if(formCrearUser.userApellido.value == 0 ){
             alert("El campo Apellido es obligatorio")
         }else if (formCrearUser.userNombre.value == 0){
@@ -70,13 +98,18 @@ try{
         }
 
         users.push(dataUserNuevo)
-    
-        localStorage.setItem("users", JSON.stringify(users))
-    
-            alert("Los datos fueron guardados")
 
-            formCrearUser.reset()
-        console.log(users)
+        var obtParaLocalStorage = JSON.stringify(users)
+        var nombreVarLocalStorage = "users" 
+        actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
+        
+        alert("Los datos fueron guardados con éxito, ya puedes ingresar a Lilo, bienvenido!!"+
+        "\nNo te olvides tus datos de ingreso:\nUsuario: "+
+        formCrearUser.userEmail.value+",\nPassword:"+formCrearUser.userClave.value)
+
+        formCrearUser.reset() // limpia el form
+        window.location = "index-tableros.html";
+        // console.log(users)
         }
     })
     }catch (error){
@@ -85,31 +118,60 @@ try{
 
 
 
+
 //guarda las tareas y los tableros que se estuvieron creando moviendo y eliminando
 var tableroStorage = localStorage.getItem('tableros')
 
-try{
+try{ 
+    //cheque sy hay tableros guardados en el localstorage
     if(tableroStorage == null){
-        console.log("no hay tablero todavia")
+        console.log("no hay tableros guardados")
     }else{
-    document.getElementById("boardlists").innerHTML = tableroStorage
+        document.getElementById("boardlists").innerHTML = tableroStorage
     }
 }catch(error){
-    console.log('no se cargó el tablero')
+    console.log('En esta página no se cargan los tableros')
 }
 
 try{
+    //accion encomendada al icono menu que solo se ve en viewport chicos. 
 document.querySelector('.menu-btn').addEventListener('click',() =>{
     document.querySelector('.nav-menu').classList.toggle('show');
 })
 }catch (error){
-    console.log('no se cargó el menu de navegacion')
+    console.log('No se cargó el menu de navegacion para pantallas pequeñas')
 }
 
+//FUNCION PARA AVISAR QUE SE ESTA POR ELMINAR TAREAS Y ELIMINAR TAREAS
 let parameters = []
 function removeElement(event, position) {
-    event.target.parentElement.remove()
-    delete parameters[position]
+    var antesdeEliminar = document.createElement('div')
+    // antesdeEliminar.innerHTML = `<div>
+    // <p>¿Estás seguro que querés eliminar la tarea?</p>
+    // <button type="button" id="siEliminar">Eliminar</button>
+    // <button type="button" id="noElimiar">NO</button>
+    // </div>`
+    document.querySelector("#modal-generico").innerHTML = 
+    `<div>
+    <p>¿Estás seguro que querés eliminar la tarea?</p>
+    <button type="button" id="siEliminar">Eliminar</button>
+    <button type="button" id="noEliminar">NO</button>
+    </div>`
+    document.querySelector("#modal-generico").showModal()
+    document.querySelector("#siEliminar").addEventListener('click',()=>{
+        event.target.parentElement.remove()
+        modalGenerico.close()
+        //actualiza el objeto tableros que está en el localstorage
+        var obtParaLocalStorage = document.getElementById("boardlists").innerHTML
+        var nombreVarLocalStorage = 'tableros' 
+        actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
+        delete parameters[position] // esto elimina un objeto dentro de otro objeto
+    })
+    document.querySelector("#noEliminar").addEventListener('click',()=>{
+        modalGenerico.close()
+    })
+
+
 }
 
 const addJsonElement = json => {
@@ -118,7 +180,8 @@ const addJsonElement = json => {
 }
 
 try {
- function editarTarea(event){
+    
+    function editarTarea(event){
     // const editarTarea = document.querySelector('#editarTarea').addEventListener("click", (event) =>{
         console.log(event.target.parentElement.querySelector("#priodidad").textContent)
         const datoPrioridad = event.target.parentElement.querySelector("#priodidad").textContent
@@ -134,9 +197,9 @@ try {
         // divEditar.innerHTML = `${event.target.parentElement.innerHTML}`
         // document.querySelector("#modal-formEditarTarea").appendChild(divEditar)
         document.querySelector("#modal-formEditarTarea").showModal()
- }
+    }
 }catch(error){
-console.log('no se escucha editar tarea')
+    console.log('no se escucha editar tarea')
 }
     // const btnCerrarModalGenerico = document.querySelector(".cerrar-modal-generico")
     // btnCerrarModalGenerico.addEventListener("click",()=>{
@@ -180,8 +243,10 @@ try{
 
             $form.reset()
 
-            var tableros = document.getElementById("boardlists").innerHTML
-            localStorage.setItem('tableros', tableros)
+            var obtParaLocalStorage = document.getElementById("boardlists").innerHTML
+            var nombreVarLocalStorage = 'tableros' 
+            actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
+            
             // console.log(tableros)
 
         }else{
@@ -394,16 +459,6 @@ btnAbrirModalCalendario.addEventListener("click",()=>{
 //     console.log("este modal es de la pagina de bienvenida")
 // }
 
-
-try{
-//boton para cerrar el modal
-const btnCerrarModalGenerico = document.querySelector(".cerrar-modal-generico")
-btnCerrarModalGenerico.addEventListener("click",()=>{
-    modalGenerico.close()
-})
-} catch (error){
-    console.log(error)
-}
 
 
 

@@ -231,7 +231,7 @@ background-color: rgba(0, 0, 0, .55);
     font-size: 1rem;
 }
 
-.showcase-config {
+.showcase-config, .showcase-help{
     background-color: #77aaff;
 }
 
