@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/styles.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <title>
         LILO
     </title>
@@ -38,10 +42,42 @@
         <a href="#"  data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo">Registrarse</a>
     </div>
     <div>
-        <a href="#"  data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo">Olvidaste tu Clave?</a>
+        <a href="#"  data-bs-toggle="modal" data-bs-target="#exampleModal3" data-bs-whatever="@mdo">Olvidaste tu Clave?</a>
     </div>    
     </div>
     </div>
+    <dialog class="modal info" id="modal-calendar">
+        <div>
+    <div class="container-calendar">
+        <div class="calendar">
+          <div class="month">
+            <i class="fas fa-angle-left prev"></i>
+            <div class="date">
+              <h1></h1>
+              <p></p>
+            </div>
+            <i class="fas fa-angle-right next"></i>
+          </div>
+          <div class="weekdays">
+            <div>Dom</div>
+            <div>Lun</div>
+            <div>Mar</div>
+            <div>Mie</div>
+            <div>Jue</div>
+            <div>Vie</div>
+            <div>Sab</div>
+          </div>
+          <div class="days"></div>
+        </div>
+    </div>
+    </div>
+      <button class="cerrar-modal-Calendar">Cerrar</button>
+    </dialog>
+    <dialog class="modal info" id="modal-generico">
+        <div id="modal-generico-contenido">    
+        </div>
+        <button class="cerrar-modal-generico">Cerrar</button>
+    </dialog>
 
 </div>
     <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -102,11 +138,35 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Reenviar Clave</button>
+                <button type="button"  data-bs-target="#exampleModal3" class="btn btn-primary">Reenviar Clave</button>
             </div>
             </div>
         </div>
     </div> 
+
+    <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-body">
+                <div class="mb-3">
+                    <h2 class="col-form-label">
+                        SERVICIO INHABILITADO TEMPORALMENTE
+                    </h2>
+                        <div class="col-form-label" >
+                            Por el momento esta web no está conectado a un servicio de mail. Si no recuedas tu datos te invitamos a que generes un nuevo usuario.  
+                        </div> 
+                </div>   
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+               
+            </div>
+            </div>
+        </div>
+    </div> 
+
+
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>

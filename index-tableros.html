@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">    
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">    
     <link rel="stylesheet" href="CSS/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
@@ -17,10 +17,9 @@
 </head>
 
 <body>
-    
     <div class="container-tableros">
         <nav class="nav-main">
-            <img src="IMG/img-presto-logo-nav.png" alt="todo" class="nav-brand">
+            <img src="IMG/img-presto-logo-nav.png"  alt="todo" class="nav-brand">
             <ul class="nav-menu">
                 <li>
                     <a href="index-users.html"  id="menuUsers">USUARIOS</a> 
@@ -40,26 +39,57 @@
             </div>
         </nav>
 
+        <dialog class="modal info" id="modal-calendar">
+            <div>
+        <div class="container-calendar">
+            <div class="calendar">
+              <div class="month">
+                <i class="fas fa-angle-left prev"></i>
+                <div class="date">
+                  <h1></h1>
+                  <p></p>
+                </div>
+                <i class="fas fa-angle-right next"></i>
+              </div>
+              <div class="weekdays">
+                <div>Dom</div>
+                <div>Lun</div>
+                <div>Mar</div>
+                <div>Mie</div>
+                <div>Jue</div>
+                <div>Vie</div>
+                <div>Sab</div>
+              </div>
+              <div class="days"></div>
+            </div>
+          </div>
+        </div>
+          <button class="cerrar-modal-Calendar">Cerrar</button>
+        </dialog>
+
+
+
         <dialog class="modal info" id="modal-generico">
             <div id="modal-generico-contenido">    
             </div>
             <button class="cerrar-modal-generico">Cerrar</button>
-         </dialog>
-         <dialog class="modal info" id="modal-formEditarTarea">
+        </dialog>
+        <dialog class="modal info" id="modal-formEditarTarea">
             <div id="modal-generico-contenido">
                 <form action=""  class="agregarTarea-form" id="ffrmTarea">
                 <label class="label" class ="nuevatarea-titulo" >EDITAR TAREA</label>
-                <select id = "formEditarTipoPrioridad" name="formTipoPrioridad" autocomplete="off">
+                <select id = "formEditarTipoPrioridad" name="formTipoPrioridadEditar" autocomplete="off">
                     <option value="ALTA">ALTA</option>
                     <option value="MEDIA">MEDIA</option>
                     <option value="BAJA">BAJA</option>
                 </select> 
-                <select id = "formEditarUsuario" name="formUsuario" autocomplete="off">
+                <select id = "formEditarUsuario"  autocomplete="off">
                     <option value="usuario 2">Usuario 2</option>
                     <option value="usuario 3">Usuario 3</option>
                 </select> 
                 <!-- <input type="date" name="formVencimiento" autocomplete="off"> -->
-                <textarea type="text" id="descripcionEditar" cols="30" rows="2"  placeholder="Escribe la tarea" name="formEditarDescripcion"></textarea>
+                <textarea type="text" id="descripcionEditar" name="formEditarDescripcion">
+                </textarea>
                 <button id="btnEdit" type="button" class="button is-danger" >
                             <span class="icon">
                                AGREGAR <i class="fas fa-plus"></i>
@@ -67,74 +97,111 @@
                           </button>
             </form>   
             </div>
-         </dialog>
+        </dialog>
 
-         <form action=""  class="agregarTarea-form" id="frmTablero">
+        <form action=""  class="agregarTablero-form" id="formAgregarTablero">
             <label class="label" class ="nuevatarea-titulo" >AGREGAR TABLERO</label>
-            <input type="text" placeholder="Escribe Nombre del tablero" name="formTablero">
+            <input type="text" placeholder="Nombre del tablero" id = "formTableroNombre" name="formTableroNombre">
+            <input type="color" id="formTableroColor"  name="formTableroColor">
             <button id="btnAddTablero" type="button" class="button is-danger">
                         <span class="icon">
                            AGREGAR <i class="fas fa-plus"></i>
                         </span>
                       </button>
         </form>
+        <form action=""  class="agregarTarea-form" id="formAgregarTarea">
+            <label class="label" class ="nuevatarea-titulo" >AGREGAR TAREA</label>
+            <select id = "formAgregarTareaTipoPrioridad" name="formAgregarTareaTipoPrioridad" autocomplete="off">
+                <option value="ALTA">ALTA</option>
+                <option value="MEDIA" selected >MEDIA</option>
+                <option value="BAJA">BAJA</option>
+            </select> 
+            <select id = "formAgregarTareaUsuario" name="formAgregarTareaUsuario" autocomplete="off">
+                <option value="usuario 2">Usuario 2</option>
+                <option value="usuario 3">Usuario 3</option>
+            </select> 
+            <textarea type="text" id="" cols="30" rows="2"  placeholder="Escribe la tarea" name="formAgregarTareaDescripcion"></textarea>
+            <button id="btnAddTarea" type="button" class="button is-danger" >
+                        <span class="icon">
+                        AGREGAR <i class="fas fa-plus"></i>
+                        </span>
+                    </button>
+            <button id="btnSave" type="button" class="button is-info">Save</button>
+        </form>
 
        
              
-        <div class="showcase">
-            <div class="left">
-                <div class="board-text">Tablero</div>
-            </div>
-
-            <form action=""  class="agregarTarea-form" id="frmTarea">
-                <label class="label" class ="nuevatarea-titulo" >AGREGAR TAREA</label>
-                <select id = "formTipoPrioridad" name="formTipoPrioridad" autocomplete="off">
-                    <option value="ALTA">ALTA</option>
-                    <option value="MEDIA">MEDIA</option>
-                    <option value="BAJA">BAJA</option>
-                </select> 
-                <select id = "formUsuario" name="formUsuario" autocomplete="off">
-                    <option value="usuario 2">Usuario 2</option>
-                    <option value="usuario 3">Usuario 3</option>
-                </select> 
-                <!-- <input type="date" name="formVencimiento" autocomplete="off"> -->
-                <textarea type="text" id="" cols="30" rows="2"  placeholder="Escribe la tarea" name="formDescripcion"></textarea>
-                <button id="btnAdd" type="button" class="button is-danger" >
-                            <span class="icon">
-                               AGREGAR <i class="fas fa-plus"></i>
-                            </span>
-                          </button>
-                <button id="btnSave" type="button" class="button is-info">Save</button>
-            </form>
-            
-            <div id='boardlists' class="board-lists">
-                
-                <div  class="board-list" >  <!-- class="aside izquierda" -->
-                    <div class="list-title">
-                        QUE HACER
-                    </div>
-                    <div id='list1'> <!-- class="nuevatarea-form" -->
-                        
-                    </div>
-                     <!-- antes tenía un div con el id "queHacerColumna". acá se tienen que agregar las tareas -->
-                </div>
-                <div id='list2' class="board-list">  <!-- class="aside center" id="haciendoColumna" -->
-                    <div class="list-title">
-                        HACIENDO
-                    </div>
-                    <div  id='card2' class="card" draggable="true"> <!-- class="nuevatarea-form" -->
-                        tarea 2
-                    </div>
-                </div>
-                <div id='list3' class="board-list"> <!-- class="aside derecha"  id="hechoColumna" -->
-                    <div class="list-title">
-                        HECHO
-                    </div>
-                </div>
-
-            </div>
-
+    <div class="showcase">
+        <div class="board-text">
+            <H3>TABLEROS</H3>    
         </div>
+        
+        <div id='tableros' class="tabs" >
+                <ul id="tabs_head_id" class="tabs_head">
+                    <li class="tabs_toggle is-active">TABLERO 1</li>  
+                    <li class="tabs_toggle">TABLERO 2</li>    
+                </ul>
+                
+                <div id = "tabs_body_id" class="tabs_body">
+                    <div id='boardlists' class="tabs_content is-active">
+                        <div  class="board-list" >  
+                            <div class="list-title">
+                                QUE HACER
+                            </div>
+                            <div id='list1'> <!--en este div se cargan las tareas nuevas -->     
+                            </div>
+                        </div>
+                        <div id='list2' class="board-list">  
+                            <div class="list-title">
+                                HACIENDO
+                            </div>
+                            <div  id='card2' class="card" draggable="true">
+                                tarea TABLERO UNO
+                            </div> 
+                        </div>
+                        <div id='list3' class="board-list"> 
+                            <div class="list-title">
+                                HECHO
+                            </div>
+                        </div>
+                    </div>
+                    
+
+
+                    
+                    <div id='boardlists' class="tabs_content">
+                        <div  class="board-list" > 
+                            <div class="list-title">
+                                QUE HACER
+                            </div>
+                            <div id='list1'> <!--en este div se cargan las tareas nuevas -->
+                            </div>
+                        </div>
+                        <div id='list2' class="board-list">  
+                            <div class="list-title">
+                                HACIENDO
+                            </div> 
+                        </div>
+                        <div id='list3' class="board-list"> 
+                            <div class="list-title">
+                                HECHO
+                            </div>
+                            <div  id='card2' class="card" draggable="true">
+                                tarea TABLERO TRES
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
         <section class="social">
         <div class="links">
             <a href="https://www.facebook.com">
