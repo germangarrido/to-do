@@ -10,6 +10,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">    
     <link rel="stylesheet" href="CSS/styles.css">
+    <script src="https://kit.fontawesome.com/75ae08cc6f.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
 <link rel="shortcut icon" href="IMG/img-presto-logo-nav-trans.ico" type="image/x-icon"/>    
@@ -102,15 +103,24 @@
         <form action=""  class="agregarTablero-form" id="formAgregarTablero">
             <label class="label" class ="nuevatarea-titulo" >AGREGAR TABLERO</label>
             <input type="text" placeholder="Nombre del tablero" id = "formTableroNombre" name="formTableroNombre">
-            <input type="color" id="formTableroColor"  name="formTableroColor">
+            <input type="color" id="formTableroColor"  value= '#77aaff' name="formTableroColor">
             <button id="btnAddTablero" type="button" class="button is-danger">
                         <span class="icon">
                            AGREGAR <i class="fas fa-plus"></i>
                         </span>
                       </button>
         </form>
+        
+
+       
+             
+    <div class="showcase">
+        <div class="board-text">
+            <H3>TABLEROS</H3>    
+        </div>
         <form action=""  class="agregarTarea-form" id="formAgregarTarea">
-            <label class="label" class ="nuevatarea-titulo" >AGREGAR TAREA</label>
+            <label id="tituloformTarea" class="label" class ="nuevatarea-titulo" >AGREGAR TAREA</label>
+            <span id="tableroNombre"></span>
             <select id = "formAgregarTareaTipoPrioridad" name="formAgregarTareaTipoPrioridad" autocomplete="off">
                 <option value="ALTA">ALTA</option>
                 <option value="MEDIA" selected >MEDIA</option>
@@ -120,21 +130,13 @@
                 <option value="usuario 2">Usuario 2</option>
                 <option value="usuario 3">Usuario 3</option>
             </select> 
-            <textarea type="text" id="" cols="30" rows="2"  placeholder="Escribe la tarea" name="formAgregarTareaDescripcion"></textarea>
+            <textarea type="text" id="formAgregarTareaDescripcion" cols="30" rows="2"  placeholder="Escribe la tarea" name="formAgregarTareaDescripcion"></textarea>
             <button id="btnAddTarea" type="button" class="button is-danger" >
                         <span class="icon">
                         AGREGAR <i class="fas fa-plus"></i>
                         </span>
                     </button>
-            <button id="btnSave" type="button" class="button is-info">Save</button>
         </form>
-
-       
-             
-    <div class="showcase">
-        <div class="board-text">
-            <H3>TABLEROS</H3>    
-        </div>
         
         <div id='tableros' class="tabs" >
                 <ul id="tabs_head_id" class="tabs_head">

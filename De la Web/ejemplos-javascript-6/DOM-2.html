@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<title>DOM-2</title>
+<style>
+    * {
+        font-family: Verdana, Geneva, Tahoma, sans-serif
+    }
+</style>
+
+<body>
+    <h1>Otros métodos tradicionales</h1>
+    <hr>
+   
+    <h2>getElementsByClassName (ver consola)</h2>
+    <p>Retorna un array de objetos, ya que pueden existir múltiples elementos de una clase CSS.</p>
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+    <hr>
+
+    <h2>getElementsByName</h2>
+    <form>
+        Apellido: <input name="fname" type="text" value="Pérez">
+        <span id="demo"></span>
+        <br>
+        Nombre: <input name="fname" type="text" value="Juan">
+        <span id="demo2"></span>
+    </form>
+    <br>
+    <button onclick="obtenerTag()">tagName</button> 
+    <button onclick="obtenerValor()">value</button>
+    <button onclick="validarValor()">Validar Nombre</button>
+    <span id="validar"></span>
+    <hr>
+
+    <h2>getElementsByTagName</h2>
+    <p>Lista desordenada:</p>
+    <ul>
+        <li>Café</li>
+        <li>Té</li>
+        <li>Leche</li>
+    </ul>
+    ¿Qué elemento desea? (0, 1, 2): 
+    <input id="seleccion" type="number" min=0 max=2>
+    <button onclick="obtenerElemento()">Obtener elemento</button>
+    <p id="demo3"></p>
+
+    <script>
+        //getElementsByClassName
+        const items = document.getElementsByClassName("item")  // [div, div, div]
+        console.log("Elementos con class='item':", items)
+        console.log("Primer item:", items[0])  // Primer item encontrado: <div class="item">Item 1</div>
+        console.log("Cantidad de items:", items.length)  // 3
+
+        //getElementsByName
+        function obtenerTag() {
+            var x = document.getElementsByName("fname")[0].tagName //Obtenemos nombre de etiqueta
+            document.getElementById("demo").innerHTML = "Es un " + x
+        }
+        function obtenerValor() {
+            var y = document.getElementsByName("fname")[1].value
+            document.getElementById("demo2").innerHTML = "El nombre es: " + y
+        }
+        function validarValor() {
+            var y = document.getElementsByName("fname")[1].value
+            if (y == ""){
+                document.getElementById("validar").innerHTML = "Input Vacío"
+            }
+            else{
+                document.getElementById("validar").innerHTML = "Ok!"
+            }
+        }
+        //getElementsByTagName
+        function obtenerElemento() {
+            var z = document.getElementsByTagName("li") //obtenemos los elementos "li"
+            var a = document.getElementById("seleccion").value //obtenemos lo que escribió el usuario
+            if (a == ""){
+                document.getElementById("demo3").innerHTML = "El usuario no ha seleccionado nada!"
+            }
+            else {
+                document.getElementById("demo3").innerHTML = "Ha seleccionado: " + z[a].textContent
+            }
+        }
+    </script>
+</body>
+
+</html>

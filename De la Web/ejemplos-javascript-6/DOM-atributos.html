@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>createElementCSS</title>
+    <style>
+        * {
+            font-family: Verdana, Geneva, Tahoma, sans-serif
+        }
+
+        .nuevaClase {
+            border-bottom: 2px solid red;
+            background: coral;
+            margin-top: 10px;
+        }
+
+        .modoOscuro{
+            background-color: black;
+            color: white;
+        }
+
+        .modoClaro{
+            background-color: lightgrey;
+            color: black;
+        }
+    </style>
+
+</head>
+
+<body>
+    <script>
+
+        const div1 = document.createElement("div")
+        div1.className = "nuevaClase"
+        div1.innerHTML = "Texto con otro estilo"
+        document.body.appendChild(div1)
+
+        const div2 = document.createElement("div")
+        div2.innerHTML = "Texto con estilo"
+        document.body.appendChild(div2)
+        
+        const titulo = document.createElement("h1")
+        titulo.innerHTML = "Soy un título"
+        document.body.appendChild(titulo)       
+
+        function estilizar(){
+            div2.id = "page"
+            div2.className = "modoOscuro"
+            div2.style.color = "red"
+            div2.style.background = "lightblue"
+            div2.style.border = "2px solid black"
+            div2.style.margin = "20px"
+        }
+        function cambiarModo(){
+            if (titulo.className == "modoOscuro"){
+                titulo.className = "modoClaro"
+            }
+            else{
+                titulo.className = "modoOscuro"
+            }
+        }
+    </script>
+    <hr>
+    <button onclick="estilizar()">Estilizar</button>
+    <button onclick="cambiarModo()">Cambiar Modo</button>
+</body>
+
+</html>

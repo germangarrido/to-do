@@ -78,6 +78,11 @@ ul {
     list-style: none;
 }
 
+textarea {
+    text-decoration: none;
+    list-style: none;
+}
+
 .nav-main {
     font-size: 17px;
     display: flex;
@@ -397,6 +402,35 @@ background-color: rgba(0, 0, 0, .55);
 .showcase-config, .showcase-help{
     background-color: #77aaff;
 }
+
+
+.agregarUser-form{
+    font-size: auto;
+    background-color:#77aaff;
+    border-radius: 3px;
+}
+.listaUsers {
+    background-color: #EEE9E9;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    border-radius: 3px;
+    
+}
+
+.btn-editar{
+    background-color: #ff77aa;
+}
+
+.cardUserName{
+    border-radius: 5px;
+    margin: auto;
+    padding: 3px;
+}
+
+
+
+
+/* MEDIA QUERY - PUNTO DE CORTES.  */
 
 @media (max-width: 600px){
 

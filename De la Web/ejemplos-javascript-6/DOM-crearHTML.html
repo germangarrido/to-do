@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<title>createElement</title>
+<style>
+    * {
+        font-family: Verdana, Geneva, Tahoma, sans-serif
+    }
+</style>
+
+<body>
+    <h2>createElement</h2>
+    <p>Hacer clic en el botón para agregar un botón</p>
+    <button onclick="agregarBoton()">Agregar botón</button>
+    <hr>
+    <h2>createComment</h2>
+    <p>Hacer clic en el botón para agregar un comentario</p>
+    <button onclick="agregarComentario()">Agregar comentario</button>
+    <hr>
+    <h2>createElement y createTextNode</h2>
+    <p>Hacer clic en el botón para agregar un título</p>
+    <button onclick="agregarTitulo()">Agregar título</button>
+    <hr>
+    <h2>cloneNode</h2>
+    <p id="parrafo">Hacer clic en el botón para copiar este párrafo</p>
+    <button onclick="copiarParrafo()">Copiar</button>
+    <button onclick="copiarPrimero()">Primero Lista</button>
+    <button onclick="copiarUltimo()">Último Lista</button>
+    <hr>
+
+    <script>
+        //.createElement
+        function agregarBoton() {
+            var btn = document.createElement("BUTTON")
+            btn.innerHTML = "Haz clic!"
+            document.body.appendChild(btn)
+        }
+        //.createComment
+        function agregarComentario() {
+            var comm = document.createComment("Soy un comentario!")
+            document.body.appendChild(comm)
+        }
+        //.createElement y .createTextNode
+        function agregarTitulo() {
+            var titulo = document.createElement("h1")
+            var tituloContenido = document.createTextNode("Soy un titulo")
+            titulo.appendChild(tituloContenido)
+            document.body.appendChild(titulo)
+        }
+        //.cloneNode
+        function copiarParrafo() {
+            var itm = document.getElementById("parrafo")
+            var cln = itm.cloneNode(true)
+            document.body.appendChild(cln)
+        }
+    </script>
+</body>
+
+</html>

@@ -10,6 +10,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">    
     <link rel="stylesheet" href="CSS/styles.css">
+    <script src="https://kit.fontawesome.com/75ae08cc6f.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
 <link rel="shortcut icon" href="IMG/img-presto-logo-nav-trans.ico" type="image/x-icon"/>    
@@ -69,7 +70,7 @@
         <dialog class="modal info" id="modal-generico">
             <div id="modal-generico-contenido">    
             </div>
-            <button class="cerrar-modal-generico">Cerrar</button>
+            <!-- <button class="cerrar-modal-generico">Cerrar</button> -->
          </dialog>
              
         <div class="showcase">
@@ -77,35 +78,42 @@
                 <div class="board-text">PANEL DE USUARIOS</div>
             </div>
             
-           
-<div>
-Lista de los usuarios que agregaste.
- </div>
- <button  type="button" class="button is-danger">aca va un boton que llama al formulario de registro</button>
- <form action=""  class="agregarTarea-form" id="frmUsers">
+            <span >
+                Cargá todos los usuarios que quieras. 
+                Tenés que completar todos los campos. 
+                El color que eligas será para que puedas identificar al usuarios mas facilmente en todos los tableros.
+            </span>   
+
+ <!-- <button  type="button" class="button is-danger">aca va un boton que llama al formulario de registro</button> -->
+ <form action=""  class="agregarUser-form" id="frmUsers">
     <label class="label" class ="nuevatarea-titulo" >AGREGAR USUARIO</label>
-    <input type="text" placeholder="Nombre del Usuario" name="formUserNew" autocomplete="off">
-    <input type="email" placeholder="Email del Usuario" name="formEmail" autocomplete="off">
-    <input type="color" name="formUserColor" autocomplete="off">
-    <select id = "formTipoUsuario" name="formTipoUsuario" autocomplete="off">
+    <input type="text" placeholder="Nombre del Usuario" name="formUserNewNombre" autocomplete="off">
+    <input type="text" placeholder="Apellido del Usuario" name="formUserNewApellido" autocomplete="off">
+    <input type="email" placeholder="Email del Usuario" name="formUserNewEmail" autocomplete="off">
+    <input type="text" placeholder="Teléfono del Usuario" name="formUserNewTelefono" autocomplete="off">
+    <input type="color" name="formUserNewColor" value="#77aaff"  autocomplete="off">
+    <select id = "formTipoUsuario" name="formUserNewTipoUsuario" autocomplete="off">
         <option  value="ADMINISTRADXR">ADMINISTRADXR</option>
         <option selected value="MIEMBRX">MIEMBRX</option>
     </select> 
     
     <button id="btnAddUser" type="button" class="button is-danger" >
                 <span class="icon">
-                    <i class="fas fa-plus"></i>
+                   AGREGAR USUARIO <i class="fas fa-plus"></i>
                 </span>
               </button>
-              <button id="btnSave" type="button" class="button is-info">Save</button>   
+                
 </form>
 
-<div class="board-text">
-    lista.
-     </div>
-     <div id="listaUser">
+<span class="board-text">
+    Lista de los usuarios que agregaste
+  
+   </span>
+
+     <div class ='listaUsers' id="listaUsers">
+
         <!-- acá va la lista de usuarios-->
-         </div>
+    </div>
 
         </div>
         <section class="social">

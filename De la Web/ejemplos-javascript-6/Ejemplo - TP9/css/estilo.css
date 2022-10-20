@@ -1,0 +1,286 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  /* border: 1px solid red;*/
+}
+#idtabla{
+  padding: 0 10%
+}
+td,th{
+padding:  1%;
+}
+/* Make the image fully responsive */
+.productos{
+  float: left;
+}
+#card{
+  float: left;
+}
+.carousel-inner img {
+  width: 100%;
+  height: 100%;
+}
+
+html {
+  font-family: "Lucida Sans", sans-serif;
+}
+
+.imgindex, .imgabout {
+  width: 100%;
+  padding: 0 10%;
+}
+
+img.logo {
+  width: 25%;
+}
+
+iframe {
+  width: 200;
+}
+
+.header {
+  background-color: black;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  width: 100%;
+}
+
+.img-cliente {
+  width: 30%;
+  margin-left: 0%;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+[class*="col-"] {
+  float: left;
+  padding: 15px;
+}
+
+.menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu li, .boton {
+  padding: 8px;
+  margin-bottom: 7px;
+  background-color: rgb(0, 0, 0);
+  color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+li a, .boton {
+  text-decoration: none;
+  color: white;
+}
+
+li:hover {
+  background-color: gray;
+}
+
+.redsoc {
+  text-align: center;
+  color: white;
+}
+
+.redsoc a {
+  color: #000000;  /* Color de los iconos */
+  margin: 0px 19px;   /* Espacio entre los iconos */
+  font-size: 20px;
+}
+
+.redsoc a:hover {
+  color: #999999;   /* Color de los iconos al pasar el ratón */
+}
+
+th, td {
+  border: 1px solid black;
+}
+
+.show_data {
+  box-align: center;
+  /* padding: 0 10%;
+    margin: 0 10%;*/
+}
+
+.aside {
+  background-color: grey;
+  padding: 15px;
+  color: #ffffff;
+  text-align: center;
+  font-size: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+#idfooter {
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-size: 12px;
+  padding: 15px;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  padding: 20px;
+  height: 75px;
+  margin-top: 0;
+  /*10px;*/
+}
+
+/* For mobile phones: */
+
+[class*="col-"] {
+  width: 100%;
+}
+
+@media only screen and (min-width: 600px) {
+  /* For tablets: */
+  .col-s-1 {
+    width: 8.33%;
+  }
+  .col-s-2 {
+    width: 16.66%;
+  }
+  .col-s-3 {
+    width: 25%;
+  }
+  .col-s-4 {
+    width: 33.33%;
+  }
+  .col-s-5 {
+    width: 41.66%;
+  }
+  .col-s-6 {
+    width: 50%;
+  }
+  .col-s-7 {
+    width: 58.33%;
+  }
+  .col-s-8 {
+    width: 66.66%;
+  }
+  .col-s-9 {
+    width: 75%;
+  }
+  .col-s-10 {
+    width: 83.33%;
+  }
+  .col-s-11 {
+    width: 91.66%;
+  }
+  .col-s-12 {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  /* For desktop: */
+  .col-1 {
+    width: 8.33%;
+  }
+  .col-2 {
+    width: 16.66%;
+  }
+  .col-3 {
+    width: 25%;
+  }
+  .col-4 {
+    width: 33.33%;
+  }
+  .col-5 {
+    width: 41.66%;
+  }
+  .col-6 {
+    width: 50%;
+  }
+  .col-7 {
+    width: 58.33%;
+  }
+  .col-8 {
+    width: 66.66%;
+  }
+  .col-9 {
+    width: 75%;
+  }
+  .col-10 {
+    width: 83.33%;
+  }
+  .col-11 {
+    width: 91.66%;
+  }
+  .col-12 {
+    width: 100%;
+  }
+}
+
+#contenedor {
+  width: 280px;
+  margin: 0 auto;
+  /*padding-top:150px;*/
+}
+
+#contenedor-imagen img {
+  /*border: 5px solid #eee;*/
+  -webkit-transition: all 0.5s ease-out;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+}
+
+#contenedor-imagen img:hover {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+
+input[type=text], input[type=password], input[type=date], input[type=email], input[type=number], input[type=url], input[type=tel], input[type=text], input[type=textArea], select {
+  width: 80%;
+  padding: 0.8vw 1.1vw;
+  /*12px 20px;*/
+  margin: 0.5vw 0;
+  /*8px 0;*/
+  display: inline-block;
+  border: 1vw;
+  /*1px solid #ccc;*/
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+label, input {
+  font-size: 1.0vw;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.formulario {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 2%;
+  margin: 1% 2%;
+}
+
+textarea {
+  width: 60%;
+}
