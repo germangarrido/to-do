@@ -357,13 +357,12 @@ console.log('no se actualizaó tableros')
                 console.log($divElements)
                 const $div = document.createElement("div")
                 $div.classList.add("card")
-                $div.style.background = colorUser
                 $div.id = "c"+Date.now()
                 $div.draggable = true
                 $div.innerHTML =
-                    `<div id="priodidad"><i class="fa-regular fa-clipboard"></i>-<strong>${$form.formAgregarTareaTipoPrioridad.value}</strong></div> 
-                    <div id="user"><i class="fa-solid fa-user"></i>-${$form.formAgregarTareaUsuario.value}</div>
-                    <div id="tarea"><i class="fa-solid fa-thumbtack">-</i>${$form.formAgregarTareaDescripcion.value.trim()}</div>
+                    `<div id="priodidad"><strong>${$form.formAgregarTareaTipoPrioridad.value}</strong></div> 
+                    <div id="user" style="background:${colorUser};">${$form.formAgregarTareaUsuario.value}</div>
+                    <div id="tarea">${$form.formAgregarTareaDescripcion.value.trim()}</div>
                     <button type="button" class="delete" onclick= "editarTarea(event)">Editar</button>
                 <button class="delete" onclick="removeElement(event)">X</button>`    
                 $divElements.appendChild($div, $divElements.firstChild)
