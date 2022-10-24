@@ -3,9 +3,16 @@ function actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage){
     localStorage.setItem(nombreVarLocalStorage, obtParaLocalStorage)
 }
 
+// este modal se usa para todas las comunicaciones flotantes
+const modalGenerico = document.querySelector("#modal-generico")
+const modalGenericoContenido = document.querySelector("#modal-generico-contenido")
+
+function noEliminar(){
+    modalGenerico.close()
+}
 
 try{
-    //accion encomendada al icono menu que solo se ve en viewport chicos. 
+//accion encomendada al icono menu que solo se ve en viewport chicos. 
 document.querySelector('.menu-btn').addEventListener('click',() =>{
     document.querySelector('.nav-menu').classList.toggle('show');
 })
@@ -13,86 +20,132 @@ document.querySelector('.menu-btn').addEventListener('click',() =>{
     console.log('No se cargó el menu de navegacion para pantallas pequeñas')
 }
 
-
-function  clickTabs(){
-    //hay que volver a cargar el array de elementos con las mismas clases
-    let tabs = document.querySelectorAll('.tabs_toggle'),
-    contents = document.querySelectorAll('.tabs_content');
-
-    tabs.forEach((tab, index) => { 
-    tab.addEventListener('click',  () => { 
-    contents.forEach( (content) => {
-        content.classList.remove( 'is-active'); 
-    }); 
-    tabs.forEach((tab) => {
-        tab.classList.remove('is-active');
-    });
-    contents[index].classList.add('is-active'); 
-    tabs[index].classList.add('is-active');
-    var esto = tabs[index].style.background
-    console.log(esto)
-     contents[index].style.background = esto
-
-
-    //para obtener el nombre del tablero
-    document.querySelector('#tableroNombre').textContent = tabs[index].id
-    console.log(nombreTablero)
-});
-});            
-}
-
-
 //////////// LOGIN ///////////////////////
-
-
 
 const formLogin = document.getElementById("login")
 const username = document.getElementById("username")
 const password = document.getElementById("password")
 const button = document.getElementById("entrar")
-    
+
     //chequea si hay usuarios Registrados guardados en el localstorage 
     var users = JSON.parse(localStorage.getItem("users"))
     if(users === null){
         users = []
         console.log("NO hay Usuarios Registrados guardados en el LocalStorage")
     }else{
-        console.log(users)
+        // console.log(users)
         console.log("HAY Usuarios Registrados guardados en el LocalStorage")
     }
 
-
-try{ 
     //OBTENGO DATOS del login guardados en el  LocalStorage y los ubican en los input deo form login
-    var datossesion = JSON.parse(localStorage.getItem('login'))
-    if(datossesion != null){
-        username.value = datossesion.username
-        password.value = datossesion.password
+    var datossesionGuardado = JSON.parse(localStorage.getItem('login'))
+
+    
+    if(datossesionGuardado === null){
+        datossesionGuardado = []
+
+        alert('Para ingresar tenés que inicar Sesión')
+        window.location = "index.html"  
+
+        var obtParaLocalStorage = JSON.stringify(datalogin)
+        var nombreVarLocalStorage = "login" 
+        actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage) 
+ 
+        datossesionGuardado.username = 'dos'
+        console.log("NO hay datos de login guardados en el LocalStorage")
+        
     }else{
-        username.value = ""
-        password.value = ""
+
+        console.log("Si hay datos de login guardados en el LocalStorage")
+      //  document.getElementById('userSesion').textContent = datossesionGuardado.username
     }
 
+    try{
 
-    //form para simular login y para guardar los datos del usuario en el locastorage
-    button.addEventListener('click', (e) => {
-        e.preventDefault()
-        const datalogin = {
-            username: username.value,
-            password: password.value
+        username.value = datossesionGuardado.username
+        password.value = datossesionGuardado.password
+
+    }catch(error){
+
+    }
+
+    // entrarSesion()
+
+    var usuarioSesion, passwordSesion , datalogin
+    function entrarSesion(){
+        users.map(usuario =>{
+        if(usuario.username === username.value && usuario.password === password.value ){      
+            usuarioSesion = usuario.username
+            passwordSesion = usuario.password 
         }
-        // esto es una comparación entre lo guardado y el formulario.
-        if(username.value == datossesion.username & password.value == datossesion.password){
-            // var obtParaLocalStorage = JSON.stringify(datalogin)
-            // var nombreVarLocalStorage = "login" 
-            // actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
+        })
+
+        if(username.value === usuarioSesion && password.value === passwordSesion){
+            
+            datalogin = {
+                username: username.value,
+                password: password.value
+            }
+            var obtParaLocalStorage = JSON.stringify(datalogin)
+            var nombreVarLocalStorage = "login" 
+            actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage) 
             window.location = "index-tableros.html";
-        } else {
-            alert("Los datos sin incorrectos")
-            formLogin.reset() //limpia el form login
-        }
-    })
 
+        }else{
+
+        alert("Los datos son incorrectos")
+        username.value = ""
+        password.value = ""
+        }
+    }
+    try{
+        document.getElementById('userSesion').textContent = datossesionGuardado.username
+    }catch(error){
+        console.log(error)
+    }
+    
+    function cerrarSesion(){
+   
+        datalogin = {
+        username: '',
+        password: ''
+        }
+            var obtParaLocalStorage = JSON.stringify(datalogin)
+            var nombreVarLocalStorage = "login" 
+            actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage) 
+
+        window.location = "index.html";
+    
+    }
+
+try{ 
+    
+    // if(datossesion != null){
+    //     username.value = datossesion.username
+    //     password.value = datossesion.password
+    // }else{
+    //     username.value = ""
+    //     password.value = ""
+    // }
+
+    // //form para simular login y para guardar los datos del usuario en el locastorage
+    // button.addEventListener('click', (e) => {
+    //     e.preventDefault()
+    //     const datalogin = {
+    //         username: username.value,
+    //         password: password.value
+    //     }
+    //     // esto es una comparación entre lo guardado y el formulario.
+    //     if(username.value === datossesion.username & password.value === datossesion.password){
+    //         // var obtParaLocalStorage = JSON.stringify(datalogin)
+    //         // var nombreVarLocalStorage = "login" 
+    //         // actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)   
+
+    //     } else {
+    //         alert("Los datos son incorrectos")
+    //         formLogin.reset() //limpia el form login
+    //     }
+    // })
 
     var formCrearUser = document.getElementsByName("formCrearUser")
     var buttonCrearUser = document.getElementById("crear")
@@ -100,190 +153,327 @@ try{
 
  //formulario para REGISTRAR DATOS DE USUARIO. GUARDA LOS DATOS VALIDA Y ENTRA A AL INDEX TABLERO
 
-     buttonCrearUser.addEventListener('click', (e) => {
-         //validaciones de campos del form registro de usuarios.
-         if(formCrearUser.userApellido.value == 0 ){
-             alert("El campo Apellido es obligatorio")
-         }else if (formCrearUser.userNombre.value == 0){
-             alert("El campo Nombre es obligatorio")
-         }else if (formCrearUser.userEmail.value == 0){
-             alert("El campo Email es obligatorio")
-         }else if (formCrearUser.userTelefono.value == 0){
-             alert("El campo Teléfono es obligatorio")
-         }else if(formCrearUser.userClave.value == 0){
-             alert("El campo Clave es obligatorio")
-         }else if (formCrearUser.userClave.value != formCrearUser.userRClave.value ){
-             alert("las claves deben coincidir")
-         }else{
+/// CREAR FUNCION REGISTRARUSUARIO
 
-         e.preventDefault()
-         const dataUserNNuevo = {
-            id: Date.now(),
-            apellido: formCrearUser.userApellido.value,
-            nombre: formCrearUser.userNombre.value,
-            mail: formCrearUser.userEmail.value,
-            telefono: formCrearUser.userTelefono.value,
-            username: formCrearUser.userEmail.value,
-            password: formCrearUser.userClave.value,
-            color: '#77aaff',
-            tipoUser: 'MIEMBRX'
-             
-         }
+function creaUser(){ 
+    const userApellido = document.getElementById('userApellido')
+    const userNombre = document.getElementById('userNombre')
+    const userEmail = document.getElementById('userEmail')
+    const userTelefono = document.getElementById('userTelefono')
+    const userClave = document.getElementById('userClave')
+    const userRClave = document.getElementById('userRClave')
 
-         users.push(dataUserNuevo)
+    //validaciones de campos del form registro de usuarios.
+    if(userApellido.value == 0 ){
+        alert("El campo Apellido es obligatorio")
+    }else if (userNombre.value == 0){
+        alert("El campo Nombre es obligatorio")
+    }else if (userEmail.value == 0){
+        alert("El campo Email es obligatorio")
+    }else if (userTelefono.value == 0){
+        alert("El campo Teléfono es obligatorio")
+    }else if(userClave.value == 0){
+        alert("El campo Clave es obligatorio")
+    }else if (userClave.value != userRClave.value ){
+        alert("las claves deben coincidir")
+    }else{
 
-         var obtParaLocalStorage = JSON.stringify(users)
-         var nombreVarLocalStorage = "users" 
-         actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
+    const dataUserNuevo = {
+    id: Date.now(),
+    apellido: userApellido.value,
+    nombre: userNombre.value,
+    mail: userEmail.value,
+    telefono: userTelefono.value,
+    username: userEmail.value,
+    password: userClave.value,
+    color: '#77aaff',
+    tipoUser: 'ADMINISTRADXR'
+    }
 
-         const datalogin = {
-             username: dataUserNuevo.username,
-             password: dataUserNuevo.password
-         }
-         var obtParaLocalStorage = JSON.stringify(datalogin)
-         var nombreVarLocalStorage = "login" 
-         actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
+    users.push(dataUserNuevo)
 
-         
-         alert("Los datos fueron guardados con éxito, ya puedés ingresar a Lilo, bienvenido!!"+
-         "\nGuardá tus tus datos de ingreso:\nUsuario: "+
-         formCrearUser.userEmail.value+",\nPassword:"+formCrearUser.userClave.value)
+    var obtParaLocalStorage = JSON.stringify(users)
+    var nombreVarLocalStorage = "users" 
+    actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
 
-         formCrearUser.reset() // limpia el form
-         window.location = "index-tableros.html";
-         
-         // console.log(users)
-         }
-     })
+    datalogin = {
+        username: dataUserNuevo.username,
+        password: dataUserNuevo.password
+    }
+    var obtParaLocalStorage = JSON.stringify(datalogin)
+    var nombreVarLocalStorage = "login" 
+    actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
+
+    
+    alert("Los datos fueron guardados con éxito, ya puedés ingresar a Lilo, bienvenido!!"+
+    "\nGuardá tus tus datos de ingreso:\nUsuario: "+
+    userEmail.value+",\nPassword:"+userClave.value)
+
+    //limpia el form
+    userApellido.value = ''
+    userNombre.value = ''
+    userEmail.value = ''
+    userTelefono.value = ''
+    userEmail.value = ''
+    userClave.value = ''
+    noEliminar() // cierra el modal
+
+    // document.getElementById('userSesion').innerHTML = datossesion.username
+    // formCrearUser.reset() // limpia el form (solo sirve si es un addEventListener)
+    window.location = "index-tableros.html";
+    }
+}
 
 }catch (error){
-        console.log ("No se Obtubieron datos de usuario del localStorage. No se cargó el fomr Login")
+        console.log ("No se Obtubieron datos de usuario del localStorage. No se cargó el fomr Login" + error)
 }
+
 
 ////////// FIN LOGIN ////////////
-
-try{
-    //boton para cerrar el modal
-    const btnCerrarModalGenerico = document.querySelector(".cerrar-modal-generico")
-    btnCerrarModalGenerico.addEventListener("click",()=>{
-        modalGenerico.close()
-    })
-} catch (error){
-    console.log("no se escucha el modal")
-}
 
 
 
 /////////// TABLEROS ////////////
 
 //obtiene las tareas y los tableros guardados
-var tableroStorage = localStorage.getItem('tableros')
+let tableroStorage = localStorage.getItem('tablerosHtml')
 
 try{ 
-    //cheque si hay tableroStorage guardados en el localstorage
+
+    // document.getElementById('userSesion').innerHTML = `<i class="fa-solid fa-user"></i>${datossesion.username}`
+    //cheque si hay tableros html no objetos guardados en el localstorage
     if(tableroStorage === null){
         console.log("no hay tableros guardados")
     }else{
         document.getElementById('tableros').innerHTML = tableroStorage
-        
-        //ESTO ESCUCHA EL CLICK CUANDO SE ELIGE EL TABLERO
-        clickTabs()
 
     }
 }catch(error){
     console.log('En esta página no se cargan los tableros')
 }
 
-
-var nombreTablero
-
 try {
 /// CREAR TABLEROS //////
+clickTabs()
+const tablerosGuardados = []
+const dataTableroNuevo = {
+    id: '',
+    color: '',
+    titulo: ''   
+}
 
-
-
+let editandoTableros = false
 
 var formAgregarTablero = document.querySelector('#formAgregarTablero')
-
+var formTableroNombre = document.getElementById('formTableroNombre')
+var formTableroColor = document.getElementById('formTableroColor')
 var elementoTabsBody = document.querySelector('#tabs_body_id') 
 var elemetoTabsHead = document.querySelector('#tabs_head_id')
-var btnFormAgregarTablero = document.querySelector('#btnAddTablero')
+// var btnFormAgregarTablero = document.querySelector('#btnAddTablero')
 
-    btnFormAgregarTablero.addEventListener('click', ()=>{
-        if(formAgregarTablero.formTableroNombre.value === ''){
-            alert('Tienes que ponerle un nombre al Tablero Nuevo')
-        }else{
-            nombreTablero = formAgregarTablero.formTableroNombre.value.trim()
-            //se crea el titulo del tablero
-            var elementoNewTabsHead = document.createElement("li")
-            elementoNewTabsHead.style.background = formAgregarTablero.formTableroColor.value
-            elementoNewTabsHead.classList.add('tabs_toggle')
-            elementoNewTabsHead.innerHTML = `${formAgregarTablero.formTableroNombre.value}<button class="delete" onclick="removeTablero(event)">X</button>`
-            elementoNewTabsHead.id = `${nombreTablero}`
-            console.log(elementoNewTabsHead)
-            elemetoTabsHead.appendChild(elementoNewTabsHead)
-            console.log(elemetoTabsHead)
-            var elementNewTabsBody = document.createElement("div")
 
-            var tableroVacio = `<div id='boardlists' class="tabs_content">
-            <div  class="board-list" > 
-            <div class="list-title">QUE HACER</div>
-            <div id='list1-${formAgregarTablero.formTableroNombre.value.trim()}'> <!--en este div se cargan las tareas nuevas -->
-            </div>
-            </div>
-            <div id='list2-${formAgregarTablero.formTableroNombre.value.trim()}' class="board-list">  
-            <div class="list-title">HACIENDO</div> 
-            </div>
-            <div id='list3-${formAgregarTablero.formTableroNombre.value.trim()}' class="board-list"> 
-            <div class="list-title">HECHO</div></div></div>`
+function addTablero(){
 
-            elementNewTabsBody.innerHTML = tableroVacio
-            elementoTabsBody.appendChild(elementNewTabsBody)
-            formAgregarTablero.reset()
+    if(formTableroNombre.value === ''){
+        alert('Tienes que ponerle un nombre al Tablero Nuevo')
+        return  
 
-            var obtParaLocalStorage = document.getElementById("tableros").innerHTML
-            var nombreVarLocalStorage = 'tableros' 
-            actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
+    }else if(editandoTableros){
+        dataTableroNuevo.titulo = formTableroNombre.value.toUpperCase()
+        dataTableroNuevo.color = formTableroColor.value
 
-            clickTabs()
+        var tableroTituloEditado = document.getElementById('t-'+dataTableroNuevo.id)
+        tableroTituloEditado.style.background =  dataTableroNuevo.color
+        tableroTituloEditado.textContent = dataTableroNuevo.titulo
+    
+        // //agregar boton editar al titulo del tablero
+        // const btnEditar = document.createElement('button')
+        // btnEditar.onclick = () => cargarTablero(dataTableroNuevo)
+        // btnEditar.innerHTML = `<i class="fa-solid fa-pen-to-square"></i>`
+        // btnEditar.classList.add('btn-editar')
+        // tableroTituloEditado.append(btnEditar)
+        
+        //agregar boton eliminar al titulo del tablero
+        const btnEliminar = document.createElement('button')
+        btnEliminar.onclick = () => eliminarTablero(dataTableroNuevo.id)
+        btnEliminar.innerHTML = `<i class="fa-solid fa-xmark"></i>`
+        btnEliminar.classList.add('btn-editar')
+        tableroTituloEditado.append(btnEliminar)
 
-        }
-    })
+        var tableroContenidoEditado =  document.getElementById('c-'+dataTableroNuevo.id)
+        tableroContenidoEditado.style.background = dataTableroNuevo.color
+        
+        var obtParaLocalStorage = document.getElementById("tableros").innerHTML
+        var nombreVarLocalStorage = 'tablerosHtml' 
+        actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
 
-}catch(error){
-console.log('no se actualizaó tableros')
+        formAgregarTablero.reset()
+        //manda al formulario agregar tareas/nombre de tableros, el nombre nuevo del tablero que se acaba de editar
+        document.querySelector('#tableroNombre').textContent = nombreTablero
+        
+        btnFormAgregarTablero.textContent = "Agregar"
+        clickTabs()
+        editandoTableros = false
+    }else{
+         //CREAR UN TABLERO
+         dataTableroNuevo.id= Date.now(),
+         dataTableroNuevo.titulo = formTableroNombre.value.toUpperCase(),
+         dataTableroNuevo.color = formTableroColor.value.toUpperCase()
 
+         //se crea el elemento Titulo del tablero y agrego: clase tabs_toggle, agrego id, color y titulo
+         var elementoNewTabsHead = document.createElement("li")
+         elementoNewTabsHead.style.background = dataTableroNuevo.color
+         elementoNewTabsHead.classList.add('tabs_toggle')
+         elementoNewTabsHead.textContent = dataTableroNuevo.titulo
+         elementoNewTabsHead.id = 't-'+dataTableroNuevo.id
+
+         // //al titulo agrego dos botones, editar y elminar
+         // const btnEditar = document.createElement('button')
+         // btnEditar.onclick = () => cargarTablero(dataTableroNuevo)
+         // btnEditar.innerHTML = `<i class="fa-solid fa-pen-to-square"></i>`
+         // btnEditar.classList.add('btn-editar')
+         // elementoNewTabsHead.append(btnEditar)
+         
+         const btnEliminar = document.createElement('button')
+         btnEliminar.onclick = () => eliminarTablero(dataTableroNuevo.id)
+         btnEliminar.innerHTML = `<i class="fa-solid fa-xmark"></i>`
+         btnEliminar.classList.add('btn-editar')
+         elementoNewTabsHead.append(btnEliminar)
+         
+         //creo el elemento cuerpo de tablero
+         var elementNewTabsBody = document.createElement("div")
+         elementoTabsBody.style.background = dataTableroNuevo.color
+         elementNewTabsBody.classList.add('tabs_content')
+         elementNewTabsBody.id = 'c-'+dataTableroNuevo.id
+
+         var tableroVacio = `
+         <div  class="board-list" > 
+         <div class="list-title">QUE HACER</div>
+         <div id='list1-${dataTableroNuevo.titulo}'>
+         </div>
+         </div>
+         <div id='list2-${dataTableroNuevo.titulo}' class="board-list">  
+         <div class="list-title">HACIENDO</div> 
+         </div>
+         <div id='list3-${dataTableroNuevo.titulo}' class="board-list"> 
+         <div class="list-title">HECHO</div></div>`
+
+         elementNewTabsBody.innerHTML = tableroVacio
+     
+         elemetoTabsHead.appendChild(elementoNewTabsHead)
+         elementoTabsBody.appendChild(elementNewTabsBody)
+
+         // En el formulario de tareas agrego el titulo del tablero recien creado al div titulo de tablero
+         document.querySelector('#tableroNombre').textContent = dataTableroNuevo.titulo
+
+         var obtParaLocalStorage = document.getElementById("tableros").innerHTML
+         var nombreVarLocalStorage = 'tablerosHtml' 
+         actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
+
+        clickTabs()
+
+         formAgregarTablero.reset()
+         editandoTableros = false
+          limpiarObjTablero()
+    }
 
 }
-    function removeTablero(event) {
 
-        console.log(event.target.parentElement.id)
-   
-        document.querySelector("#modal-generico").innerHTML = 
-        `<div>
-        <p>¿Estás seguro que querés eliminar el tablero?</p>
-        <button type="button" id="siEliminarTablero">Eliminar</button>
-        <button type="button" id="noEliminaTablero">NO</button>
-        </div>`
+
+    function  clickTabs(){
+        //hay que volver a cargar el array de elementos con las mismas clases
+        let tabs = document.querySelectorAll('.tabs_toggle'),
+         contents = document.querySelectorAll('.tabs_content');
+        
+        tabs.forEach((tab, index) => { 
+        tab.addEventListener('click',  () => { 
+        contents.forEach( (content) => {
+            content.classList.remove( 'is-active'); 
+        }); 
+        tabs.forEach((tab) => {
+            tab.classList.remove('is-active');
+        });
+        contents[index].classList.add('is-active'); 
+        tabs[index].classList.add('is-active');
+        var esto = tabs[index].style.background
+        console.log(esto)
+        console.log(tabs)
+        console.log(contents)
+        contents[index].style.background = esto
+
+        //para obtener el nombre del tablero
+        document.querySelector('#tableroNombre').textContent = tabs[index].textContent
+        // console.log(nombreTablero)
+
+        var obtParaLocalStorage = document.getElementById("tableros").innerHTML
+        var nombreVarLocalStorage = 'tablerosHtml' 
+        actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
+    });
+    });            
+     }
+
+        //esta función no se está usando por el momento.
+    function agregarTablero(){
+        tablerosGuardados.push({...dataTableroNuevo})
+        var obtParaLocalStorage = JSON.stringify(tablerosGuardados)
+        var nombreVarLocalStorage = "tablerosObj" 
+        actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
+    }
+
+    function limpiarObjTablero(){
+        dataTableroNuevo.titulo = ''
+        dataTableroNuevo.color = ''
+    }
+
+    function cargarTablero(dataTableroNuevo){
+        const {id,titulo, color} = dataTableroNuevo
+
+        formAgregarTablero.formTableroNombre.value = titulo
+        formAgregarTablero.formTableroColor.value = color
+
+        dataTableroNuevo.id = id
+
+        btnFormAgregarTablero.textContent = "Actualizar"
+
+        editandoTableros = true
+
+
+    }
+
+    function eliminarTablero(id){
+        console.log(id)
+        document.querySelector("#modal-generico-contenido").innerHTML = `<div><p>¿Estás seguro que querés eliminar este Tablero? recordá que se elminaran las tareas que tengas cargadas en el.</p><button type="button" onclick="siEliminarTablero(${id})">Eliminar</button><button type="button" class= "cerrar-modal-generico"  onclick="noEliminarTablero()">NO</button></div>`
         document.querySelector("#modal-generico").showModal()
-        document.querySelector("#siEliminarTablero").addEventListener('click',()=>{
+        
+    }
+    
+    function noEliminarTablero(){
+        modalGenerico.close()
+    }
+    
+    function siEliminarTablero(id){
+            document.getElementById('t-'+id).remove()
+            document.getElementById('c-'+id).remove()
             
-            ///ACA ESTAS ELIMINANDO SOLO EL TITULO DEL TABLERO, TE FALTA ELMINAR EL CUERPO
-            event.target.parentElement.remove()
-            document.querySelector('.is-active').remove()
             modalGenerico.close()
 
             //actualiza el objeto tableros que está en el localstorage
             var obtParaLocalStorage = document.getElementById("tableros").innerHTML
-            var nombreVarLocalStorage = 'tableros' 
+            var nombreVarLocalStorage = 'tablerosHtml' 
             actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
+            
+            tabs = document.querySelectorAll('.tabs_toggle'),
+            contents = document.querySelectorAll('.tabs_content');
 
-            clickTabs()
-        })
-        document.querySelector("#noEliminaTablero").addEventListener('click',()=>{
-            modalGenerico.close()
-        })
+            document.querySelector('#tableroNombre').textContent = ''
+            formAgregarTablero.reset()
     }
+
+}catch(error){
+console.log('no se actualizaó tableros' + error)
+}
+
+   
 
 /////////// FIN TABLEROS //////////////
 
@@ -300,87 +490,82 @@ console.log('no se actualizaó tableros')
 
     var usuariosGuardados = JSON.parse(localStorage.getItem('users'))
 
-    try{
-        // carga los usuarios registrados guardados en el local storage en el form de AGREGAR tareas
-        for (let userOpcion of usuariosGuardados){
-            var option = document.createElement("option")
-            option.value = userOpcion.username
-            option.innerHTML = `${userOpcion.username}` 
-            // console.log(option)
-            document.getElementById("formAgregarTareaUsuario").appendChild(option)
-            }
-        // carga los usuarios registrados guardados en el local storage en el form de EDITAR tareas
-        for (let userOpcion of usuariosGuardados){
-            var option = document.createElement("option")
-            option.value = userOpcion.username
-            option.innerHTML = `${userOpcion.username}` 
-            // console.log(option)
-            document.getElementById("formEditarUsuario").appendChild(option)
-            }
-        } catch(error){
-            console.log('en html usuarios no se carga')
+try{
+    // carga los usuarios registrados guardados en el local storage en el form de AGREGAR tareas
+    for (let userOpcion of usuariosGuardados){
+        var option = document.createElement("option")
+        option.value = userOpcion.username
+        option.innerHTML = `${userOpcion.username}` 
+        // console.log(option)
+        document.getElementById("formAgregarTareaUsuario").appendChild(option)
         }
+    // carga los usuarios registrados guardados en el local storage en el form de EDITAR tareas
+    for (let userOpcion of usuariosGuardados){
+        var option = document.createElement("option")
+        option.value = userOpcion.username
+        option.innerHTML = `${userOpcion.username}` 
+        // console.log(option)
+        document.getElementById("formEditarUsuario").appendChild(option)
+        }
+} catch(error){
+    console.log('en html usuarios no se carga')
+}
 
+// PARA AGREGAR TAREAS NUEVAS
+try{
+    const $form = document.getElementById("formAgregarTarea")
+    
+    const $btnAdd = document.getElementById("btnAddTarea")
+    // console.log(nombreTablero)
+    $btnAdd.addEventListener("click", (event) => {
+        // const tableroNombre = document.getElementById('tableroNombre').value
+        // console.log(nombreTablero)
+        var nombreTablero =  document.querySelector('#tableroNombre').textContent
+        const $divElements = document.getElementById("list1-"+nombreTablero)
+        if($form.formAgregarTareaUsuario.value === '' && $form.formAgregarTareaDescripcion.value.trim() === ''){ 
+            alert("Para agregar una Tarea tenés que completar todos los campos")
+        }else if($divElements === null){
+            alert("No has elegido un tablero. Para elegirlo hace click en el nombre del tablero.")
+        }else{
 
+            let colorUser
+            var users = JSON.parse(localStorage.getItem("users"))
+            // console.log($form.formAgregarTareaUsuario.value)
 
-    // PARA AGREGAR TAREAS NUEVAS
-    try{
-        const $form = document.getElementById("formAgregarTarea")
-       
-        // const $btnSave = document.getElementById("btnSave")
-        const $btnAdd = document.getElementById("btnAddTarea")
-        
-        $btnAdd.addEventListener("click", (event) => {
-            // const tableroNombre = document.getElementById('tableroNombre').value
-            console.log(nombreTablero)
-            nombreTablero =  document.querySelector('#tableroNombre').textContent
-            const $divElements = document.getElementById("list1-"+nombreTablero)
-            if($form.formAgregarTareaUsuario.value === '' && $form.formAgregarTareaDescripcion.value.trim() === ''){ 
-                alert("Para agregar una Tarea tenés que completar todos los campos")
-            }else if($divElements === null){
-                alert("No has elegido un tablero. Para elegirlo hace click en el nombre del tablero.")
-            }else{
+            users.map( usuario => {
+                if( usuario.mail === $form.formAgregarTareaUsuario.value){
+                    console.log(usuario.color)
+                        colorUser =  usuario.color
+                }
+            })
+            
+            // console.log($divElements)
+            const $div = document.createElement("div")
+            $div.classList.add("card")
+            $div.style.background = colorUser
+            $div.id = "c"+Date.now()
+            $div.draggable = true
+            $div.innerHTML =
+                `<div id="priodidad"><i class="fa-regular fa-clipboard"></i>-<strong>${$form.formAgregarTareaTipoPrioridad.value}</strong></div> 
+                <div id="user"><i class="fa-solid fa-user"></i>-${$form.formAgregarTareaUsuario.value}</div>
+                <div id="tarea"><i class="fa-solid fa-thumbtack">-</i>${$form.formAgregarTareaDescripcion.value.trim()}</div>
+                <button type="button" class="delete" onclick= "editarTarea(event)">Editar</button>
+            <button class="delete" onclick="removeElement(event)">X</button>`    
+            $divElements.appendChild($div, $divElements.firstChild)
+            document.getElementById("tituloformTarea").textContent = 'AGREGAR TAREA'
+            $form.reset()
 
-                let colorUser
-                var users = JSON.parse(localStorage.getItem("users"))
-                console.log($form.formAgregarTareaUsuario.value)
+            var obtParaLocalStorage = document.getElementById("tableros").innerHTML
+            var nombreVarLocalStorage = 'tablerosHtml' 
+            actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
+            console.log('guardado tableros en localStorage')
+        }
+    
+})
 
-                users.map( usuario => {
-                    if( usuario.mail === $form.formAgregarTareaUsuario.value){
-                        console.log(usuario.color)
-                         colorUser =  usuario.color
-                    }
-                })
-                
-                
-                
-                console.log($divElements)
-                const $div = document.createElement("div")
-                $div.classList.add("card")
-                $div.style.background = colorUser
-                $div.id = "c"+Date.now()
-                $div.draggable = true
-                $div.innerHTML =
-                    `<div id="priodidad"><i class="fa-regular fa-clipboard"></i>-<strong>${$form.formAgregarTareaTipoPrioridad.value}</strong></div> 
-                    <div id="user"><i class="fa-solid fa-user"></i>-${$form.formAgregarTareaUsuario.value}</div>
-                    <div id="tarea"><i class="fa-solid fa-thumbtack">-</i>${$form.formAgregarTareaDescripcion.value.trim()}</div>
-                    <button type="button" class="delete" onclick= "editarTarea(event)">Editar</button>
-                <button class="delete" onclick="removeElement(event)">X</button>`    
-                $divElements.appendChild($div, $divElements.firstChild)
-                document.getElementById("tituloformTarea").textContent = 'AGREGAR TAREA'
-                $form.reset()
-
-                var obtParaLocalStorage = document.getElementById("tableros").innerHTML
-                var nombreVarLocalStorage = 'tableros' 
-                actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
-                console.log('guardado tableros en localStorage')
-            }
-        
-    })
-
-    }catch (error){
-    console.log('no se cargaron eventos del formulario de tareas nuevas')
-    }
+}catch (error){
+console.log('no se cargaron eventos del formulario de tareas nuevas' + error)
+}
 
 
     //FUNCION PARA AVISAR QUE SE ESTá POR ELMINAR TAREAS Y FUNCION PARA ELIMINAR TAREAS
@@ -390,8 +575,10 @@ console.log('no se actualizaó tableros')
         document.querySelector("#modal-generico").innerHTML = 
         `<div>
         <p>¿Estás seguro que querés eliminar la tarea?</p>
+        <div class="modal-footer">
         <button type="button" id="siEliminar">Eliminar</button>
-        <button type="button" id="noEliminar">NO</button>
+    <button type="button" class="btn btn-secondary"  onclick = "noEliminar()">Cerrar</button>
+</div>
         </div>`
         document.querySelector("#modal-generico").showModal()
         document.querySelector("#siEliminar").addEventListener('click',()=>{
@@ -399,19 +586,19 @@ console.log('no se actualizaó tableros')
             modalGenerico.close()
             //actualiza el objeto tableros que está en el localstorage
             var obtParaLocalStorage = document.getElementById("tableros").innerHTML
-            var nombreVarLocalStorage = 'tableros' 
+            var nombreVarLocalStorage = 'tablerosHtml' 
             actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
         })
-        document.querySelector("#noEliminar").addEventListener('click',()=>{
-            modalGenerico.close()
-        })
+        // document.querySelector("#noEliminar").addEventListener('click',()=>{
+        //     modalGenerico.close()
+        // })
     }
 
     try {
         // Función para editar tareas cargadas en los tableros.
         function editarTarea(event){
         // const editarTarea = document.querySelector('#editarTarea').addEventListener("click", (event) =>{
-            // console.log(event.target.parentElement.querySelector("#tarea").textContent)
+            console.log(event.target.parentElement.querySelector("#tarea").textContent)
             var datoPrioridad = event.target.parentElement.querySelector("#priodidad").textContent
             var datoUsuario = event.target.parentElement.querySelector("#user").textContent
             var datoTarea = event.target.parentElement.querySelector("#tarea").textContent.trim()
@@ -435,7 +622,9 @@ console.log('no se actualizaó tableros')
             // document.querySelector("#modal-formEditarTarea").close()
 
             //})
-
+            var obtParaLocalStorage = document.getElementById("tableros").innerHTML
+            var nombreVarLocalStorage = 'tablerosHtml' 
+            actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
 
 
         }
@@ -478,7 +667,7 @@ console.log('no se actualizaó tableros')
         var data = event.dataTransfer.getData("Text");
         event.target.appendChild(document.getElementById(data));
         var tableros = document.getElementById("tableros").innerHTML
-                localStorage.setItem('tableros', tableros)
+                localStorage.setItem('tablerosHtml', tableros)
                 // console.log(tableros)
         // para guardar en el localstorage lo que el usuario está trabajando.
         }
@@ -663,11 +852,7 @@ function eliminarUser(id){
     document.querySelector("#modal-generico").showModal()
 }
 
-function noEliminar(){
 
-    modalGenerico.close()
-
-}
 
 // noEliminar
 
@@ -685,9 +870,6 @@ function siEliminar(id){
 }
 
 
-
-
-
 function limpiarHTML() {
     const $divElements = document.querySelector(".listaUsers")
     while( $divElements.firstChild){
@@ -695,9 +877,7 @@ function limpiarHTML() {
     }
     
 }
-               
-
-
+            
 
         // $btnSave.addEventListener("click", (event) =>{
         //     parameters = parameters.filter(el => el != null)
@@ -716,11 +896,208 @@ function limpiarHTML() {
 
 /////////// FIN USUARIOS ///////////
 
+/////////// MODAL PERFIL ///////////
 
-// el modal
-const modalGenerico = document.querySelector("#modal-generico")
-const modalGenericoContenido = document.querySelector("#modal-generico-contenido")
 
+const modalPerfil = 
+`<div>
+<h5>TU PERFIL</h5>
+<div>
+    <div>
+        <label><strong>ID User</strong></label>
+        <div id="userIdPerfil"></div>
+    </div>
+    <div>
+        <label><strong>Tipo de Usuario</strong></label>
+        <div id="userTipoPerfil"></div>
+    </div>
+    <div>
+        <label><strong>Apellido</strong></label>
+        <div id="userApellidoPerfil"></div>
+    </div>
+    <div>
+        <label><strong>Nombre</strong></label>
+        <div id="userNombrePerfil"></div>
+    </div>
+    <div>
+        <label><strong>E-mail</strong></label>
+        <div id="userEmailPerfil"></div>
+    </div>
+    <div>
+        <label><strong>Telefono</strong></label>
+        <div id="userTelefonoPerfil"></div>
+    </div>
+    <div>
+        <label><strong>Pass</strong></label>
+        <div id="userClavePerfil"></div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary"  onclick = "noEliminar()">cerrar</button>
+    <button type="button"  onclick = "creaUser()" class="btn btn-primary">Editar mis datos</button>
+    <button type="button" class="btn btn-secondary"onclick = "cerrarSesion()" ><i class="fa-solid fa-right-from-bracket"></i></button>
+</div>
+</div>`
+
+
+
+
+/////////// FIN MODAL PERFIL ///////////
+
+
+
+//////////// FORMULARIO REGISTRARSE////////
+
+
+
+const modalRegistrarUsuario = ` 
+<div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h3 class="modal-title fs-5" id="exampleModalLabel">Crear Usuario</h3>
+        <spam>Completar todos los campos.</spam>
+    </div>
+    <div class="modal-body">
+        <form name = "formCrearUser" id="crearUser">
+        <div class="mb-3">
+            <label for="userApellido" class="col-form-label">Apellido:</label>
+            <input type="text"  class="form-control"  name="userApellido" placeholder="Escribe tu Apellido" id="userApellido">
+        </div>
+        <div class="mb-3">
+            <label for="userNombre" class="col-form-label">Nombres:</label>
+            <input type="text" class="form-control"  name="userNombre" placeholder="Escribe tu/s Nombres" id="userNombre">
+        </div>
+        <div class="mb-3">
+            <label for="userEmail" class="col-form-label">E-mail:</label>
+            <input type="email" class="form-control" name="userEmail" placeholder="Escribe tu E-mail" id="userEmail">
+        </div>
+        <div class="mb-3">
+            <label for="userTelefono" class="col-form-label">Telefono:</label>
+            <input type="text" max="10" min="10" class="form-control"  name="userTelefono" placeholder="Escribe tu telefono" id="userTelefono">
+        </div>
+        <div class="mb-3">
+            <label for="userClave" class="col-form-label">Clave:</label>
+            <input type="password" class="form-control" name="userClave" placeholder="Escribe tu clave" id="userClave">
+        </div>
+        <div class="mb-3">
+            <label for="userRClave" class="col-form-label">Repetir Clave:</label>
+            <input type="password" class="form-control"  name="userRClave" placeholder="Escribe tu clave" id="userRClave">
+        </div>
+    </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"  onclick = "noEliminar()">Cerrar</button>
+        <button type="button"  onclick = "creaUser()" class="btn btn-primary">Crear Usuario</button>
+    </div>
+
+    </div>
+</div>
+`
+
+
+
+const modalOlvidasteClave = `<div class="modal-dialog">
+<div class="mb-3">
+<h2 class="col-form-label">
+    SERVICIO INHABILITADO TEMPORALMENTE
+</h2>
+    <div class="col-form-label" >
+        Por el momento esta web no está conectado a un servicio de mail. Si no recuedas tu datos te invitamos a que generes un nuevo usuario.  
+    </div> 
+</div>
+<div class="modal-footer">
+        <button type="button" class="btn btn-secondary"  onclick = "noEliminar()">Cerrar</button>
+    </div>   
+</div>`
+
+
+const modalQueEs = `
+
+<p>
+                        El objetivo de la Lilo es facilitar el seguimiento de las tareas que realizan los miembros de un equipo de trabajo y dinamizar el flujo de trabajo.
+                    </p>
+                    <p>
+                        Está basado en el método de Kanban, en donde las tareas se agrupan en tres grandes estados: que hacer, haciendo, hecho; permitiendo al equipo visualizar gráficamente como la posición actual del proyecto, viendo cuales son las tareas pendientes, las que se están realizando y las que ya han sido concluidas ; el sistema busca optimizar el rendimiento del tiempo.
+                    </p>
+                    <p>
+
+<div>
+<p>Mirá el video para ver en acción a Lilo. </p> 
+</div>
+<div>
+<video width="300" height="200" controls>
+    <source src="IMG/como-agregar-mover-tareas.mov">
+</video>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary"  onclick = "noEliminar()">Cerrar</button>
+</div>
+</div>
+
+`
+// const btnAbrirModalPerfil = document.querySelector("#userSesion")
+// btnAbrirModalPerfil.addEventListener("click",()=>{
+   
+// })
+
+
+function abrilModal(){
+    
+    modalGenericoContenido.innerHTML = modalPerfil
+    modalGenerico.showModal()
+    mostrarperfil()
+    
+}
+
+function mostrarperfil(){
+
+    //obtener todos los datos del usuario sacandolos de 
+    console.log(users)
+    console.log("-"+document.getElementById('userSesion').textContent+"-")
+    users.map( usuario => {
+        if( usuario.username === document.getElementById('userSesion').textContent  ){
+            document.getElementById("userIdPerfil").innerHTML = usuario.id
+            document.getElementById("userTipoPerfil").innerHTML = usuario.tipoUser
+            document.getElementById("userApellidoPerfil").innerHTML = usuario.apellido
+    document.getElementById("userNombrePerfil").innerHTML = usuario.nombre
+    document.getElementById("userEmailPerfil").innerHTML = usuario.mail
+    document.getElementById("userTelefonoPerfil").innerHTML = usuario.telefono
+    document.getElementById("userClavePerfil").innerHTML = usuario.password
+        }
+    })
+}
+
+try{
+
+
+    // abre modalRegistrarUsuario
+    const btnAbrirModalRU = document.querySelector("#btn-abrir-modal-RegistroUsuario")
+    btnAbrirModalRU.addEventListener("click",()=>{
+        modalGenericoContenido.innerHTML = modalRegistrarUsuario
+        modalGenerico.showModal()
+    })
+    // abre modal Olvide clave 
+    const btnAbrirModalOU = document.querySelector("#btn-abrir-modal-OlvidasteUsuario")
+    btnAbrirModalOU.addEventListener("click",()=>{
+        modalGenericoContenido.innerHTML = modalOlvidasteClave
+        modalGenerico.showModal()
+    })
+    // abre modal que es lilo
+    const btnAbrirModalQE = document.querySelector("#btn-abrir-modal-QueEs")
+    btnAbrirModalQE.addEventListener("click",()=>{
+        modalGenericoContenido.innerHTML = modalQueEs
+        modalGenerico.showModal()
+    })
+
+ 
+
+
+}catch(error){
+    console.log('no se escucha el Registrar Usuario/Olvidaste clave/que es lilo' + error)
+}
+
+
+
+////////// FIN FORMULARIO REGISTRARSE////////
 
 ////////////////// AGRADECIMIENTOS ////////////////
 
@@ -765,22 +1142,22 @@ const modalGenericoContenido = document.querySelector("#modal-generico-contenido
     </a>
     </div>
 
-    <div>
-
+    <div class="modal-footer">
+    <button type="button" class="btn btn-secondary"  onclick = "noEliminar()">Cerrar</button>
     </div>
     `
 
-    try{
+try{
 
-        btnAbrirModal = document.querySelector("#btn-abrir-modal-gracias")
-        btnAbrirModal.addEventListener("click",()=>{
-            modalGenericoContenido.innerHTML = ventanaGracias
-            modalGenerico.showModal()
-        })
+    btnAbrirModalGracias = document.querySelector("#btn-abrir-modal-gracias")
+    btnAbrirModalGracias.addEventListener("click",()=>{
+        modalGenericoContenido.innerHTML = ventanaGracias
+        modalGenerico.showModal()
+    })
 
-    }catch(error){
-        console.log('no se escucha el modal gracias')
-    }
+}catch(error){
+    console.log('no se escucha el modal gracias')
+}
 
 ////////////////// FIN  AGRADECIMIENTOS ////////////////
 
@@ -793,13 +1170,6 @@ try{
     })
 
    
-
-// Ejemplo
-// const btnAbrirModalAyuda = document.querySelector("#btn-abrir-modal-ayuda")
-// btnAbrirModalAyuda.addEventListener("click",()=>{
-//     modalGenericoContenido.innerHTML = ventanaAyuda
-//     modalGenerico.showModal()
-// })
 } catch (error){
     console.log("esto se deberia cargr en html tablero / usuarios / configuracion / ayuda")
 }
@@ -909,10 +1279,6 @@ try{
 // }
 
 
-
-
-
-         
 // este codigo esta bueno pero no me funcióno.         
 // const newLocal = 'tareaNueva';
 // // drag and drop tareas entre columnas
