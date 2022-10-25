@@ -38,26 +38,26 @@ const button = document.getElementById("entrar")
     }
 
     //OBTENGO DATOS del login guardados en el  LocalStorage y los ubican en los input deo form login
-    var datossesionGuardado = JSON.parse(localStorage.getItem('login'))
-
-    
-    if(datossesionGuardado === null){
-        datossesionGuardado = []
-
-        alert('Para ingresar tenés que inicar Sesión')
-        window.location = "index.html"  
-
-        var obtParaLocalStorage = JSON.stringify(datalogin)
-        var nombreVarLocalStorage = "login" 
-        actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage) 
- 
-        datossesionGuardado.username = 'dos'
-        console.log("NO hay datos de login guardados en el LocalStorage")
+    var datossesionGuardado
+    if(localStorage.getItem('login')){
+        datossesionGuardado = JSON.parse(localStorage.getItem('login'))
         
-    }else{
-
         console.log("Si hay datos de login guardados en el LocalStorage")
       //  document.getElementById('userSesion').textContent = datossesionGuardado.username
+    }else{
+        datossesionGuardado = {
+            username: '',
+            password: ''
+        }
+
+        console.log("NO hay datos de login guardados en el LocalStorage")
+        alert('Para ingresar tenés que inicar sesión. Si todavia no tenés usuarios registrate.')
+        window.location = "index.html"  
+
+        var obtParaLocalStorage = JSON.stringify(datossesionGuardado)
+        var nombreVarLocalStorage = "login" 
+        actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage) 
+
     }
 
     try{
@@ -309,7 +309,7 @@ function addTablero(){
 
         formAgregarTablero.reset()
         //manda al formulario agregar tareas/nombre de tableros, el nombre nuevo del tablero que se acaba de editar
-        document.querySelector('#tableroNombre').textContent = nombreTablero
+        document.querySelector('#formTareaNombreTablero').textContent = nombreTablero
         
         btnFormAgregarTablero.textContent = "Agregar"
         clickTabs()
@@ -364,7 +364,8 @@ function addTablero(){
          elementoTabsBody.appendChild(elementNewTabsBody)
 
          // En el formulario de tareas agrego el titulo del tablero recien creado al div titulo de tablero
-         document.querySelector('#tableroNombre').textContent = dataTableroNuevo.titulo
+         console.log(dataTableroNuevo.titulo)
+         document.querySelector('#formTareaNombreTablero').textContent = dataTableroNuevo.titulo
 
          var obtParaLocalStorage = document.getElementById("tableros").innerHTML
          var nombreVarLocalStorage = 'tablerosHtml' 
@@ -401,8 +402,9 @@ function addTablero(){
         console.log(contents)
         contents[index].style.background = esto
 
-        //para obtener el nombre del tablero
-        document.querySelector('#tableroNombre').textContent = tabs[index].textContent
+        //para obtener el nombre del tablero    
+        console.log(tabs[index].textContent)
+        document.querySelector('#formTareaNombreTablero').textContent = tabs[index].textContent
         // console.log(nombreTablero)
 
         var obtParaLocalStorage = document.getElementById("tableros").innerHTML
@@ -465,7 +467,7 @@ function addTablero(){
             tabs = document.querySelectorAll('.tabs_toggle'),
             contents = document.querySelectorAll('.tabs_content');
 
-            document.querySelector('#tableroNombre').textContent = ''
+            document.querySelector('#formTareaNombreTablero').textContent = ''
             formAgregarTablero.reset()
     }
 
@@ -497,43 +499,69 @@ try{
         option.value = userOpcion.username
         option.innerHTML = `${userOpcion.username}` 
         // console.log(option)
-        document.getElementById("formAgregarTareaUsuario").appendChild(option)
+        document.getElementById("formTareaUsuario").appendChild(option)
         }
     // carga los usuarios registrados guardados en el local storage en el form de EDITAR tareas
-    for (let userOpcion of usuariosGuardados){
-        var option = document.createElement("option")
-        option.value = userOpcion.username
-        option.innerHTML = `${userOpcion.username}` 
-        // console.log(option)
-        document.getElementById("formEditarUsuario").appendChild(option)
-        }
+    // for (let userOpcion of usuariosGuardados){
+    //     var option = document.createElement("option")
+    //     option.value = userOpcion.username
+    //     option.innerHTML = `${userOpcion.username}` 
+    //     // console.log(option)
+    //     document.getElementById("formEditarUsuario").appendChild(option)
+    //     }
 } catch(error){
     console.log('en html usuarios no se carga')
 }
 
-// PARA AGREGAR TAREAS NUEVAS
+// PARA AGREGAR TAREAS NUEVAS  //tableroNombre
 try{
-    const $form = document.getElementById("formAgregarTarea")
-    
+
+    const tareas = []
+    const objTareaNueva = {
+        id: '',
+        user: '',
+        prioridad: '',
+        tablero: '',
+        descripcion:  '',
+        titulo:'',
+        estado:'',
+        // password:'',
+        // color: '',
+        // tipoUser:''   
+    }
+
+
+    const $form = document.getElementById("formAgregarTarea") 
+    const formTareaNombreTablero = document.getElementById("formTareaNombreTablero")
+    const formTareaTipoPrioridad = document.getElementById("formTareaTipoPrioridad")
+    const formTareaUsuario = document.getElementById("formTareaUsuario")
+    const formTareaDescripcion = document.getElementById("formTareaDescripcion")
     const $btnAdd = document.getElementById("btnAddTarea")
-    // console.log(nombreTablero)
-    $btnAdd.addEventListener("click", (event) => {
-        // const tableroNombre = document.getElementById('tableroNombre').value
-        // console.log(nombreTablero)
-        var nombreTablero =  document.querySelector('#tableroNombre').textContent
-        const $divElements = document.getElementById("list1-"+nombreTablero)
-        if($form.formAgregarTareaUsuario.value === '' && $form.formAgregarTareaDescripcion.value.trim() === ''){ 
+
+    function addTarea() {
+
+        const $divElements = document.getElementById("list1-"+formTareaNombreTablero.textContent)
+        if(formTareaUsuario.value === '' && formTareaDescripcion.value.trim() === ''){ 
             alert("Para agregar una Tarea tenés que completar todos los campos")
         }else if($divElements === null){
             alert("No has elegido un tablero. Para elegirlo hace click en el nombre del tablero.")
+
         }else{
+
+            objTareaNueva.id = Date.now()
+            objTareaNueva.user = formTareaUsuario.value
+            objTareaNueva.prioridad = formTareaTipoPrioridad.value
+            objTareaNueva.tablero = formTareaNombreTablero.textContent
+            objTareaNueva.descripcion = formTareaDescripcion.value
+            objTareaNueva.titulo = 'sin titulo'
+            objTareaNueva.estado = 'QUE'
 
             let colorUser
             var users = JSON.parse(localStorage.getItem("users"))
             // console.log($form.formAgregarTareaUsuario.value)
 
             users.map( usuario => {
-                if( usuario.mail === $form.formAgregarTareaUsuario.value){
+                if( usuario.mail === objTareaNueva.user){
                     console.log(usuario.color)
                         colorUser =  usuario.color
                 }
@@ -543,25 +571,49 @@ try{
             const $div = document.createElement("div")
             $div.classList.add("card")
             $div.style.background = colorUser
-            $div.id = "c"+Date.now()
+            $div.id = "c"+objTareaNueva.id
             $div.draggable = true
             $div.innerHTML =
-                `<div id="priodidad"><i class="fa-regular fa-clipboard"></i>-<strong>${$form.formAgregarTareaTipoPrioridad.value}</strong></div> 
-                <div id="user"><i class="fa-solid fa-user"></i>-${$form.formAgregarTareaUsuario.value}</div>
-                <div id="tarea"><i class="fa-solid fa-thumbtack">-</i>${$form.formAgregarTareaDescripcion.value.trim()}</div>
+                `<div id="priodidad"><i class="fa-regular fa-clipboard"></i> <strong>${objTareaNueva.prioridad}</strong></div> 
+                <div id="user"><i class="fa-solid fa-user"></i> ${objTareaNueva.user}</div>
+                <div id="tarea"><i class="fa-solid fa-thumbtack"></i> ${objTareaNueva.descripcion}</div>
                 <button type="button" class="delete" onclick= "editarTarea(event)">Editar</button>
             <button class="delete" onclick="removeElement(event)">X</button>`    
             $divElements.appendChild($div, $divElements.firstChild)
             document.getElementById("tituloformTarea").textContent = 'AGREGAR TAREA'
             $form.reset()
-
+            guardarTareaEnObjTareas()
             var obtParaLocalStorage = document.getElementById("tableros").innerHTML
             var nombreVarLocalStorage = 'tablerosHtml' 
             actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
             console.log('guardado tableros en localStorage')
         }
     
-})
+}
+
+function guardarTareaEnObjTareas(){
+    tareas.push({...objTareaNueva})
+    
+    var obtParaLocalStorage = JSON.stringify(tareas)
+    var nombreVarLocalStorage = "tareas" 
+    actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage) 
+    limpiarObjTarea()
+}
+
+function limpiarObjTarea() {
+    objTareaNueva.id = ''
+    objTareaNueva.user = ''
+    objTareaNueva.prioridad= ''
+    objTareaNueva.tablero = ''
+    objTareaNueva.descripcion =  ''
+    objTareaNueva.titulo =''
+    objTareaNueva.estado =''
+    // password:'',
+    // color: '',
+    // tipoUser:''   
+}
+
+
 
 }catch (error){
 console.log('no se cargaron eventos del formulario de tareas nuevas' + error)
@@ -597,31 +649,22 @@ console.log('no se cargaron eventos del formulario de tareas nuevas' + error)
     try {
         // Función para editar tareas cargadas en los tableros.
         function editarTarea(event){
-        // const editarTarea = document.querySelector('#editarTarea').addEventListener("click", (event) =>{
-            console.log(event.target.parentElement.querySelector("#tarea").textContent)
-            var datoPrioridad = event.target.parentElement.querySelector("#priodidad").textContent
-            var datoUsuario = event.target.parentElement.querySelector("#user").textContent
+
+            //utilizo los titulos de los div para obtener los datos concretos. esto esta mal. hay que cambiarlo.
+            console.log(event.target.parentElement.querySelector("#user").textContent)
+            var datoPrioridad = event.target.parentElement.querySelector("#priodidad").textContent.trim()
+            var datoUsuario = event.target.parentElement.querySelector("#user").textContent.trim()
             var datoTarea = event.target.parentElement.querySelector("#tarea").textContent.trim()
             //No se porque el valor viene con lo que parece el placeholder. averiguar por qué
             
-            // const datosTarea = event.target.parentElement.querySelectorAll("div")
-            document.getElementById("formAgregarTareaTipoPrioridad").value = datoPrioridad
-            document.getElementById("formAgregarTareaUsuario").value = datoUsuario
-            document.getElementById("formAgregarTareaDescripcion").value = datoTarea
+            formTareaTipoPrioridad.value = datoPrioridad
+            formTareaUsuario.value = datoUsuario
+            formTareaDescripcion.value = datoTarea
             document.getElementById("tituloformTarea").textContent = 'EDITAR TAREA'
             // document.querySelector("#modal-formEditarTarea").showModal()
 
             event.target.parentElement.remove()
 
-            // document.querySelector("#btnEdit").addEventListener('click',()=>{
-
-            // datoPrioridad = document.getElementById("formEditarTipoPrioridad").value 
-            // datoUsuario = document.getElementById("formEditarUsuario").value
-            // datoTarea = document.getElementById("descripcionEditar").value 
-            
-            // document.querySelector("#modal-formEditarTarea").close()
-
-            //})
             var obtParaLocalStorage = document.getElementById("tableros").innerHTML
             var nombreVarLocalStorage = 'tablerosHtml' 
             actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
@@ -631,18 +674,7 @@ console.log('no se cargaron eventos del formulario de tareas nuevas' + error)
     }catch(error){
         console.log('no se escucha editar tarea')
     }
-        // const btnCerrarModalGenerico = document.querySelector(".cerrar-modal-generico")
-        // btnCerrarModalGenerico.addEventListener("click",()=>{
-        //     modalGenerico.close()
-        // })
-        // console.log(event)
-    // }
-
-
-
-
-    //Para trabajar con el localstorage. esto deberia cargar lo que se guardó en el localStorage. no funciona hay que seguir intentando.
-    // const sesion =  document.getElementById('boardlists').innerHTML = JSON.parse(localStorage.getItem("list2"))
+    
     
     /////// PARA MOVER LAS TAREAS DENTRO DE LAS COLUMNAS //////////
 
@@ -696,6 +728,7 @@ console.log('no se cargaron eventos del formulario de tareas nuevas' + error)
 
     var usuariosGuardados = JSON.parse(localStorage.getItem('users'))
 
+    
     try{
         mostrarUsers()
         const dataUserNuevo = {
@@ -762,7 +795,12 @@ console.log('no se cargaron eventos del formulario de tareas nuevas' + error)
         dataUserNuevo.color = ''
         dataUserNuevo.tipoUser = ''
     }
-       
+    
+
+
+
+
+
     function mostrarUsers(){
         limpiarHTML()
         const $divElements = document.querySelector(".listaUsers")
@@ -948,8 +986,6 @@ const modalPerfil =
 
 //////////// FORMULARIO REGISTRARSE////////
 
-
-
 const modalRegistrarUsuario = ` 
 <div class="modal-dialog">
     <div class="modal-content">
@@ -993,8 +1029,6 @@ const modalRegistrarUsuario = `
     </div>
 </div>
 `
-
-
 
 const modalOlvidasteClave = `<div class="modal-dialog">
 <div class="mb-3">
@@ -1173,6 +1207,37 @@ try{
 } catch (error){
     console.log("esto se deberia cargr en html tablero / usuarios / configuracion / ayuda")
 }
+
+
+////////// FETCHH APIS //////
+
+
+
+
+
+
+
+// const options = {
+// 	method: 'GET',
+// 	headers: {
+// 		'Accept-Encoding': 'application/gzip',
+// 		'X-RapidAPI-Key': '1924364fc7mshbb7c7d33e7996b9p119422jsnecfa05721058',
+// 		'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com'
+// 	}
+// };
+
+// fetch('https://google-translate1.p.rapidapi.com/language/translate/v2/languages', options)
+// 	.then(response => response.json())
+// 	.then(response => console.log(response))
+// 	.catch(err => console.error(err));
+    
+
+
+
+
+
+///////// FIN FETCH API/////
+
 
 //////////////// CALENDARIO///////////////////
 

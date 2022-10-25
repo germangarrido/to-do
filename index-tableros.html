@@ -97,12 +97,10 @@
 
         <form action=""  class="agregarTablero-form" id="formAgregarTablero">
             <label class="label" class ="nuevatarea-titulo" >AGREGAR TABLERO</label>
-            <input type="text" placeholder="Nombre del tablero" id="formTableroNombre" name="formTableroNombre">
+            <input type="text" placeholder="Nombra el tablero" id="formTableroNombre" name="formTableroNombre">
             <input type="color" id="formTableroColor"  value= '#77aaff' name="formTableroColor">
             <button type="button" onclick="addTablero()" class="button is-danger">
-                        <span class="icon">
-                           AGREGAR <i class="fas fa-plus"></i>
-                        </span>
+                <i class="fa-solid fa-plus fa-2x"></i> 
                       </button>
         </form>
         
@@ -112,19 +110,17 @@
    
         <form action=""  class="agregarTarea-form" id="formAgregarTarea">
             <label id="tituloformTarea" class="label" class ="nuevatarea-titulo" >AGREGAR TAREA</label>
-            <span id="tableroNombre"></span>
-            <select id = "formAgregarTareaTipoPrioridad" name="formAgregarTareaTipoPrioridad" autocomplete="off">
+            <span id="formTareaNombreTablero"></span>
+            <select id = "formTareaTipoPrioridad" name="formTareaTipoPrioridad" autocomplete="off">
                 <option value="ALTA">ALTA</option>
                 <option value="MEDIA" selected >MEDIA</option>
                 <option value="BAJA">BAJA</option>
             </select> 
-            <select id = "formAgregarTareaUsuario" name="formAgregarTareaUsuario" autocomplete="off">
+            <select id = "formTareaUsuario" name="formTareaUsuario" autocomplete="off">
             </select> 
-            <textarea type="text" id="formAgregarTareaDescripcion" cols="30" rows="2"  placeholder="Escribe la tarea" name="formAgregarTareaDescripcion"></textarea>
-            <button id="btnAddTarea" type="button" class="button is-danger" >
-                        <span class="icon">
-                        AGREGAR <i class="fas fa-plus"></i>
-                        </span>
+            <input type="text" id="formTareaDescripcion" size="40"  placeholder="Describe la tarea" name="formTareaDescripcion">
+            <button type="button" onclick="addTarea()" class="button is-danger" >
+                <i class="fa-solid fa-plus fa-2x"></i> 
                     </button>
         </form>
         
