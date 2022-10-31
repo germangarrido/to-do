@@ -5,7 +5,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Font -->
-        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,500;0,700;1,400;1,700&display=swap" rel="stylesheet">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">    
         <script src="https://kit.fontawesome.com/75ae08cc6f.js" crossorigin="anonymous"></script>
@@ -18,173 +20,77 @@
     <title>LILO</title>
     </head>
 <body>
-    <div class="container-bienvenida" >
-    <header class="container-bienvenida-titulo" >
-        <img src="IMG/img-presto-logo-nav-trans.png" alt="todo" width="500px">
-            <p>Organizá el flujo de tareas de tu equipo con Lilo.</p>
-    </header>
-    <div  class="login">
-        <form action="" name="login" id ="login" >
-            <h5 class="text-center">Inicia sesión</h5>
-            <div class="form-group">
-                <label for="username">Email</label>
-                <input type="email" class="form-control" name="username" id="username" placeholder="Escribe tu email de usuario">
-            </div>
-            <div class="form-group">
-                <label for="password">Clave</label>
-                <input type="password" class="form-control" name="password" id="password" placeholder="Escribe tu clave">
-            </div>
-            <div class="entrar">
-            <button type="button" class = "button" onclick="entrarSesion()" >Entrar</button>
-            </div>
-        </form>
-        <div class="login-footer">
-            <ul>
-                <li id="btn-abrir-modal-RegistroUsuario"> Registrarse</li>
-                <li id="btn-abrir-modal-OlvidasteUsuario"> Olvidaste tu Clave?</li>
-            </ul>
-            
-            <!-- <div>
-                <a href="#"  data-bs-toggle="modal" data-bs-target="#exampleModal3" data-bs-whatever="@mdo"></a>
-            </div>     -->
-        </div>
-        <div>
-            <a id="btn-abrir-modal-QueEs" >QUE ES LILO?</a>
-        </div>
-    </div>
-            <dialog class="modal info" id="modal-calendar">
-                <div>
-            <div class="container-calendar">
-        <div class="calendar">
-          <div class="month">
-            <i class="fas fa-angle-left prev"></i>
-            <div class="date">
-              <h1></h1>
-              <p></p>
-            </div>
-            <i class="fas fa-angle-right next"></i>
-          </div>
-          <div class="weekdays">
-            <div>Dom</div>
-            <div>Lun</div>
-            <div>Mar</div>
-            <div>Mie</div>
-            <div>Jue</div>
-            <div>Vie</div>
-            <div>Sab</div>
-          </div>
-          <div class="days"></div>
-        </div>
-    </div>
-    </div>
-    </dialog>
+    <div id="userSesion" style="display: none;"></div>
+    
+    <!-- <div class="menu-btn"> icono para el menu 3 lineas
+        <i  id='salir' class="fas fa-bars fa-2x"></i>
+    </div> -->
+    <div class="container" >
+        <nav class=""> <!-- class= nav-mai EN ESTA PAGINA NO SE USA-->
+        </nav>
 
+        <div class=""> <!-- class= panle-herramientas  EN ESTA PAGINA NO SE USA-->
+        </div>
+
+        <div class="showcase"><!-- principal -->
+
+            <div class="bienvenida-lilo"> 
+                <div class="container-bienvenida-lilo" >
+                    <a id="btn-abrir-modal-QueEs" ><img src="IMG/img-presto-logo-nav-trans.png" alt="todo">
+                    </a>
+                </div>
+
+                <div class="login">
+                    <div class="login-form">
+                        <form action="" name="login" id ="login" >
+                            <div class="form-group">
+                                <h3 class="text-center">Inicia sesión</h3>
+                            </div>
+                            <div class="form-group">
+                                <label for="username"><i class="fa-solid fa-user"></i></label>
+                                <input type="email" class="form-control" name="username" id="username" placeholder="Tu email">
+                            </div>
+                            <div class="form-group">
+                                <label for="password"><i class="fa-solid fa-lock"></i></label>
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Tu password">
+                            </div>
+                            <div class="entrar">
+                                <button type="button" class = "button" onclick="entrarSesion()" >Entrar</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="login-registro">
+                        <ul>
+                            <li id="btn-abrir-modal-RegistroUsuario"> Registrarse</li>
+                            <li id="btn-abrir-modal-OlvidasteUsuario"> Olvidaste tu Clave?</li>
+                        </ul> 
+                    </div>
+
+                    <div class="links">
+                        <a href="https://www.facebook.com">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://twitter.com">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://www.linkedin.com">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>  
+               </div>
+            </div>
+        </div>
+        <div class="footer"> <!-- class=   EN ESTA PAGINA NO SE USA-->
+        </div>
+    </div>
     <dialog class="modal info" id="modal-generico">
-        <div id="modal-generico-contenido">    
+        <div  class= 'modal-contenido' id="modal-generico-contenido">    
         </div>
     </dialog>
-
-    
-
-</div>
-    <!-- <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title fs-5" id="exampleModalLabel">Crear Usuario</h3>
-                <spam>Completar todos los campos.</spam>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form name = "formCrearUser" id="crearUser">
-                <div class="mb-3">
-                    <label for="userApellido" class="col-form-label">Apellido:</label>
-                    <input type="text"  class="form-control"  name="userApellido" placeholder="Escribe tu Apellido" id="user-Apellido">
-                </div>
-                <div class="mb-3">
-                    <label for="userNombre" class="col-form-label">Nombres:</label>
-                    <input type="text" class="form-control"  name="userNombre" placeholder="Escribe tu/s Nombres" id="user-Nombre">
-                </div>
-                <div class="mb-3">
-                    <label for="userEmail" class="col-form-label">E-mail:</label>
-                    <input type="email" class="form-control" name="userEmail" placeholder="Escribe tu E-mail" id="user-Email">
-                </div>
-                <div class="mb-3">
-                    <label for="userTelefono" class="col-form-label">Telefono:</label>
-                    <input type="text" max="10" min="10" class="form-control"  name="userTelefono" placeholder="Escribe tu telefono" id="user-Telefono">
-                </div>
-                <div class="mb-3">
-                    <label for="userClave" class="col-form-label">Clave:</label>
-                    <input type="password" class="form-control" name="userClave" placeholder="Escribe tu clave" id="user-Clave">
-                </div>
-                <div class="mb-3">
-                    <label for="userRClave" class="col-form-label">Repetir Clave:</label>
-                    <input type="password" class="form-control"  name="userRClave" placeholder="Escribe tu clave" id="user-RClave">
-                </div>
-               
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button"  id = "crear" class="btn btn-primary">Crear Usuario</button>
-            </div>
-        </form>
-            </div>
-        </div>
-    </div>  -->
-    
-    <!-- <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-body">
-                <form>
-                <div class="mb-3">
-                    <label for="user-Email" class="col-form-label">Escribe el email con el que te registraste:</label>
-                    <input type="email" class="form-control" placeholder="Escribe tu E-mail" id="user-Email">
-                </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button"  data-bs-target="#exampleModal3" class="btn btn-primary">Reenviar Clave</button>
-            </div>
-            </div>
-        </div>
-    </div>  -->
-<!-- 
-    <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-body">
-                <div class="mb-3">
-                    <h2 class="col-form-label">
-                        SERVICIO INHABILITADO TEMPORALMENTE
-                    </h2>
-                        <div class="col-form-label" >
-                            Por el momento esta web no está conectado a un servicio de mail. Si no recuedas tu datos te invitamos a que generes un nuevo usuario.  
-                        </div> 
-                </div>   
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-               
-            </div>
-            </div>
-        </div>
-    </div>  -->
-
-
-
-
-
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <script src="JS/app.js"></script>
 </body>
 </html>
-
-
-
-
 
 
 
