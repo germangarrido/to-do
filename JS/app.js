@@ -70,6 +70,7 @@ if(localStorage.getItem('tablerosHtml')){
     tableroStorage = localStorage.getItem('tablerosHtml')
                 
     console.log("-tablerosHtml SI existe :), cargando el obj tableroStorage con el obj tableroStorage-" + tableroStorage)
+    // clickTabs()
 
     if(document.getElementById('tableros')){
     document.getElementById('tableros').innerHTML = tableroStorage
@@ -77,11 +78,13 @@ if(localStorage.getItem('tablerosHtml')){
     }else{
         console.log("-En este html no se carga tablerosHtml :| -")
     }
+    // mostrarTableros()
 }else{
 
-    obtParaLocalStorage = document.getElementById("tableros").innerHTML
-    nombreVarLocalStorage = 'tablerosHtml' 
-    actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
+    // mostrarTableros()
+    // obtParaLocalStorage = document.getElementById("tableros").innerHTML
+    // nombreVarLocalStorage = 'tablerosHtml' 
+    // actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
 
     console.log("-tablerosHtml NO existe, creando el obj tablerosHtml y guardándolo en el localStorage, hecho! -")
 
@@ -273,15 +276,17 @@ try{
 //////////// FIN  MODAL GRACIAS ///////////////////////
 
 //////// INDEX LOGIN ///////////////////
-    try{
+    // try{
+        if(document.getElementById("username")){
         formLoginUsername = document.getElementById("username")
         formLoginPassword = document.getElementById("password")
 
         formLoginUsername.value = datossesionGuardado.username
         formLoginPassword.value = datossesionGuardado.password
-    }catch(error){
-        console.log('En esta pagina no hay form login' + error)
-    }
+        }
+    // }catch(error){
+    //     console.log('En esta pagina no hay form login' + error)
+    // }
 
     //var button = document.getElementById("entrar")
     //var formLogin = document.getElementById("login")
@@ -326,16 +331,7 @@ try{
         
     }
 
-    // document.getElementById('userSesion').textContent === 'Se'
-    // ? sinSecionActiva()
-    // : console.log('-Sesión Cargada: '+datossesionGuardado.username+'-') 
-    
-       
-    //     document.getElementById('userSesion').textContent = datossesionGuardado.username
-    // }catch(error){
-    //     console.log('-No se escucha el id UserSesión :(, este id no se usa en el html index-'+error)
-    // }
-    
+
     function cerrarSesion(){
         
         datossesionGuardado = {
@@ -562,10 +558,14 @@ if(document.querySelector('#btn-abrir-modal-formUsers')){
 }
 
 
-try {
+// try{
 /// CREAR TABLEROS //////
-mostrarTableros()
-clickTabs()
+
+if(document.querySelector('.tabs_head')){
+    mostrarTableros()
+    var tabIdActivo, contentIdActivo 
+    // clickTabs()    
+}
  
 
 
@@ -586,7 +586,7 @@ var formTableroColor = document.getElementById('formTableroColor')
 // var btnFormAgregarTablero = document.querySelector('#btnAddTablero')
 
 /// FORMULARIO TAREAS
-const $form = document.getElementById("formAgregarTarea") 
+var $form = document.getElementById("formAgregarTarea") 
 const formTareaNombreTablero = document.getElementById("formTareaNombreTablero")
 const formTareaTipoPrioridad = document.getElementById("formTareaTipoPrioridad")
 const formTareaUsuario = document.getElementById("formTareaUsuario")
@@ -594,10 +594,16 @@ const formTareaDescripcion = document.getElementById("formTareaDescripcion")
 const $btnAdd = document.getElementById("btnAddTarea")
 
 
+let tableroRepetido = false
 
+function addTablero(){ //cuando se acciona boton agregar o editar tablero
 
-
-function addTablero(){
+         //chequear que no haya dos tableros del mismo nombre. 
+         tablerosGuardados.map ( tablero => {
+            if(tablero.titulo === formTableroNombre.value.toUpperCase()){   
+                tableroRepetido = true 
+            }
+        })
 
     if(formTableroNombre.value === ''){
         modalTableroNombrar = `<div class ="card2" ><p>No te olvides de ponerle un nombre al Tablero Nuevo!.</p>
@@ -609,43 +615,21 @@ function addTablero(){
             modalGenerico.showModal()
         return  
 
+    }else if(tableroRepetido){
+
+        modalTableroAgregado = `<div class ="card2" ><p> Ya existe un Tablero con ese nombre.</p>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"  onclick = "noEliminar()">cerrar</button>
+        </div>
+        </div>`
+        modalGenericoContenido.innerHTML =   modalTableroAgregado
+        modalGenerico.showModal()
+
+        tableroRepetido = false
+
     }else if(editandoTableros){
         editarTablero()
-        // dataTableroNuevo.titulo = formTableroNombre.value.toUpperCase()
-        // dataTableroNuevo.color = formTableroColor.value
-
-
-        // var tableroTituloEditado = document.getElementById('t-'+dataTableroNuevo.id)
-        // tableroTituloEditado.style.background = dataTableroNuevo.color
-        // tableroTituloEditado.textContent = dataTableroNuevo.titulo
-    
-        // //agregar boton editar al titulo del tablero
-        // const btnEditar = document.createElement('button')
-        // btnEditar.onclick = () => cargarTablero(dataTableroNuevo)
-        // btnEditar.innerHTML = `<i class="fa-solid fa-pen-to-square"></i>`
-        // btnEditar.classList.add('btn-editar')
-        // tableroTituloEditado.append(btnEditar)
-        
-        //agregar boton eliminar al titulo del tablero
-        // const btnEliminar = document.createElement('button')
-        // btnEliminar.onclick = () => eliminarTablero(dataTableroNuevo.id)
-        // btnEliminar.innerHTML = `<i class="fa-solid fa-xmark"></i>`
-        // btnEliminar.classList.add('btn-editar')
-        // tableroTituloEditado.append(btnEliminar)
-
-        // var tableroContenidoEditado =  document.getElementById('c-'+dataTableroNuevo.id)
-        // tableroContenidoEditado.style.background = dataTableroNuevo.color
-        
-        // var obtParaLocalStorage = document.getElementById("tableros").innerHTML
-        // var nombreVarLocalStorage = 'tablerosHtml' 
-        // actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
-
-        // var obtParaLocalStorage = JSON.stringify(tablerosGuardados)
-        // var nombreVarLocalStorage = "tablerosObj" 
-        // actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
-
-
-       
+      
         //manda al formulario agregar tareas/nombre de tableros, el nombre nuevo del tablero que se acaba de editar
         document.querySelector('#formTareaNombreTablero').value =  dataTableroNuevo.titulo
         
@@ -658,10 +642,12 @@ function addTablero(){
             modalGenerico.showModal()
 
         // btnFormAgregarTablero.textContent = "Agregar"
-        clickTabs()
+        // clickTabs()
 
         editandoTableros = false
     }else{
+       
+
         //CREAR UN TABLERO
 
         // CARGAR EL OBJ CON LOS DATOS DEL FORM
@@ -673,10 +659,7 @@ function addTablero(){
         agregarTablero()
          // En el formulario de tareas agrego el titulo del tablero recien creado al div titulo de tablero
          document.querySelector('#formTareaNombreTablero').value = dataTableroNuevo.titulo
-
-        //  var obtParaLocalStorage = document.getElementById("tableros").innerHTML
-        //  var nombreVarLocalStorage = 'tablerosHtml' 
-        //  actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
+       
   
 
          modalTableroAgregado = `<div class ="card2" ><p> Tablero Agregado!.</p>
@@ -687,14 +670,19 @@ function addTablero(){
             modalGenericoContenido.innerHTML =   modalTableroAgregado
             modalGenerico.showModal()
 
-        clickTabs()
+        // clickTabs()
+            console.log(tabIdActivo)
+
+        // document.querySelector(tabIdActivo).classList.add('is-active');
+        // document.querySelector(contentIdActivo).classList.add('is-active');
+    
       
         document.querySelector('.form-tableros').classList.toggle('show');
         // limpiarObjTablero()
     }
 
 }
-
+    
     function  clickTabs(){
         //hay que volver a cargar el array de elementos con las mismas clases
         let tabs = document.querySelectorAll('.tabs_toggle'),
@@ -717,7 +705,10 @@ function addTablero(){
         //para obtener el nombre del tablero    
         // console.log(tabs[index].textContent)
         document.querySelector('#formTareaNombreTablero').value = tabs[index].textContent
-        // console.log(nombreTablero)
+        tabIdActivo = tabs[index].id
+        console.log(tabIdActivo)
+        contentIdActivo =  contents[index].id
+        console.log(contentIdActivo)
 
         var obtParaLocalStorage = document.getElementById("tableros").innerHTML
         var nombreVarLocalStorage = 'tablerosHtml' 
@@ -734,8 +725,10 @@ function addTablero(){
         actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
 
         mostrarTableros()
+        // clickTabs()
         formAgregarTablero.reset()
         limpiarObjTablero()
+        
         // limpiarHTMLTableros()
 
 
@@ -778,11 +771,7 @@ function  mostrarTableros(){
          btnEliminar.innerHTML = `<i class="fa-solid fa-xmark"></i>`
          btnEliminar.classList.add('btn-editar')
          elementoNewTabsHead.appendChild(btnEliminar)
-
-
-    //     elementoNewTabsHead.innerHTML =`${dataTableroNuevo.titulo}<button class="btn-editar" onclick="cargarTablero(${dataTableroNuevo})"><i class="fa-solid fa-pen-to-square"></i></button>
-    // <button class="btn-editar" onclick="eliminarTablero(${dataTableroNuevo.id})"><i class="fa-solid fa-xmark"></i></button>`
-         
+     
          //creo el elemento cuerpo de tablero
          var elementNewTabsBody = document.createElement("div")
          elementoTabsBody.style.background = color
@@ -790,10 +779,8 @@ function  mostrarTableros(){
          elementNewTabsBody.id = 'c-'+id
 
          var tableroVacio = `
-         <div  class="board-list" > 
+         <div id='list1-${titulo}' class="board-list" > 
          <div class="list-title">QUE HACER</div>
-         <div id='list1-${titulo}'>
-         </div>
          </div>
          <div id='list2-${titulo}' class="board-list">  
          <div class="list-title">HACIENDO</div> 
@@ -806,7 +793,8 @@ function  mostrarTableros(){
          elemetoTabsHead.appendChild(elementoNewTabsHead)
          elementoTabsBody.appendChild(elementNewTabsBody)
 
-         const $divElements = document.getElementById("list1-"+titulo)
+         
+        })
 
          tareas.forEach( tarea =>{
              const {id, user, prioridad, tablero, descripcion, titulo, estado} = tarea
@@ -845,15 +833,20 @@ function  mostrarTableros(){
             btnEliminarTarea.classList.add('btn-editar')
             $div.appendChild(btnEliminarTarea)
 
-             $divElements.appendChild($div, $divElements.firstChild)
-         })
+            
+            if(estado){
+                const $divElements = document.getElementById(estado)
+                $divElements.appendChild($div, $divElements.firstChild) 
+            }
 
+    
+
+             
     })
 
   
-    // <button type="button" class="delete" onclick= "cargarTarea(${tarea})">Editar</button>
-    // <button class="delete" onclick="removeElement(event)">X</button> 
-
+ 
+ clickTabs()
 
 
 }
@@ -883,23 +876,12 @@ function cargarTablero(tablero){
     formTableroNombre.value = titulo
     formTableroColor.value = color
 
-    
-    // tablerosGuardados.map ( tablero => {
-    //     if(tablero.id === dataTableroNuevo.id){
-    //         dataTableroNuevo.titulo = tablero.titulo
-    //         dataTableroNuevo.color = tablero.color
-    //         console.log(tableroTitulo)
-    //     }
-    // })
-
-    // formTableroNombre.value =  dataTableroNuevo.titulo  
-    // formTableroColor.value = dataTableroNuevo.color
-    // tableroEditarId = tableroId
+ 
     
     dataTableroNuevo.id = id
     editandoTableros = true
 
-    clickTabs()
+    // clickTabs()
 }
 
 function editarTablero(){
@@ -910,23 +892,45 @@ function editarTablero(){
 
 
         tablerosGuardados.map ( tablero => {
-        if(tablero.id === dataTableroNuevo.id){
-            
-            tablero.id = dataTableroNuevo.id
-            tablero.titulo = dataTableroNuevo.titulo
-            tablero.color = dataTableroNuevo.color
-        
+            if(tablero.id === dataTableroNuevo.id){    
 
-            // console.log(tableroTitulo)
-        }
-    })
+                tareas.map( tarea => {
+                    console.log(tarea.tablero)
+                    if(tarea.tablero === tablero.titulo){
+                        // tarea.id = objTareaNueva.id
+                        // tarea.user = objTareaNueva.user
+                        // tarea.prioridad = objTareaNueva.prioridad
+                        tarea.tablero = dataTableroNuevo.titulo
+                        console.log("el tablero de esta tarea cambio de nombre")
+                        // tarea.descripcion = objTareaNueva.descripcion
+                        // tarea.titulo = objTareaNueva.titulo
+                        lista = tarea.estado.split('-')[0]
+
+                        console.log(lista)
+                         tarea.estado =  tarea.estado.split('-')[0]+'-'+dataTableroNuevo.titulo  //objTareaNueva.estado
+                    }
+                })
+
+                tablero.id = dataTableroNuevo.id
+                tablero.titulo = dataTableroNuevo.titulo
+                tablero.color = dataTableroNuevo.color
+
+                console.log(tareas)
+
+               
+            }
+        })
 
         var obtParaLocalStorage = JSON.stringify(tablerosGuardados)
         var nombreVarLocalStorage = "tablerosObj" 
         actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
 
-       
+        var obtParaLocalStorage = JSON.stringify(tareas)
+        var nombreVarLocalStorage = "tareas" 
+        actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
+
         mostrarTableros()
+        // clickTabs()
         formAgregarTablero.reset()
         editandoTableros = true
 
@@ -952,39 +956,39 @@ function editarTablero(){
     
 
     function siEliminarTablero(id){
+       
+        tablerosGuardados.map ( tablero => {
+            if(tablero.id === id){    
+
+                tareas = tareas.filter(tarea => tarea.tablero !== tablero.titulo)
+
+              
+            }
+        })
+
         tablerosGuardados = tablerosGuardados.filter(tablero => tablero.id !== id)
+
+
+
+
         modalGenerico.close()
         // console.log(tablero)
         var obtParaLocalStorage = JSON.stringify(tablerosGuardados)
         var nombreVarLocalStorage = "tablerosObj" 
         actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
+        
+        var obtParaLocalStorage = JSON.stringify(tareas)
+        var nombreVarLocalStorage = "tareas" 
+        actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
+
 
         limpiarHTMLTableros()
         mostrarTableros()
+        // clickTabs()
 
 }
 
-    // function siEliminarTablero(id){
-    //         document.getElementById('t-'+id).remove()
-    //         document.getElementById('c-'+id).remove()
-            
-    //         modalGenerico.close()
-
-    //         //actualiza el objeto tableros que está en el localstorage
-    //         var obtParaLocalStorage = document.getElementById("tableros").innerHTML
-    //         var nombreVarLocalStorage = 'tablerosHtml' 
-    //         actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
-            
-    //         tabs = document.querySelectorAll('.tabs_toggle'),
-    //         contents = document.querySelectorAll('.tabs_content');
-
-    //         document.querySelector('#formTareaNombreTablero').value = ''
-    //         formAgregarTablero.reset()
-    // }
-
-// }catch(error){
-// console.log('no se actualizaó tableros' + error)
-// }
+   
 
 /////////// FIN TABLEROS //////////////
 
@@ -994,17 +998,11 @@ function editarTablero(){
      let listaTareas = [];
      let editandoTarea = false
 
-    // const objTarea = {
-    //      id: '', 
-    //      prioridad: '',
-    //      usuario: '',
-    //      descripcionTarea: '' 
-    // // } no se si voy a llegar a utiliar esto.
-
     var usuariosGuardados = JSON.parse(localStorage.getItem('users'))
 
 // try{
     // carga los usuarios registrados guardados en el local storage en el form de AGREGAR tareas
+    if(document.getElementById("formTareaUsuario")){
     for (let userOpcion of usuariosGuardados){
         var option = document.createElement("option")
         option.value = userOpcion.username
@@ -1012,27 +1010,8 @@ function editarTablero(){
         // console.log(option)
         document.getElementById("formTareaUsuario").appendChild(option)
         }
+    }
     
-    // for (let userOpcion of usersFetch){
-    //     var option = document.createElement("option")
-    //     option.value = userOpcion.username
-    //     option.innerHTML = `${userOpcion.username}` 
-    //     // console.log(option)
-    //     document.getElementById("formTareaUsuario").appendChild(option)
-//     //     }
-// } catch(error){
-//     console.log('en html usuarios no se carga')
-// }
-
-// // PARA AGREGAR TAREAS NUEVAS  //tableroNombre
-// try{
-
-    // const $form = document.getElementById("formAgregarTarea") 
-    // const formTareaNombreTablero = document.getElementById("formTareaNombreTablero")
-    // const formTareaTipoPrioridad = document.getElementById("formTareaTipoPrioridad")
-    // const formTareaUsuario = document.getElementById("formTareaUsuario")
-    // const formTareaDescripcion = document.getElementById("formTareaDescripcion")
-    // const $btnAdd = document.getElementById("btnAddTarea")
 
     function addTarea() {
 
@@ -1064,41 +1043,9 @@ function editarTablero(){
             objTareaNueva.tablero = formTareaNombreTablero.value
             objTareaNueva.descripcion = formTareaDescripcion.value
             objTareaNueva.titulo = 'sin titulo'
-            objTareaNueva.estado = 'QUE'
+            objTareaNueva.estado = 'list1-'+formTareaNombreTablero.value
 
             agregarTarea()
-
-            // let colorUser
-            // var users = JSON.parse(localStorage.getItem("users"))
-            // console.log($form.formAgregarTareaUsuario.value)
-
-            // users.map( usuario => {
-            //     if( usuario.mail === objTareaNueva.user){
-            //         console.log(usuario.color)
-            //             colorUser =  usuario.color
-            //     }
-            // })
-            
-            // // console.log($divElements)
-            // const $div = document.createElement("div")
-            // $div.classList.add("card")
-            // $div.style.background = colorUser
-            // $div.id = "c"+objTareaNueva.id
-            // $div.draggable = true
-            // $div.innerHTML =
-            //     `<div id="priodidad"><i class="fa-solid fa-star"></i> <strong>${objTareaNueva.prioridad}</strong></div> 
-            //     <div id="user"><i class="fa-solid fa-user"></i> ${objTareaNueva.user}</div>
-            //     <div id="tarea"><i class="fa-solid fa-thumbtack"></i> ${objTareaNueva.descripcion}</div>
-            //     <button type="button" class="delete" onclick= "editarTarea(event)">Editar</button>
-            // <button class="delete" onclick="removeElement(event)">X</button>`    
-            // $divElements.appendChild($div, $divElements.firstChild)
-            // document.getElementById("tituloformTarea").textContent = 'AGREGAR TAREA'
-           
-            // guardarTareaEnObjTareas()
-            // var obtParaLocalStorage = document.getElementById("tableros").innerHTML
-            // var nombreVarLocalStorage = 'tablerosHtml' 
-            // actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
-            // console.log('guardado tableros en localStorage')
 
             modalTareaAgregado = `<div class ="card2" ><p> Tarea Agregado!.</p>
             <div class="modal-footer">
@@ -1107,8 +1054,6 @@ function editarTablero(){
             </div>`
             modalGenericoContenido.innerHTML =   modalTareaAgregado
             modalGenerico.showModal()
-            
-            clickTabs()
 
         }
     
@@ -1125,6 +1070,7 @@ function  agregarTarea(){
     
     mostrarTableros()
     $form.reset()
+    // clickTabs()
     limpiarObjTarea()
     // limpiarHTMLTableros()
 
@@ -1160,50 +1106,11 @@ function cargarTarea(tarea){
         objTareaNueva.id = id
         editandoTarea = true
     
-        clickTabs()
+        // clickTabs()
 
         document.querySelector('.form-tareas').classList.toggle('show');
 
 
-        //ESTADOS DE LA TAREA
-        //list1-${titulo}  QUE
-        //list2-${titulo}  HAC
-        //list3-${titulo}  HEC
-    
-    // tablerosGuardados.map ( tablero => {
-    //     if(tablero.id === dataTableroNuevo.id){
-    //         dataTableroNuevo.titulo = tablero.titulo
-    //         dataTableroNuevo.color = tablero.color
-    //         console.log(tableroTitulo)
-    //     }
-    // })
-
-    // formTableroNombre.value =  dataTableroNuevo.titulo  
-    // formTableroColor.value = dataTableroNuevo.color
-    // tableroEditarId = tableroId
-    
-    
-            
-        // // muestra el form de tareas en viewport pequenios
-      
-        // //utilizo los titulos de los div para obtener los datos concretos. esto esta mal. hay que cambiarlo.
-        // console.log(event.target.parentElement.querySelector("#user").textContent)
-        // var datoPrioridad = event.target.parentElement.querySelector("#priodidad").textContent.trim()
-        // var datoUsuario = event.target.parentElement.querySelector("#user").textContent.trim()
-        // var datoTarea = event.target.parentElement.querySelector("#tarea").textContent.trim()
-        // //No se porque el valor viene con lo que parece el placeholder. averiguar por qué
-        
-        // formTareaTipoPrioridad.value = datoPrioridad
-        // formTareaUsuario.value = datoUsuario
-        // formTareaDescripcion.value = datoTarea
-        // document.getElementById("tituloformTarea").textContent = 'EDITAR TAREA'
-        // // document.querySelector("#modal-formEditarTarea").showModal()
-
-        // event.target.parentElement.remove()
-
-        // var obtParaLocalStorage = document.getElementById("tableros").innerHTML
-        // var nombreVarLocalStorage = 'tablerosHtml' 
-        // actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
 }
 
 
@@ -1214,7 +1121,7 @@ function  editarTarea(){
     objTareaNueva.tablero = formTareaNombreTablero.value
     objTareaNueva.descripcion =  formTareaDescripcion.value
     objTareaNueva.titulo =''
-    objTareaNueva.estado =''
+    // objTareaNueva.estado =''
 
     tareas.map( tarea => {
         if(tarea.id === objTareaNueva.id){
@@ -1224,7 +1131,7 @@ function  editarTarea(){
             tarea.tablero = objTareaNueva.tablero
             tarea.descripcion = objTareaNueva.descripcion
             tarea.titulo = objTareaNueva.titulo
-            tarea.estado = objTareaNueva.estado
+            // tarea.estado = objTareaNueva.estado
         }
     })
 
@@ -1232,64 +1139,55 @@ function  editarTarea(){
     var nombreVarLocalStorage = "tareas" 
     actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
 
-
     mostrarTableros()
     $form.reset()
     editandoTableros = true
-    clickTabs()
+    // clickTabs()
 
 }
 
 
-
-
-
-
-
-
-}catch (error){
-console.log('no se cargaron eventos del formulario de tareas nuevas' + error)
+function eliminarTarea(id){
+    console.log(id)
+    document.querySelector("#modal-generico-contenido").innerHTML = `
+    <div class="card">
+    <p>¿Estás seguro que querés eliminar esta tarea?.</p>
+    </div>
+    <div class="modal-footer">
+    <button type="button" onclick="siEliminarTarea(${id})">Eliminar</button>
+    <button type="button" class= "cerrar-modal-generico"  onclick="noEliminarTarea()">NO</button>
+    </div>`
+    document.querySelector("#modal-generico").showModal()
+    
 }
-    //FUNCION PARA AVISAR QUE SE ESTá POR ELMINAR TAREAS Y FUNCION PARA ELIMINAR TAREAS
 
-    function removeElement(event) {
-    
-        document.querySelector("#modal-generico-contenido").innerHTML = 
-        `<div class="card2">
-        <p>¿Estás seguro que querés eliminar la tarea?</p>
-        </div>
-        <div class="modal-footer">
-        <button type="button" id="siEliminar">Eliminar</button>
-        <button type="button" class=""  onclick="noEliminar()">Cerrar</button>
-        </div>`
-        document.querySelector("#modal-generico").showModal()
-        document.querySelector("#siEliminar").addEventListener('click',()=>{
-            event.target.parentElement.remove()
-            modalGenerico.close()
-            //actualiza el objeto tableros que está en el localstorage
-            var obtParaLocalStorage = document.getElementById("tableros").innerHTML
-            var nombreVarLocalStorage = 'tablerosHtml' 
-            actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
-        })
-        // document.querySelector("#noEliminar").addEventListener('click',()=>{
-        //     modalGenerico.close()
-        // })
-    }
+function noEliminarTarea(){
+    modalGenerico.close()
+}
 
-    try {
-        // Función para editar tareas cargadas en los tableros.
-        
-    }catch(error){
-        console.log('no se escucha editar tarea')
-    }
-    
-    
-    /////// PARA MOVER LAS TAREAS DENTRO DE LAS COLUMNAS //////////
 
-    // esto me sirve para mover las tarjetas entre las columnas
-    /* Events fired on the drag target */
+function siEliminarTarea(id){
+   
+    tareas = tareas.filter(tarea => tarea.id !== id)
+
+    modalGenerico.close()
+    // console.log(tablero)    
+    var obtParaLocalStorage = JSON.stringify(tareas)
+    var nombreVarLocalStorage = "tareas" 
+    actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)
+
+    limpiarHTMLTableros()
+    mostrarTableros()
+    // clickTabs()
+
+}
+
+    let tareaMoviendo
+    let estadoNuevo
     document.ondragstart = function(event) {
         event.dataTransfer.setData("Text", event.target.id);
+        console.log(event.target.id) // esto me dice el nombre de la colmuna
+        tareaMoviendo = event.target.id
     };
     
     document.ondragend = function(event) {
@@ -1306,12 +1204,40 @@ console.log('no se cargaron eventos del formulario de tareas nuevas' + error)
         if ( event.target.className == "board-list" ) {
         var data = event.dataTransfer.getData("Text");
         event.target.appendChild(document.getElementById(data));
+
+        console.log(event.target.id) // esto me dice el nombre de la colmuna
+        estadoNuevo = event.target.id
+        console.log(event.target.parentElement.id)
+        console.log(event.target.parentElement)
+        console.log(event)
+        console.log(event.target.children)
+    
+
+        actualizarestadodeTarea()
+
+
         var tableros = document.getElementById("tableros").innerHTML
+
                 localStorage.setItem('tablerosHtml', tableros)
                 // console.log(tableros)
         // para guardar en el localstorage lo que el usuario está trabajando.
         }
     }
+
+    function  actualizarestadodeTarea(){
+
+         tareas.map ( tarea => {
+             if('c'+tarea.id === tareaMoviendo){
+                tarea.estado = estadoNuevo
+                console.log('c'+tarea.id)
+             }
+         })
+         var obtParaLocalStorage = JSON.stringify(tareas)
+         var nombreVarLocalStorage = "tareas" 
+         actualizarLocalStorage(nombreVarLocalStorage,obtParaLocalStorage)  
+
+    }
+
 
 ////////////  FIN TAREAS /////////////
 
@@ -1342,19 +1268,16 @@ function abrilModalPanelUsuarios(){
     modalGenerico.showModal()
 }
 
-    //chequea si hay usuarios Registrados guardados en el localstorage 
-    
-    // if(localStorage.getItem("users")){ 
-    //     var users = JSON.parse(localStorage.getItem("users"))
-    //     console.log("HAY Usuarios Registrados guardados en el LocalStorage")
-    // }else{
-    //     users = []
-    //     console.log("NO hay Usuarios Registrados guardados en el LocalStorage")
-    // }
+   
 
     let editando = false;
+
+    if(document.getElementById("frmUsers")){
+
     var $formUsers = document.getElementById("frmUsers")
     // const $btnSave = document.getElementById("btnSave")
+
+    
     const $btnAdd = document.getElementById("btnAddUser")
 
     const $usersApi = document.getElementById('importarUsuarios')
@@ -1363,7 +1286,7 @@ function abrilModalPanelUsuarios(){
     var usuariosGuardados = JSON.parse(localStorage.getItem('users'))
 
     
-    try{
+    // try{
         
         if(document.querySelector(".listaUsers")){
             mostrarUsers()
@@ -1540,32 +1463,7 @@ function abrilModalPanelUsuarios(){
             $divElements.appendChild($div)
         })
 
-        // usersFetch.forEach( usuario =>{
-        //     const {id, apellido, nombre, mail, telefono, username, tipoUser, color } = usuario
-        //     const $div = document.createElement("div")
-        //     $div.classList.add("card")
-        //     $div.draggable = true
-        //     $div.innerHTML = 
-        //     `<div>${tipoUser}</div><div><i class="fa-solid fa-fingerprint"></i>${id}</div>
-        //     <div class="cardUserName" style="background:${color};"><i class="fa-solid fa-person-half-dress"></i>-<strong>${nombre}-${apellido}</strong></div>
-        //     <div><i class="fa-solid fa-envelope"></i>-${mail}</div>
-        //     <div><i class="fa-solid fa-user"></i>-${username}</div>
-        //     <div><i class="fa-solid fa-phone"></i>-${telefono}</div>`
-
-        //     const btnEditar = document.createElement('button')
-        //     btnEditar.onclick = () => cargarUser(usuario)
-        //     btnEditar.textContent = 'Editar'
-        //     btnEditar.classList.add('btn-editar')
-        //     $div.append(btnEditar)
-
-        //     const btnEliminar = document.createElement('button')
-        //     btnEliminar.onclick = () => eliminarUser(id)
-        //     btnEliminar.textContent = 'Eliminar'
-        //     btnEliminar.classList.add('btn-editar')
-        //     $div.append(btnEliminar)
- 
-        //     $divElements.appendChild($div)
-        // })
+      
 
 
     }
@@ -1656,29 +1554,8 @@ function limpiarHTML() {
 }
 
 }
-
-}catch(error){
-    console.log('no se cargaron eventos del formularios de usuario' + error)
 }
-/////////// FIN USUARIOS ///////////
 
-/////////// MODAL PERFIL ///////////
-
-
-
-
-// var modalCalendar = document.querySelector("#modal-calendar")
-// try{
-//     var btnAbrirModal = document.querySelector("#btn-abrir-modal-calendario")
-//     btnAbrirModal.addEventListener("click",()=>{
-//         // modalGenericoContenido.innerHTML = ventanaCalendario
-//         modalCalendar.showModal()
-//     })
-
-   
-// } catch (error){
-//     console.log("esto se deberia cargr en html tablero / usuarios / configuracion / ayuda" + error)
-// }
 
 
 

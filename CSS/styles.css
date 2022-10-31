@@ -833,8 +833,18 @@ display: none;
     }
 }
 
+.nav-main, .showcase, .footer{
+    flex-grow: 1; /*Le asignamos un 1 para que abarque el 100% */
+    flex-basis: 100%; /*Tamaño inicial que va a tener nuestro contenedor hijo, le damos el 100% para que en celular abarque el 100% 
+    padding: 10px;
+
+}
+
 
 /*
+
+
+
 .nav-main, .izquierda, .center,.derecha, .footer {
     flex-grow: 1; /*Le asignamos un 1 para que abarque el 100%
     flex-basis: 100%; /*Tamaño inicial que va a tener nuestro contenedor hijo, le damos el 100% para que en celular abarque el 100% 
